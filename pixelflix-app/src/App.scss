@@ -7,3 +7,30 @@
   font-family: 'Outfit', sans-serif;
   color: $color-white;
 }
+
+.example {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &__header {
+    display: flex;
+    padding-bottom: 5rem;
+
+    &-title {
+      padding-left: 1rem;
+    }
+  }
+
+  &__sub {
+    &-heading {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  &__video {
+    margin: 2rem 0;
+  }
+}
