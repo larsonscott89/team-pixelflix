@@ -1,0 +1,88 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+
+  @include desktop {
+    // Center vertically for desktop screens
+    margin-top: 0;
+    height: 100vh; // Ensure full height of the viewport
+  }
+
+  &__header {
+    display: flex;
+  }
+
+  &__sub {
+    &-heading {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  &__container {
+    border-radius: 10px;
+    margin: 2rem;
+    padding: 2rem;
+    width: 327px;
+
+
+    h3 {
+      font: $font-head-large;
+    }
+
+    @include tablet {
+      border-radius: 20px;
+      min-width: 400px;
+    }
+
+    @include desktop {
+      border-radius: 20px;
+      min-width: 400px;
+    }
+  }
+
+  &__container, &__container * {
+    background-color: $color-secondary-dark;
+    font: $font-body-small;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    
+
+    &-inputdiv{
+      margin: 2em 0;
+    }
+
+    &-input {
+      border: none;
+      border-bottom: 1px solid $color-secondary-gray;
+      width: 100%;
+      padding: 1em;
+    }
+
+    & button {
+      border: none;
+      border-radius: 6px;
+      background-color: $color-red;
+      padding: 1em;
+    }
+  }
+
+  p {
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  a {
+    color: $color-red;
+    text-decoration: none;
+  }
+
+}
