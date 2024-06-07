@@ -1,15 +1,20 @@
-import './App.scss'
-import Signup from './Components/Signup/Signup'
-import Login from './Components/Login/Login'
+import './App.scss';
+import { Navigate, Route, Routes } from "react-router-dom";
+import Signup from './pages/Signup/Signup';
+import Login from './pages/Login/Login';
+import Home from './pages/Home/Home';
+
 
 
 function App() {
 
   return (
-    <>
-      <Signup />
-      {/* <Login /> */}
-    </>
+    <Routes>
+      <Route path='/' element={<Signup />} />
+      <Route path='/signup' element={<Signup />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/home' element={<Home />} />
+    </Routes>
   )
 }
 
