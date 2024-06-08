@@ -66,6 +66,10 @@
         border-bottom: 1px solid $color-secondary-gray;
         padding-right: 1rem;
 
+        &:focus-within {
+          border-bottom: 1px solid $color-white;
+        }
+
         &--error {
           display: flex;
           border-bottom: 1px solid $color-red;
@@ -76,6 +80,7 @@
       border: none;
       width: 100%;
       padding: 1em;
+      caret-color: $color-red;
 
       &--error {
         color: $color-red;
@@ -99,6 +104,7 @@
       border-radius: 6px;
       background-color: $color-red;
       padding: 1em;
+      transition: background-color 0.3s ease, color 0.3s ease;
 
       &:hover {
         background-color: $color-white;
@@ -119,6 +125,15 @@
   a {
     color: $color-red;
     text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      color: $color-white;
+    }
+
+    &:active {
+      color: $color-secondary-gray;
+    }
   }
 
 }

@@ -89,46 +89,46 @@ function Login() {
         <form className="login__form" onSubmit={handleLogin}>
           <div className="login__form-inputdiv">
             <div
-              className={`signup__form-input-container${
+              className={`login__form-input-container${
                 emailEmpty || emailInvalid || emailNonexistent ? "--error" : ""
               }`}
             >
               <input
                 type="text"
                 name="email"
-                className="signup__form-input"
+                className="login__form-input"
                 placeholder="Email address"
                 onChange={handleEmailChange}
               />
               {emailEmpty && (
-                <p className="signup__form-input--error">Can't be empty</p>
+                <p className="login__form-input--error">Can't be empty</p>
               )}
               {emailInvalid && (
-                <p className="signup__form-input--error">Invalid email</p>
+                <p className="login__form-input--error">Invalid email</p>
               )}
               {emailNonexistent && (
-                <p className="signup__form-input--error">
+                <p className="login__form-input--error">
                   No account with this email
                 </p>
               )}
             </div>
             <div
-              className={`signup__form-input-container${
+              className={`login__form-input-container${
                 passwordEmpty || passwordIncorrect ? "--error" : ""
               }`}
             >
               <input
                 type="password"
                 name="password"
-                className="signup__form-input"
+                className="login__form-input"
                 placeholder="Password"
                 onChange={handlePasswordChange}
               />
               {passwordEmpty && (
-                <p className="signup__form-input--error">Can't be empty</p>
+                <p className="login__form-input--error">Can't be empty</p>
               )}
               {passwordIncorrect && (
-                <p className="signup__form-input--error">Password incorrect</p>
+                <p className="login__form-input--error">Password incorrect</p>
               )}
             </div>
           </div>
