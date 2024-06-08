@@ -1,7 +1,7 @@
 @use '../../styles/partials/variables' as *;
 @use '../../styles/partials/mixins' as *;
 
-.signup {
+.login {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,19 +30,18 @@
     padding: 2rem;
     width: 327px;
 
-
     h3 {
       font: $font-head-large;
     }
 
     @include tablet {
       border-radius: 20px;
-      min-width: 400px;
+      width: 400px;
     }
 
     @include desktop {
       border-radius: 20px;
-      min-width: 400px;
+      width: 400px;
     }
   }
 
@@ -61,21 +60,58 @@
     }
 
     &-input {
+      &-container {
+        display: flex;
+        border-bottom: 1px solid $color-secondary-gray;
+        padding-right: 1rem;
+
+        &:focus-within {
+          border-bottom: 1px solid $color-white;
+        }
+
+        &--error {
+          display: flex;
+          border-bottom: 1px solid $color-red;
+          padding-right: 1rem;
+        }
+      }
+
       border: none;
-      border-bottom: 1px solid $color-secondary-gray;
       width: 100%;
       padding: 1em;
+      caret-color: $color-red;
+
+      &--error {
+        color: $color-red;
+        display: flex;
+        white-space: nowrap;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &::-ms-reveal {
+        filter: invert(70%);
+      }
     }
 
-    &-input:focus {
-      outline: none;
-    }
 
     & button {
       border: none;
       border-radius: 6px;
       background-color: $color-red;
       padding: 1em;
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      
+      &:hover {
+        background-color: $color-white;
+        color: $color-primary-dark;
+      }
+
+      &:active {
+        background-color: $color-secondary-gray;
+      }
     }
   }
 
@@ -87,6 +123,15 @@
   a {
     color: $color-red;
     text-decoration: none;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    &:hover {
+      color: $color-white;
+    }
+
+    &:active {
+      color: $color-secondary-gray;
+    }
   }
 
 }
