@@ -1,0 +1,116 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.navbar {
+    display: flex;
+    background-color: $color-secondary-dark;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 56px;
+
+
+    @include tablet {
+        position: static;
+        margin: 1em; 
+        border-radius: 10px;
+        height: 72px;
+        width: auto
+    }
+
+    @include desktop {
+        position: static;
+        flex-direction: column;
+        margin: 2em;   
+        padding: 2em;
+        width: 96px;
+        height: calc(100vh - 4em);
+        border-radius: 20px;
+
+        &__profile-div {
+            position: fixed;
+            bottom: 3em;
+        }
+    }
+
+    &__logo {
+        height: 20px;
+
+
+        @include tablet {
+            width: 32px;
+            height: auto;
+        }
+    
+        @include desktop {
+            width: 32px;
+        }
+    }
+
+    &__page-icons {
+        display: inherit;
+        justify-content: center;
+        margin: auto;
+
+        @include desktop {
+            flex-direction: column;
+            margin: 0;
+        }
+        
+        img {
+            transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
+
+            &:hover {
+                filter: brightness(0) invert(1);
+                transform: scale(1.35);
+            }
+            width: 16px;
+            height: 16px;
+
+            @include tablet {
+                width: 20px;
+                height: 20px;
+            }
+        
+            @include desktop {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    // Used for spacing between the icons
+    img {
+        margin: 1em;
+        
+        //Change color on click for all images except the logo
+        &:not(.navbar__logo):active {
+            transition-duration: 0s;
+            filter: brightness(0.9);
+        }
+    }
+
+    &__profile-picture {
+        border: solid 1px white;
+        border-radius: 50%;
+
+        width: 24px;
+        height: 24px; 
+        
+        @include tablet {
+            width: 32px;
+            height: 32px;
+        }
+
+        @include desktop {
+            width: 40px;
+            height: 40px;
+            border-width: 2px;
+        }
+    }
+}
+
+.highlight {
+    filter: brightness(0) invert(1);
+}

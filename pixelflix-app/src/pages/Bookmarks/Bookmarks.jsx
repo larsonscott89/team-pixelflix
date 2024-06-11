@@ -1,11 +1,11 @@
-import "./Home.scss"
+import "./Bookmarks.scss";
 import React from "react";
 import { auth } from "../../firebase-config";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
-export default function Home() {
+export default function Bookmarks() {
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -22,7 +22,7 @@ export default function Home() {
     <div className="container">
       <Navbar className="navbar"/>
       <div className="content">
-        <h1>Home Page</h1>
+        <h1>Bookmarks Page</h1>
         <button onClick={handleSignOut}>
           Sign Out
         </button>
