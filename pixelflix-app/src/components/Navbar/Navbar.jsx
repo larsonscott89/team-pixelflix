@@ -1,6 +1,8 @@
 import './Navbar.scss'
+import { useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
+import logo from "../../assets/icons/logo.svg"
 import homeIcon from "../../assets/icons/icon-nav-home.svg"
 import movieIcon from "../../assets/icons/icon-nav-movies.svg"
 import tvIcon from "../../assets/icons/icon-nav-tv-series.svg"
@@ -13,7 +15,7 @@ function Navbar() {
   return (
     <section className='navbar'>
       <div className="navbar__imgcontainer">
-        <img className='navbar__logo'  src='/logo.svg'/>
+        <img className='navbar__logo' src={logo}/>
       </div>
       <div className="navbar__page-icons">
         <div className="navbar__imgcontainer">
@@ -40,7 +42,7 @@ function Navbar() {
       <div className="navbar__profile-div">
         <img className='navbar__profile-picture' src={profilePicture}/>
       </div>
-      </section>
+    </section>
   )
 }
 
