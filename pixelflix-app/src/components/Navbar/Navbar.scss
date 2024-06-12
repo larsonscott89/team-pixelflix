@@ -37,7 +37,6 @@
     &__logo {
         height: 20px;
 
-
         @include tablet {
             width: 32px;
             height: auto;
@@ -45,6 +44,7 @@
     
         @include desktop {
             width: 32px;
+            height: auto;
         }
     }
 
