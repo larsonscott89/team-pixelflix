@@ -3,7 +3,6 @@ import React from "react";
 import { auth } from "../../firebase-config";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
 
 export default function Movies() {
   const navigate = useNavigate();
@@ -20,12 +19,8 @@ export default function Movies() {
 
   return (
     <div className="container">
-      <Navbar className="navbar"/>
       <div className="content">
         <h1>Movies Page</h1>
-        <button onClick={handleSignOut}>
-          Sign Out
-        </button>
       </div>
     </div>
   );

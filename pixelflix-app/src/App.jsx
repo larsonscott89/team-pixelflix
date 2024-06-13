@@ -3,9 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
-import Bookmarks from "./pages/Bookmarks/Bookmarks";
-import Movies from "./pages/Movies/Movies";
-import TV from "./pages/TV/TV";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
@@ -17,6 +14,8 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
       <Route
         path="/"
         element={
@@ -25,37 +24,11 @@ function App() {
           </RequireAuth>
         }
       />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
       <Route
-        path="/home"
+        path="/home/*"
         element={
           <RequireAuth>
             <Home />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/Bookmarks"
-        element={
-          <RequireAuth>
-            <Bookmarks />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/Movies"
-        element={
-          <RequireAuth>
-            <Movies />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/TV"
-        element={
-          <RequireAuth>
-            <TV />
           </RequireAuth>
         }
       />
