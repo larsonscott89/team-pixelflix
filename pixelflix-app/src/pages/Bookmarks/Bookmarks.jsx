@@ -4,6 +4,7 @@ import { auth } from "../../firebase-config";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import Searchbar from "../../components/Searchbar/Searchbar";
 
 export default function Bookmarks() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function Bookmarks() {
   return (
     <div className="container">
       <Navbar className="navbar"/>
+      <Searchbar className="searchbar" placeholder_text="bookmarked shows"/>
       <div className="content">
         <h1>Bookmarks Page</h1>
         <button onClick={handleSignOut}>

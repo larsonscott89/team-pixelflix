@@ -1,5 +1,4 @@
 import './Navbar.scss'
-import { useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 import logo from "../../assets/icons/logo.svg"
