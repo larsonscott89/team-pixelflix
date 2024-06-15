@@ -29,30 +29,30 @@ function Navbar() {
           </Link>
         </div>
         <div className="navbar__imgcontainer">
-          <Link to="/home/movies">
+          <Link to="/movies">
             <img
               className={`navbar__icon-movies ${
-                location.pathname === "/home/movies" ? "highlight" : ""
+                location.pathname === "/movies" ? "highlight" : ""
               }`}
               src={movieIcon}
             />
           </Link>
         </div>
         <div className="navbar__imgcontainer">
-          <Link to="/home/tv">
+          <Link to="/tv">
             <img
               className={`navbar__icon-tv ${
-                location.pathname === "/home/tv" ? "highlight" : ""
+                location.pathname === "/tv" ? "highlight" : ""
               }`}
               src={tvIcon}
             />
           </Link>
         </div>
         <div className="navbar__imgcontainer">
-          <Link to="/home/bookmarks">
+          <Link to="/bookmarks">
             <img
               className={`navbar__icon-bookmark ${
-                location.pathname === "/home/bookmarks" ? "highlight" : ""
+                location.pathname === "/bookmarks" ? "highlight" : ""
               }`}
               src={bookmarkIcon}
             />
@@ -60,7 +60,7 @@ function Navbar() {
         </div>
       </div>
       <div className="navbar__profile-div">
-        <Link to="/home/profile">
+        <Link to="/profile">
           <img className="navbar__profile-picture" src={profilePicture} />
         </Link>
       </div>
