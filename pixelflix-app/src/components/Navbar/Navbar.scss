@@ -9,10 +9,10 @@
     bottom: 0;
     width: 100vw;
     height: 56px;
+    z-index: 6;
 
 
     @include tablet {
-        // position: static;
         top: 0;
         margin: 1em;
         width: calc(100vw - 2em);
@@ -21,23 +21,24 @@
     }
 
     @include desktop {
-        // position: static;
         flex-direction: column;
         margin: 2em;   
-        padding: 2em;
+        padding: 1em 2em;
         width: 96px;
         height: calc(100vh - 4em);
         border-radius: 20px;
+        flex: 1;
 
         &__profile-div {
-            position: fixed;
-            bottom: 3em;
+            margin-top: auto;
+            margin-bottom: 1em;
         }
     }
 
     &__logo {
         height: 20px;
-
+        margin-left: 1em;
+        
         @include tablet {
             width: 32px;
             height: auto;
@@ -46,6 +47,7 @@
         @include desktop {
             width: 32px;
             height: auto;
+            margin: 1em 0em 3em;
         }
     }
 
@@ -61,7 +63,8 @@
         
         img {
             transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
-
+            // Used for spacing between the icons
+            margin: 1em;
             &:hover {
                 filter: brightness(0) invert(1);
                 transform: scale(1.35);
@@ -81,9 +84,7 @@
         }
     }
 
-    // Used for spacing between the icons
     img {
-        margin: 1em;
         
         //Change color on click for all images except the logo
         &:not(.navbar__logo):active {
@@ -93,21 +94,22 @@
     }
 
     &__profile-picture {
+        width: 24px;
+        height: 24px; 
+        margin-right: 1em;
         border: solid 1px white;
         border-radius: 50%;
 
-        width: 24px;
-        height: 24px; 
-        
         @include tablet {
             width: 32px;
-            height: 32px;
+            height: 32px;            
         }
 
         @include desktop {
             width: 40px;
             height: 40px;
             border-width: 2px;
+            margin-right: 0;
         }
     }
 }
