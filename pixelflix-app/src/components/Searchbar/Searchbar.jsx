@@ -1,8 +1,17 @@
 import './Searchbar.scss'
-
+import { useLocation } from "react-router-dom";
 import searchIcon from "../../assets/icons/icon-search.svg"
 
-function Searchbar({placeholder_text}) {
+function Searchbar() {
+  const location = useLocation();
+  let placeholder_text = "movies or TV series";
+  if (location.pathname === "/movies") {
+    placeholder_text = "movies";
+  } else if (location.pathname === "/tv") {
+    placeholder_text = "TV series";
+  } else if (location.pathname === "/bookmarks") {
+    placeholder_text = "bookmarked shows";
+  }
 
   return (
     <section className='searchbar__container'>
@@ -16,4 +25,4 @@ function Searchbar({placeholder_text}) {
   )
 }
 
-export default Searchbar
+export default Searchbar;

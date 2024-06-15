@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="container">
       <Navbar className="navbar"/>
-      <Searchbar className="searchbar" placeholder_text="movies or TV series"/>
+      <Searchbar className="searchbar"/>
       <Routes>
         <Route path="/" element={<DefaultContent/>} />
         <Route path="/home" element={<DefaultContent/>} />
