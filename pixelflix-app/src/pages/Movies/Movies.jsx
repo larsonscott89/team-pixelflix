@@ -8,10 +8,8 @@ export default function Movies() {
   const navigate = useNavigate();
 
   return (
-    <div className="container">
-      <div className="content">
-        <h1>Movies Page</h1>
-      </div>
+    <div className="content">
+      <h1>Movies Page</h1>
     </div>
   );
 }
