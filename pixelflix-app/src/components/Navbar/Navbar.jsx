@@ -19,10 +19,10 @@ function Navbar() {
       </div>
       <div className="navbar__page-icons">
         <div className="navbar__imgcontainer">
-          <Link to="/home">
+          <Link to="/">
             <img
               className={`navbar__icon-home ${
-                location.pathname === "/home" ? "highlight" : ""
+                location.pathname === "/" ? "highlight" : ""
               }`}
               src={homeIcon}
             />
