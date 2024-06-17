@@ -61,6 +61,7 @@
 
         &-text {
             font-size: 0.9rem;
+            font-weight: 200;
             color: $color-lightgray;
 
             @include tablet {
@@ -86,7 +87,7 @@
         &-title {
             color: $color-white;
             font-size: 1.1rem;
-            font-weight: 400;
+            font-weight: 300;
 
             @include tablet {
                 font-size: 1.3rem;

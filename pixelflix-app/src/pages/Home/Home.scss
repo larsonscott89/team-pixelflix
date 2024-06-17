@@ -10,13 +10,18 @@
 }
 
 .home {
-    padding-top: 2rem;
+    padding-top: 1rem;
+
+    @include desktop {
+        padding-top: 2rem;
+    }
 
     &__heading{
         display: flex;
         justify-content: flex-start;
-        font-weight: 300;
-        font-size: 2rem;
+        padding-left: 1rem;
+        font-weight: 200;
+        font-size: 1.4rem;
     }
 }
  

@@ -1,0 +1,81 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.searchbar {
+    width: calc(100vw - 3em);
+    height: 24px;
+    margin: 1.5em 1em;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background-color: $color-primary-dark;
+    z-index: 5;
+
+    @include tablet {
+        height: 32px;
+        margin-top: calc(72px + 3em)
+    }
+
+    @include desktop {
+        margin-top: 4em;
+        margin-left: calc(4em + 96px);
+        // viewwidth - search bar margin - size of navbar and its margins
+        width: calc(100vw - 3em - calc(4em + 96px));
+    }
+
+    &__imgcontainer {
+        width: 24px;
+        height: 24px;
+        margin-right: 1.5em;
+
+        @include tablet {
+            width: 32px;
+            height: 32px;
+        }
+
+        img {
+            width: inherit;
+            height: inherit;
+        }
+    }
+    
+    textarea {
+        flex: 1;
+        height: 32px;
+        padding-top: 6px; 
+        background-color: $color-primary-dark;
+        outline: none;
+        border: none;
+        resize: none;
+        overflow: hidden;
+        white-space: nowrap;
+        caret-color: $color-red;
+        font: $font-body-medium;
+
+        @include tablet {
+            height: 40px;
+            padding-top: 4px;
+            font: $font-heading-medium;
+        }
+
+        &:focus-within {
+            border-bottom: 1px solid $color-secondary-gray;
+          }
+    }
+
+    &__container{
+        width: 100vw;
+        height: calc(24px + 2em);
+        background-color: $color-primary-dark;
+        z-index: 4;
+
+        @include tablet {
+            height: calc(72px + 4em + 32px);
+        }
+
+        @include desktop {
+            height: calc(32px + 5em);
+        }
+    }
+
+}

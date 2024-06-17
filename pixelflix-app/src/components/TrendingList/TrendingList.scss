@@ -1,0 +1,84 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.trendcard {
+    &s {
+        padding: 1rem;
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+
+        @include tablet {
+            padding: 1.5rem;
+            gap: 1.5rem;
+        }
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 0 0 75%;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    padding: 1rem;
+    border-radius: 10px;
+
+    @include tablet {
+        flex: 0 0 66%;
+        aspect-ratio: 13 / 6;
+    }
+
+    @include desktop {
+        flex: 0 0 30%;
+        aspect-ratio: 10 / 4;
+    }
+
+    &__info { 
+        display: flex;
+        align-items: center;
+
+        @include tablet {
+            padding-bottom: 0.5rem;
+        }
+
+        &-bullet {
+            padding: 0  8px;
+            color: $color-lightgray;
+        }
+
+        &-text {
+            font-size: 0.9rem;
+            font-weight: 200;
+            color: $color-lightgray;
+
+            @include tablet {
+                font-size: 1.1rem;
+            }
+        }
+
+        &-category {
+            &-container {
+                display: flex;
+                align-items: center;
+            }
+            &-icon {
+                padding-right: 5px;
+                height: 13px;
+
+                @include tablet {
+                    height: 15px;
+                }
+            }
+        }
+
+        &-title {
+            color: $color-white;
+            font-size: 1.1rem;
+            font-weight: 300;
+
+            @include tablet {
+                font-size: 1.4rem;
+            }
+        }
+    }
+}
