@@ -12,6 +12,21 @@
             padding: 1.5rem;
             gap: 1.5rem;
         }
+
+        @include desktop {
+            padding: 2rem 2rem 2rem 0;
+            gap: 2rem;
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        /* Hide scrollbar */
+        -ms-overflow-style: none;  /* Edge */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;  /* Safari and Chrome */
+          }
+
     }
     display: flex;
     flex-direction: column;
@@ -30,7 +45,7 @@
 
     @include desktop {
         flex: 0 0 30%;
-        aspect-ratio: 10 / 4;
+        aspect-ratio: 2 / 1;
     }
 
     &__info { 

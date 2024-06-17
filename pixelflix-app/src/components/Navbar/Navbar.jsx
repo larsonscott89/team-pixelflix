@@ -1,5 +1,4 @@
 import "./Navbar.scss";
-import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import logo from "../../assets/icons/logo.svg";
@@ -16,7 +15,9 @@ function Navbar() {
     <section className="navbar__section">
       <div className="navbar">
         <div className="navbar__imgcontainer">
-          <img className="navbar__logo" src={logo} />
+          <Link to="/">
+            <img className="navbar__logo" src={logo} />
+          </Link>
         </div>
         <div className="navbar__page-icons">
           <div className="navbar__imgcontainer">

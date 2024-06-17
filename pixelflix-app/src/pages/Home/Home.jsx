@@ -15,18 +15,20 @@ import TrendingList from "../../components/TrendingList/TrendingList";
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className="base">
       <Navbar />
       <Searchbar />
-      <Routes>
-        <Route path="/" element={<DefaultContent />} />
-        <Route path="/home" element={<DefaultContent />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/tv" element={<TV />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/account" element={<Account />} />
-      </Routes>
+      <div className="base__content">
+        <Routes>
+          <Route path="/" element={<DefaultContent />} />
+          <Route path="/home" element={<DefaultContent />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/tv" element={<TV />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/account" element={<Account />} />
+        </Routes>
+      </div>
     </div>
   );
 }
