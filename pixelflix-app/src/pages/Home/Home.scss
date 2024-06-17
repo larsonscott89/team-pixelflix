@@ -1,31 +1,42 @@
 @use '../../styles/partials/variables' as *;
 @use '../../styles/partials/mixins' as *;
 
-.container {
+.base {
     display: flex;
     flex-direction: column;
     @include desktop {
        flex-direction: row; 
     }
+
+    &__content {
+        width: 100%;
+        padding-top: 4rem;
+        @include tablet {
+            padding-top: 11rem;
+        }
+        @include desktop {
+            padding-left: 10rem;
+            padding-top: 7rem;
+        }
+    }
 }
 
-.content {
-    top: 50%;
-    left: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-} 
+.home {
+    &__heading{
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 1rem;
+        font-weight: 200;
+        font-size: 1.4rem;
 
-button {
-    margin: 1em;
-    padding: .5em;
-    border-radius: 10px;
-    background-color: $color-red;
-    color: $color-white;
-    border: none;
+        @include tablet {
+            padding-left: 1.5rem;
+            font-size: 2rem;
+        }
+
+        @include desktop {
+            padding-left: 0;
+        }
+    }
 }
+ 
