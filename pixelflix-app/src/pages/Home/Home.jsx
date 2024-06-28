@@ -1,7 +1,4 @@
 import "./Home.scss";
-import React, { useState, useEffect } from "react";
-import { db } from "../../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Searchbar from "../../components/Searchbar/Searchbar";
@@ -12,62 +9,20 @@ import Profile from "../Profile/Profile";
 import Account from "../Account/Account";
 import VideoList from "../../components/VideoList/VideoList";
 import TrendingList from "../../components/TrendingList/TrendingList";
+import { useVideos } from "../../context/VideosContext";
 
 export default function Home() {
-  const [videos, setVideos] = useState([]);
-  const [trendingVideos, setTrendingVideos] = useState([]);
-  const [moviesList, setMoviesList] = useState([]);
-  const [showsList, setShowsList] = useState([]);
-  const videosCollectionRef = collection(db, "Movies-TV");
-
-  useEffect(() => {
-    const getVideos = async () => {
-      const data = await getDocs(videosCollectionRef);
-      const fetchedVideos = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setVideos(fetchedVideos);
-
-      const trending = fetchedVideos.filter(
-        (video) => video.isTrending === true
-      );
-      setTrendingVideos(trending);
-
-      const movies = fetchedVideos.filter(
-        (video) => video.category === "Movie"
-      );
-      setMoviesList(movies);
-
-      const shows = fetchedVideos.filter(
-        (video) => video.category === "TV Series"
-      );
-      setShowsList(shows);
-    };
-    getVideos();
-  }, []);
-
   return (
     <div className="base">
       <Navbar />
       <Searchbar />
       <div className="base__content">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <DefaultContent videos={videos} trendingVideos={trendingVideos} />
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <DefaultContent videos={videos} trendingVideos={trendingVideos} />
-            }
-          />
-          <Route path="/bookmarks" element={<Bookmarks videos={videos} />} />
-          <Route path="/movies" element={<Movies videos={moviesList} />} />
-          <Route path="/tv" element={<TV videos={showsList} />} />
+          <Route path="/" element={<DefaultContent />} />
+          <Route path="/home" element={<DefaultContent />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/tv" element={<TV />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
         </Routes>
@@ -76,7 +31,8 @@ export default function Home() {
   );
 }
 
-function DefaultContent({ videos, trendingVideos }) {
+function DefaultContent() {
+  const { videos, trendingVideos } = useVideos();
   return (
     <div className="home">
       <h2 className="home__heading">Trending</h2>
