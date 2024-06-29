@@ -1,7 +1,4 @@
 import "./Home.scss";
-import React, { useState, useEffect } from "react";
-import { db } from "../../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import Searchbar from "../../components/Searchbar/Searchbar";
@@ -12,6 +9,7 @@ import Profile from "../Profile/Profile";
 import Account from "../Account/Account";
 import VideoList from "../../components/VideoList/VideoList";
 import TrendingList from "../../components/TrendingList/TrendingList";
+import { useVideos } from "../../context/VideosContext";
 
 export default function Home() {
   return (
@@ -34,24 +32,7 @@ export default function Home() {
 }
 
 function DefaultContent() {
-  const [videos, setVideos] = useState([]);
-  const [trendingVideos, setTrendingVideos] = useState([]);
-  const videosCollectionRef = collection(db, "Movies-TV");
-  useEffect(() => {
-    const getVideos = async () => {
-      const data = await getDocs(videosCollectionRef);
-      const fetchedVideos = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setVideos(fetchedVideos);
-      const trending = fetchedVideos.filter(
-        (video) => video.isTrending === true
-      );
-      setTrendingVideos(trending);
-    };
-    getVideos();
-  }, []);
+  const { videos, trendingVideos } = useVideos();
   return (
     <div className="home">
       <h2 className="home__heading">Trending</h2>
