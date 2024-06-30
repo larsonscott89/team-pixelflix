@@ -1,15 +1,16 @@
-import "./TV.scss";
-import React from "react";
-import { auth } from "../../firebase-config";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import "./TV.scss"
+import React from "react"
+import VideoList from "../../components/VideoList/VideoList"
+import { useVideos } from "../../context/VideosContext"
 
 export default function TV() {
-  const navigate = useNavigate();
+  const { videos } = useVideos()
+  const TV = videos.filter(video => video.category === "TV Series")
 
   return (
     <div className="content">
-      <h1>TV Page</h1>
+      <h1>TV Series</h1>
+      <VideoList videos={TV} />
     </div>
-  );
+  )
 }
