@@ -4,13 +4,12 @@ import VideoList from "../../components/VideoList/VideoList"
 import { useVideos } from "../../context/VideosContext"
 
 export default function TV() {
-  const { videos } = useVideos()
-  const TV = videos.filter(video => video.category === "TV Series")
+  const { showsList } = useVideos()
 
   return (
-    <div className="content">
-      <h1>TV Series</h1>
-      <VideoList videos={TV} />
+    <div className="home">
+      <h1 className="home__heading">TV Series</h1>
+      <VideoList videos={showsList} />
     </div>
   )
 }
