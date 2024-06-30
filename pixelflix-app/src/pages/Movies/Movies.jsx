@@ -1,15 +1,15 @@
-import "./Movies.scss";
-import React from "react";
-import { auth } from "../../firebase-config";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import "./Movies.scss"
+import React from "react"
+import VideoList from "../../components/VideoList/VideoList"
+import { useVideos } from "../../context/VideosContext"
 
 export default function Movies() {
-  const navigate = useNavigate();
+  const { moviesList } = useVideos()
 
   return (
-    <div className="content">
-      <h1>Movies Page</h1>
+    <div className="home">
+      <h1 className="home__heading"> Movies </h1>
+      <VideoList videos={moviesList} />
     </div>
-  );
+  )
 }
