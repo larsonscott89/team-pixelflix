@@ -32,15 +32,7 @@ export default function Home() {
 }
 
 function DefaultContent() {
-  const { videos, trendingVideos, searchQuery } = useVideos();
-
-  const filteredVideos = videos.filter((video) =>
-    video.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const filteredTrendingVideos = trendingVideos.filter((video) =>
-    video.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const { filteredVideos, filteredTrendingVideos } = useVideos();
 
   return (
     <div className="home">

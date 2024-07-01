@@ -39,14 +39,26 @@ export const VideoProvider = ({ children }) => {
     fetchVideos();
   }, []);
 
+  const filterVideos = (videoList) => {
+    return videoList.filter(
+      (video) =>
+        video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        video.genre.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  const filteredVideos = filterVideos(videos);
+  const filteredTrendingVideos = filterVideos(trendingVideos);
+  const filteredMovies = filterVideos(moviesList);
+  const filteredShows = filterVideos(showsList);
+
   return (
     <VideoContext.Provider
       value={{
-        videos,
-        trendingVideos,
-        moviesList,
-        showsList,
-        setVideos,
+        filteredVideos,
+        filteredTrendingVideos,
+        filteredMovies,
+        filteredShows,
         searchQuery,
         setSearchQuery,
       }}

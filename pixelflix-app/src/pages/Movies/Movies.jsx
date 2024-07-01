@@ -4,11 +4,7 @@ import VideoList from "../../components/VideoList/VideoList";
 import { useVideos } from "../../context/VideosContext";
 
 export default function Movies() {
-  const { moviesList, searchQuery } = useVideos();
-
-  const filteredMovies = moviesList.filter((movie) =>
-    movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const { filteredMovies } = useVideos();
 
   return (
     <div className="home">
