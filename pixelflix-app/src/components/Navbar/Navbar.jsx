@@ -12,17 +12,18 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <section className="navbar__section">
+    <section data-testid="navbar-section" className="navbar__section">
       <div className="navbar">
         <div className="navbar__imgcontainer">
           <Link to="/">
-            <img className="navbar__logo" src={logo} />
+            <img data-testid="navbar-logo" className="navbar__logo" src={logo} />
           </Link>
         </div>
         <div className="navbar__page-icons">
           <div className="navbar__imgcontainer">
             <Link to="/home">
               <img
+                data-testid="navbar-home-icon"
                 className={`navbar__icon-home ${
                   location.pathname === "/home" ? "highlight" : ""
                 }`}
@@ -33,6 +34,7 @@ function Navbar() {
           <div className="navbar__imgcontainer">
             <Link to="/movies">
               <img
+                data-testid="navbar-movies-icon"
                 className={`navbar__icon-movies ${
                   location.pathname === "/movies" ? "highlight" : ""
                 }`}
@@ -43,6 +45,7 @@ function Navbar() {
           <div className="navbar__imgcontainer">
             <Link to="/tv">
               <img
+                data-testid="navbar-tv-icon"
                 className={`navbar__icon-tv ${
                   location.pathname === "/tv" ? "highlight" : ""
                 }`}
@@ -53,6 +56,7 @@ function Navbar() {
           <div className="navbar__imgcontainer">
             <Link to="/bookmarks">
               <img
+                data-testid="navbar-bookmarks-icon"
                 className={`navbar__icon-bookmark ${
                   location.pathname === "/bookmarks" ? "highlight" : ""
                 }`}
@@ -63,7 +67,7 @@ function Navbar() {
         </div>
         <div className="navbar__profile-div">
           <Link to="/profile">
-            <img className="navbar__profile-picture" src={profilePicture} />
+            <img data-testid="navbar-profile-picture" className="navbar__profile-picture" src={profilePicture} />
           </Link>
         </div>
       </div>

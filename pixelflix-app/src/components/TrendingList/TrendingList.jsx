@@ -5,7 +5,7 @@ import tvIcon from "../../assets/icons/icon-category-tv.svg";
 
 export default function TrendingList({ trendingVideos }) {
   return (
-    <div className="trendcards">
+    <div data-testid="trending-list" className="trendcards">
       {trendingVideos?.map((video) => {
         return (
           <div

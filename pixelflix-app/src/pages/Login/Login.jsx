@@ -49,6 +49,11 @@ function Login() {
       return;
     }
 
+    if (password === "") {
+      setPasswordEmpty(true);
+      return;
+    }
+
     // Check if the email is already registered
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
@@ -59,11 +64,6 @@ function Login() {
       // }
     } catch (err) {
       console.error(err);
-      return;
-    }
-
-    if (password === "") {
-      setPasswordEmpty(true);
       return;
     }
 
