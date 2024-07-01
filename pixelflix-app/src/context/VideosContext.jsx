@@ -9,6 +9,7 @@ export const VideoProvider = ({ children }) => {
   const [trendingVideos, setTrendingVideos] = useState([]);
   const [moviesList, setMoviesList] = useState([]);
   const [showsList, setShowsList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -40,7 +41,15 @@ export const VideoProvider = ({ children }) => {
 
   return (
     <VideoContext.Provider
-      value={{ videos, trendingVideos, moviesList, showsList, setVideos }}
+      value={{
+        videos,
+        trendingVideos,
+        moviesList,
+        showsList,
+        setVideos,
+        searchQuery,
+        setSearchQuery,
+      }}
     >
       {children}
     </VideoContext.Provider>
