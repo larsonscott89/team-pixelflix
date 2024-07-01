@@ -32,13 +32,14 @@ export default function Home() {
 }
 
 function DefaultContent() {
-  const { videos, trendingVideos } = useVideos();
+  const { filteredVideos, filteredTrendingVideos } = useVideos();
+
   return (
     <div className="home">
       <h2 className="home__heading">Trending</h2>
-      <TrendingList trendingVideos={trendingVideos} />
+      <TrendingList trendingVideos={filteredTrendingVideos} />
       <h2 className="home__heading">Recommended for you</h2>
-      <VideoList videos={videos} />
+      <VideoList videos={filteredVideos} />
     </div>
   );
 }
