@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./Signup.scss";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -79,8 +80,29 @@ function Signup() {
 
     // Try and create new user in Firebase with email and password
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
       console.log("Registered new user with email: " + email);
+
+      // Create user object for newly registered user in Firestore
+      const userDoc = doc(db, "users", user.uid);
+      await setDoc(userDoc, {
+        email: user.email,
+        profiles: [
+          {
+            id: 1,
+            name: "",
+            avatar: "",
+            bookmarks: [],
+          },
+        ],
+        createdAt: new Date(),
+      });
+
       navigate("/home");
     } catch (err) {
       console.error(err);
