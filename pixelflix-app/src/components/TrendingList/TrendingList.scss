@@ -27,25 +27,9 @@
             overflow: hidden;
             overflow-x: auto;
 
-            &::-webkit-scrollbar {
-                height: .5em;
-            }
-
-            &::-webkit-scrollbar-track {
-                background: $color-secondary-dark;
-                border-radius: 100vw;
-                margin-inline: 1em;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background: $color-secondary-gray;
-                border-radius: 100vw;
-            }
-
             @supports (scrollbar-color: $color-secondary-gray $color-secondary-dark) {
                 scrollbar-color: $color-secondary-gray $color-secondary-dark;
                 scrollbar-width: thin;
-
             }
         }
 
