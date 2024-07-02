@@ -54,19 +54,6 @@ function Login() {
       return;
     }
 
-    // Check if the email is already registered
-    try {
-      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-      // if (signInMethods.length === 0) {
-      //   setEmailNonexistent(true);
-      //   console.log("No account found with this email address.");
-      //   return;
-      // }
-    } catch (err) {
-      console.error(err);
-      return;
-    }
-
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;

@@ -1,17 +1,24 @@
-import './Searchbar.scss'
+import "./Searchbar.scss";
 import { useLocation } from "react-router-dom";
-import searchIcon from "../../assets/icons/icon-search.svg"
+import searchIcon from "../../assets/icons/icon-search.svg";
+import { useVideos } from "../../context/VideosContext";
 
 function Searchbar() {
   const location = useLocation();
-  let placeholder_text = "movies or TV series";
+  const { setSearchQuery } = useVideos();
+
+  let placeholderText = "movies or TV series";
   if (location.pathname === "/movies") {
-    placeholder_text = "movies";
+    placeholderText = "movies";
   } else if (location.pathname === "/tv") {
-    placeholder_text = "TV series";
+    placeholderText = "TV series";
   } else if (location.pathname === "/bookmarks") {
-    placeholder_text = "bookmarked shows";
+    placeholderText = "bookmarked shows";
   }
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   return (
     <section data-testid="searchbar-section" className='searchbar__container'>
@@ -19,10 +26,13 @@ function Searchbar() {
         <div className="searchbar__imgcontainer">
           <img data-testid="search-icon" className='searchbar__icon' src={searchIcon}/>
         </div>
-        <textarea placeholder={`Search for ${placeholder_text}`}></textarea>
+        <textarea
+          placeholder={`Search for ${placeholderText}`}
+          onChange={handleSearchChange}
+        ></textarea>
       </div>
     </section>
-  )
+  );
 }
 
 export default Searchbar;
