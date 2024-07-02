@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import "./TrendingList.scss";
 import movieIcon from "../../assets/icons/icon-category-movie.svg";
 import tvIcon from "../../assets/icons/icon-category-tv.svg";
-import leftArrow from "../../assets/icons/icon-arrow-left-circle.svg"
-import leftAngle from "../../assets/icons/icon-angle-left.svg"
 
 export default function TrendingList({ trendingVideos }) {
 
