@@ -2,10 +2,10 @@ import "./Navbar.scss";
 import { Link, useLocation } from "react-router-dom";
 
 import logo from "../../assets/icons/logo.svg";
-import homeIcon from "../../assets/icons/icon-nav-home.svg";
-import movieIcon from "../../assets/icons/icon-nav-movies.svg";
-import tvIcon from "../../assets/icons/icon-nav-tv-series.svg";
-import bookmarkIcon from "../../assets/icons/icon-nav-bookmark.svg";
+import HomeIcon from "../../assets/icons/icon-nav-home.svg?react";
+import MovieIcon from "../../assets/icons/icon-nav-movies.svg?react";
+import TvIcon from "../../assets/icons/icon-nav-tv-series.svg?react";
+import BookmarkIcon from "../../assets/icons/icon-nav-bookmark.svg?react";
 import profilePicture from "../../assets/images/image-avatar.png";
 
 function Navbar() {
@@ -22,42 +22,30 @@ function Navbar() {
         <div className="navbar__page-icons">
           <div className="navbar__imgcontainer">
             <Link to="/home">
-              <img
-                className={`navbar__icon-home ${
+              <HomeIcon className={`navbar__icon-home ${
                   location.pathname === "/home" ? "highlight" : ""
-                }`}
-                src={homeIcon}
-              />
+                }`}/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/movies">
-              <img
-                className={`navbar__icon-movies ${
-                  location.pathname === "/movies" ? "highlight" : ""
-                }`}
-                src={movieIcon}
-              />
+              <MovieIcon className={`navbar__icon-home ${
+                location.pathname === "/movies" ? "highlight" : ""
+              }`}/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/tv">
-              <img
-                className={`navbar__icon-tv ${
-                  location.pathname === "/tv" ? "highlight" : ""
-                }`}
-                src={tvIcon}
-              />
+              <TvIcon className={`navbar__icon-home ${
+                location.pathname === "/tv" ? "highlight" : ""
+              }`}/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/bookmarks">
-              <img
-                className={`navbar__icon-bookmark ${
-                  location.pathname === "/bookmarks" ? "highlight" : ""
-                }`}
-                src={bookmarkIcon}
-              />
+              <BookmarkIcon className={`navbar__icon-home ${
+                location.pathname === "/bookmarks" ? "highlight" : ""
+              }`}/>
             </Link>
           </div>
         </div>
