@@ -8,24 +8,30 @@
         overflow-x: auto;
         gap: 1rem;
 
+        /* Hide scrollbar */
+        -ms-overflow-style: none;  /* Edge */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;  /* Safari and Chrome */
+        }
+
         @include tablet {
             padding: 1.5rem;
             gap: 1.5rem;
         }
 
         @include desktop {
-            padding: 2rem 2rem 2rem 0;
+            margin: 2rem 2rem 2rem 0;
+            padding: 0 0 1rem 0;
             gap: 2rem;
             overflow: hidden;
             overflow-x: auto;
-        }
 
-        /* Hide scrollbar */
-        -ms-overflow-style: none;  /* Edge */
-        scrollbar-width: none;  /* Firefox */
-        &::-webkit-scrollbar {
-            display: none;  /* Safari and Chrome */
-          }
+            @supports (scrollbar-color: $color-secondary-gray $color-secondary-dark) {
+                scrollbar-color: $color-secondary-gray $color-secondary-dark;
+                scrollbar-width: thin;
+            }
+        }
 
     }
     display: flex;
