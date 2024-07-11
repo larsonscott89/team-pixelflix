@@ -5,7 +5,6 @@
     display: flex;
     background-color: $color-secondary-dark;
     align-items: center;
-    // position: fixed;
     bottom: 0;
     width: 100vw;
     height: 56px;
@@ -77,13 +76,30 @@
             flex-direction: column;
             margin: 0;
         }
+        svg {
+            fill: $color-secondary-gray;
+            &:hover {
+                fill: $color-red;
+            }
+            &.highlight {
+                fill: $color-white;
+                &:hover {
+                    fill: $color-red;
+                    &:active{
+                        fill: $color-white;
+                    }
+                }
+            }
+            &:active{
+                fill: $color-white;
+            }
+        }
         
-        img {
-            transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
+        img, svg {
+            transition: transform 0.1s ease-in-out;
             // Used for spacing between the icons
             margin: 1em;
             &:hover {
-                filter: brightness(0) invert(1);
                 transform: scale(1.35);
             }
             width: 16px;
@@ -101,13 +117,8 @@
         }
     }
 
-    img {
-        
-        //Change color on click for all images except the logo
-        &:not(.navbar__logo):active {
-            transition-duration: 0s;
-            filter: brightness(0.9);
-        }
+    &__profile-picture:active { 
+        filter: brightness(0.85);
     }
 
     &__profile-picture {
@@ -129,8 +140,4 @@
             margin-right: 0;
         }
     }
-}
-
-.highlight {
-    filter: brightness(0) invert(1);
 }
