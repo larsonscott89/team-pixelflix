@@ -8,7 +8,7 @@ export default function TV() {
 
   return (
     <div className="home">
-      <h1 className="home__heading">TV Series</h1>
+      <h1 data-testid="tv-header" className="home__heading">TV Series</h1>
       <VideoList videos={filteredShows} />
     </div>
   );

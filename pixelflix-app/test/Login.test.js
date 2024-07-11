@@ -121,13 +121,5 @@ describe("Login Error Handling", () => {
   });
 
   // test("Should throw error message when password is incorrect for valid email", async () => {
-  //   const emailInput = getByPlaceholderText("Email address");
-  //   const passwordInput = getByPlaceholderText("Password");
-  //   const submitButton = getByRole("button", { name: "Login to your account" });
-
-  //   fireEvent.change(emailInput, { target: { value: "valid@email.com" } });
-  //   fireEvent.change(passwordInput, { target: { value: "weak" } });
-
-  //   fireEvent.click(submitButton);
   // });
 })

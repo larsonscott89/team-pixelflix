@@ -1,4 +1,6 @@
+import { fireEvent } from "@testing-library/react";
 import { useLocation } from "react-router-dom";
+import { useVideos } from '../src/context/VideosContext';
 import Searchbar from "../src/components/Searchbar/Searchbar";
 
 jest.mock("react-router-dom", () => ({
@@ -6,7 +8,16 @@ jest.mock("react-router-dom", () => ({
   useLocation: jest.fn().mockReturnValue({ pathname: "/" }),
 }));
 
-describe("Navbar Component Rendering", () => {
+jest.mock("../src/context/VideosContext", () => {
+  const setSearchQuery = jest.fn();
+  return {
+    useVideos: jest.fn().mockReturnValue({
+    setSearchQuery,
+    }),
+  }
+});
+
+describe("Searchbar Component Rendering", () => {
   test("Should render searchbar correctly", () => {
     const { getByTestId } = render(<Searchbar />);
 
@@ -32,5 +43,19 @@ describe("Navbar Component Rendering", () => {
         expect(getByPlaceholderText(text)).toBeInTheDocument();
       });
     });
+  });
+});
+
+describe("Searchbar Component Functionality", () => {
+  test('Should call setSearchQuery with input value', () => {
+
+    const { getByPlaceholderText } = render(
+      <Searchbar />
+    );
+
+    const searchInput = getByPlaceholderText(/Search for/);
+    fireEvent.change(searchInput, { target: { value: 'Comedy' } });
+
+    expect(useVideos().setSearchQuery).toHaveBeenCalledWith('Comedy');
   });
 });

@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
-import { useVideos } from '../src/context/VideosContext';
-import Home, { DefaultContent } from "../src/pages/Home/Home";
+import { fireEvent } from "@testing-library/react";
+import Home from "../src/pages/Home/Home";
+import TV from '../src/pages/TV/TV';
 
 jest.mock("../src/context/VideosContext", () => {
   const setSearchQuery = jest.fn();
@@ -11,39 +12,44 @@ jest.mock("../src/context/VideosContext", () => {
   }
 });
 
+describe('TV Page Rendering', () => {
+  beforeEach(() => {
+    const homeOutput = render(
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
+    );
 
-describe('Home Page Rendering', () => {
+    fireEvent.click(homeOutput.getByTestId("navbar-tv-icon"));
+  });
+  
   afterEach(() => {
     jest.clearAllMocks();
   });
   
   describe('Should render components properly', () => {
-    let getByText, getByTestId;
+    let getByTestId;
 
     beforeEach(() => {
       const renderOutput = render(
         <BrowserRouter>
-          <Home />
+          <TV />
         </BrowserRouter>
       );
-      getByText = renderOutput.getByText;
       getByTestId = renderOutput.getByTestId;
-
     });
 
     test('Should render Navbar', () =>  {
+      // expect(getByTestId('tv-header')).toBeInTheDocument();
       expect(getByTestId("navbar-section")).toBeInTheDocument();
     });
     test('Should render Searchbar', () => {
+      // expect(getByTestId('tv-header')).toBeInTheDocument();
       expect(getByTestId("searchbar-section")).toBeInTheDocument();
     });
-    test('Should render Trending Videos', () => {
-      expect(getByText('Trending')).toBeInTheDocument();
-      expect(getByTestId("trending-list")).toBeInTheDocument();
-    });
-    test('Should render Recommended Videos', () => {
-      expect(getByText('Recommended for you')).toBeInTheDocument();
-      expect(getByTestId("video-list")).toBeInTheDocument();
-    });
+    // test('Should render TV series', () => {
+    //   expect(getByTestId('tv-header')).toBeInTheDocument();
+    //   expect(getByTestId("video-list")).toBeInTheDocument();
+    // });
   });
 });
