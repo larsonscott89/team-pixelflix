@@ -30,7 +30,7 @@ function Navbar() {
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/movies">
-            <TvIcon className={`navbar__icon-movies ${
+            <MovieIcon className={`navbar__icon-movies ${
                   location.pathname === "/movies" ? "highlight" : ""
                 }`}
                 data-testid="navbar-movies-icon"
@@ -48,7 +48,7 @@ function Navbar() {
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/bookmarks">
-            <TvIcon className={`navbar__icon-bookmarks ${
+            <BookmarkIcon className={`navbar__icon-bookmarks ${
                   location.pathname === "/bookmarks" ? "highlight" : ""
                 }`}
                 data-testid="navbar-bookmarks-icon"
