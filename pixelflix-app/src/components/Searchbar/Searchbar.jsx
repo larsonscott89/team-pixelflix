@@ -21,10 +21,10 @@ function Searchbar() {
   };
 
   return (
-    <section className="searchbar__container">
-      <div className="searchbar">
+    <section data-testid="searchbar-section" className='searchbar__container'>
+      <div className='searchbar'>
         <div className="searchbar__imgcontainer">
-          <img className="searchbar__icon" src={searchIcon} />
+          <img data-testid="search-icon" className='searchbar__icon' src={searchIcon}/>
         </div>
         <textarea
           placeholder={`Search for ${placeholderText}`}

@@ -17,7 +17,7 @@ export default function Profile() {
   };
   return (
     <div className="content">
-      <h1>Profile Page</h1>
+      <h1 data-testid="profile-header">Profile Page</h1>
       <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );

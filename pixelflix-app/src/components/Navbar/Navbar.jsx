@@ -12,46 +12,53 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <section className="navbar__section">
+    <section data-testid="navbar-section" className="navbar__section">
       <div className="navbar">
         <div className="navbar__imgcontainer">
           <Link to="/">
-            <img className="navbar__logo" src={logo} />
+            <img data-testid="navbar-logo" className="navbar__logo" src={logo} />
           </Link>
         </div>
         <div className="navbar__page-icons">
           <div className="navbar__imgcontainer">
             <Link to="/home">
-              <HomeIcon className={`navbar__icon-home ${
+            <HomeIcon className={`navbar__icon-home ${
                   location.pathname === "/home" ? "highlight" : ""
-                }`}/>
+                }`}
+                data-testid="navbar-home-icon"/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/movies">
-              <MovieIcon className={`navbar__icon-home ${
-                location.pathname === "/movies" ? "highlight" : ""
-              }`}/>
+            <MovieIcon className={`navbar__icon-movies ${
+                  location.pathname === "/movies" ? "highlight" : ""
+                }`}
+                data-testid="navbar-movies-icon"
+              />
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/tv">
-              <TvIcon className={`navbar__icon-home ${
-                location.pathname === "/tv" ? "highlight" : ""
-              }`}/>
+            <TvIcon className={`navbar__icon-tv ${
+                  location.pathname === "/tv" ? "highlight" : ""
+                }`}
+                data-testid="navbar-tv-icon"
+              />
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/bookmarks">
-              <BookmarkIcon className={`navbar__icon-home ${
-                location.pathname === "/bookmarks" ? "highlight" : ""
-              }`}/>
+            <BookmarkIcon className={`navbar__icon-bookmarks ${
+                  location.pathname === "/bookmarks" ? "highlight" : ""
+                }`}
+                data-testid="navbar-bookmarks-icon"
+              />
             </Link>
           </div>
         </div>
         <div className="navbar__profile-div">
           <Link to="/profile">
-            <img className="navbar__profile-picture" src={profilePicture} />
+            <img data-testid="navbar-profile-picture" className="navbar__profile-picture" src={profilePicture} />
           </Link>
         </div>
       </div>

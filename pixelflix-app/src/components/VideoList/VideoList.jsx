@@ -5,7 +5,7 @@ import tvIcon from "../../assets/icons/icon-category-tv.svg";
 
 export default function VideoList({ videos }) {
   return (
-    <div className="card__container">
+    <div data-testid="video-list" className="card__container">
       {videos?.map((video) => {
         return (
           <div key={video.id} className="card">

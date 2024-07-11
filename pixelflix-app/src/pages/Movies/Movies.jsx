@@ -8,7 +8,7 @@ export default function Movies() {
 
   return (
     <div className="home">
-      <h1 className="home__heading"> Movies </h1>
+      <h1 data-testid="movies-header" className="home__heading"> Movies </h1>
       <VideoList videos={filteredMovies} />
     </div>
   );

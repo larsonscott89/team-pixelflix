@@ -9,7 +9,7 @@ export default function Bookmarks() {
 
   return (
     <div className="content">
-      <h1>Bookmarks Page</h1>
+      <h1 data-testid="bookmarks-header">Bookmarks Page</h1>
     </div>
   );
 }
