@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Signup.scss";
 import { auth, db } from "../../firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
 
 function Signup() {
+  const { currentUser } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -17,6 +20,9 @@ function Signup() {
   const [passwordWeak, setPasswordWeak] = useState(false);
   const [repeatPasswordEmpty, setRepeatPasswordEmpty] = useState(false);
   const [repeatPasswordNotMatch, setRepeatPasswordNotMatch] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [redirectHome, setRedirectHome] = useState(false);
 
   const navigate = useNavigate();
 
@@ -102,13 +108,24 @@ function Signup() {
         ],
         createdAt: new Date(),
       });
-
-      navigate("/home");
+      setRedirectHome(true);
     } catch (err) {
+      setLoading(false);
       console.error(err);
       return;
     }
   };
+
+  useEffect(() => {
+    if (redirectHome && currentUser) {
+      navigate("/home");
+      setLoading(false);
+    }
+  }, [redirectHome, currentUser, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="signup">
