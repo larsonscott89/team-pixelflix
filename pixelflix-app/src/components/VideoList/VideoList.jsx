@@ -8,7 +8,6 @@ import { useProfile } from "../../context/ProfileContext";
 
 export default function VideoList({ videos }) {
   const { currentProfile, toggleBookmark } = useProfile();
-  // console.log(currentProfile.bookmarks);
 
   return (
     <div data-testid="video-list" className="card__container">
