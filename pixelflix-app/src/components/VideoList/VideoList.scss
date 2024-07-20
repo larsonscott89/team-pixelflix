@@ -41,8 +41,37 @@
 
     &__image {
         width: 100%;
+        padding-bottom: 56.25%;
+        background-size: cover;
+        background-position: center;
         border-radius: 10px;
         margin-bottom: 0.5rem;
+        position: relative;
+
+        &-bookmark {
+            &-bg {
+                width: 2rem;
+                height: 2rem;
+                border-radius: 20px;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(0, 0, 0, 0.8);
+                }
+
+                &:active {
+                    background-color: $color-red;
+                }
+            }
+        }
     }
 
     &__info { 

@@ -43,6 +43,7 @@
     background-position: center;
     padding: 1rem;
     border-radius: 10px;
+    position: relative;
 
     @include tablet {
         flex: 0 0 66%;
@@ -52,6 +53,31 @@
     @include desktop {
         flex: 0 0 30%;
         aspect-ratio: 2 / 1;
+    }
+
+    &__bookmark {
+        &-bg {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            transition: background-color 0.2s ease;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(0, 0, 0, 0.8);
+                }
+
+                &:active {
+                    background-color: $color-red;
+                }
+        }
     }
 
     &__info { 

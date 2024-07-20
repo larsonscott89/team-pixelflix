@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import { useAuth } from "./context/AuthContext";
 import { VideoProvider } from "./context/VideosContext";
+import { ProfileProvider } from "./context/ProfileContext";
 
 function App() {
   const { currentUser } = useAuth();
@@ -14,20 +15,22 @@ function App() {
   };
 
   return (
-    <VideoProvider>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/*"
-          element={
-            <RequireAuth>
-              <Home />
-            </RequireAuth>
-          }
-        />
-      </Routes>
-    </VideoProvider>
+    <ProfileProvider>
+      <VideoProvider>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/*"
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </VideoProvider>
+    </ProfileProvider>
   );
 }
 

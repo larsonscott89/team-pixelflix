@@ -5,9 +5,12 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase-config";
 import "./Login.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
+  const { currentUser } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,6 +20,9 @@ function Login() {
   const [emailNonexistent, setEmailNonexistent] = useState(false);
   const [passwordEmpty, setPasswordEmpty] = useState(false);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [redirectHome, setRedirectHome] = useState(false);
 
   const navigate = useNavigate();
 
@@ -53,18 +59,30 @@ function Login() {
       setPasswordEmpty(true);
       return;
     }
-
     try {
+      setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;
       console.log(user.email + " signed in.");
-      navigate("/home");
+      setRedirectHome(true);
     } catch (err) {
       console.error(err);
+      setLoading(false);
       setPasswordIncorrect(true);
       return;
     }
   };
+
+  useEffect(() => {
+    if (redirectHome && currentUser) {
+      navigate("/home");
+      setLoading(false);
+    }
+  }, [redirectHome, currentUser, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="login">
