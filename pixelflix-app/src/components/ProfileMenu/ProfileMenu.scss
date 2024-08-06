@@ -1,0 +1,32 @@
+.profile-menu {
+  position: relative;
+  display: inline-block;
+
+  .profile-menu__options {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -10px;
+    left: calc(100% + 10px);
+    background-color: rgb(22, 29, 47);
+    border: 1px solid rgb(15,19,31);
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 10;
+    width: 150px;
+
+    .profile-menu__option {
+      padding: 8px 12px;
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        background-color: rgb(15,19,31);
+      }
+    }
+  }
+
+  .navbar__profile-picture {
+    cursor: pointer;
+  }
+}

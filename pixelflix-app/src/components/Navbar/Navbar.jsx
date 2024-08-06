@@ -1,12 +1,13 @@
-import "./Navbar.scss";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
+import './Navbar.scss';
 
-import logo from "../../assets/icons/logo.svg";
-import HomeIcon from "../../assets/icons/icon-nav-home.svg?react";
-import MovieIcon from "../../assets/icons/icon-nav-movies.svg?react";
-import TvIcon from "../../assets/icons/icon-nav-tv-series.svg?react";
-import BookmarkIcon from "../../assets/icons/icon-nav-bookmark.svg?react";
-import profilePicture from "../../assets/images/image-avatar.png";
+import logo from '../../assets/icons/logo.svg';
+import HomeIcon from '../../assets/icons/icon-nav-home.svg?react';
+import MovieIcon from '../../assets/icons/icon-nav-movies.svg?react';
+import TvIcon from '../../assets/icons/icon-nav-tv-series.svg?react';
+import BookmarkIcon from '../../assets/icons/icon-nav-bookmark.svg?react';
 
 function Navbar() {
   const location = useLocation();
@@ -22,44 +23,35 @@ function Navbar() {
         <div className="navbar__page-icons">
           <div className="navbar__imgcontainer">
             <Link to="/home">
-            <HomeIcon className={`navbar__icon-home ${
-                  location.pathname === "/home" ? "highlight" : ""
-                }`}
-                data-testid="navbar-home-icon"/>
+              <HomeIcon className={`navbar__icon-home ${
+                location.pathname === "/home" ? "highlight" : ""
+              }`} data-testid="navbar-home-icon"/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/movies">
-            <MovieIcon className={`navbar__icon-movies ${
-                  location.pathname === "/movies" ? "highlight" : ""
-                }`}
-                data-testid="navbar-movies-icon"
-              />
+              <MovieIcon className={`navbar__icon-movies ${
+                location.pathname === "/movies" ? "highlight" : ""
+              }`} data-testid="navbar-movies-icon"/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/tv">
-            <TvIcon className={`navbar__icon-tv ${
-                  location.pathname === "/tv" ? "highlight" : ""
-                }`}
-                data-testid="navbar-tv-icon"
-              />
+              <TvIcon className={`navbar__icon-tv ${
+                location.pathname === "/tv" ? "highlight" : ""
+              }`} data-testid="navbar-tv-icon"/>
             </Link>
           </div>
           <div className="navbar__imgcontainer">
             <Link to="/bookmarks">
-            <BookmarkIcon className={`navbar__icon-bookmarks ${
-                  location.pathname === "/bookmarks" ? "highlight" : ""
-                }`}
-                data-testid="navbar-bookmarks-icon"
-              />
+              <BookmarkIcon className={`navbar__icon-bookmarks ${
+                location.pathname === "/bookmarks" ? "highlight" : ""
+              }`} data-testid="navbar-bookmarks-icon"/>
             </Link>
           </div>
         </div>
         <div className="navbar__profile-div">
-          <Link to="/profile">
-            <img data-testid="navbar-profile-picture" className="navbar__profile-picture" src={profilePicture} />
-          </Link>
+          <ProfileMenu />
         </div>
       </div>
     </section>

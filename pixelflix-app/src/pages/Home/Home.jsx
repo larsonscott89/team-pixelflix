@@ -5,7 +5,8 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import Bookmarks from "../Bookmarks/Bookmarks";
 import Movies from "../Movies/Movies";
 import TV from "../TV/TV";
-import Profile from "../Profile/Profile";
+import Profile from "../ManageProfile/ManageProfile";
+import SwitchProfile from "../SwitchProfile/SwitchProfile";
 import Account from "../Account/Account";
 import VideoList from "../../components/VideoList/VideoList";
 import TrendingList from "../../components/TrendingList/TrendingList";
@@ -23,8 +24,9 @@ export default function Home() {
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/tv" element={<TV />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/manage-profile" element={<Profile />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/switch-profile" element={<SwitchProfile />} />
         </Routes>
       </div>
     </div>
