@@ -1,6 +1,81 @@
-.content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} 
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.account-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  padding: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.account-picture {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  margin-left: 20px;
+}
+
+.profile-username {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.profile-name {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.signout-btn {
+  top: 20px;
+  right: 20px;
+  color: white;
+  background-color: rgb(252, 71, 71);
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+}
+
+.profile-btns {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.selection-btn {
+  background-color: rgb(22, 29, 47);
+  color: white;
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.deleteBtn {
+  background-color: rgb(43, 47, 82);
+  color: white;
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+}

@@ -5,6 +5,7 @@ import Profile from '../src/pages/Profile/Profile';
 import { signOut } from 'firebase/auth';
 import { auth } from '../src/firebase-config'; 
 import { useLocation } from "react-router-dom";
+import userInfo from "../src/pages/Profile/Profile"
 
 jest.mock("../src/context/VideosContext", () => {
   const setSearchQuery = jest.fn();
@@ -98,3 +99,11 @@ describe('Profile Page Functionality', () => {
     });
   });
 });
+
+describe('username should render from email name', () => {
+  test('username displays', () => {
+    const { getByTestId } = render(<userInfo/>)
+    const userName = getByTestId('user-info')
+    expect(userName).toBe(email)
+  })
+})

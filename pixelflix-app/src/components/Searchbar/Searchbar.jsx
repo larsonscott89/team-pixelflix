@@ -7,6 +7,11 @@ function Searchbar() {
   const location = useLocation();
   const { setSearchQuery } = useVideos();
 
+  // Check if the current path is the profile page
+  if (location.pathname === "/profile") {
+    return null;
+  }
+
   let placeholderText = "movies or TV series";
   if (location.pathname === "/movies") {
     placeholderText = "movies";
@@ -21,10 +26,10 @@ function Searchbar() {
   };
 
   return (
-    <section data-testid="searchbar-section" className='searchbar__container'>
-      <div className='searchbar'>
+    <section data-testid="searchbar-section" className="searchbar__container">
+      <div className="searchbar">
         <div className="searchbar__imgcontainer">
-          <img data-testid="search-icon" className='searchbar__icon' src={searchIcon}/>
+          <img data-testid="search-icon" className="searchbar__icon" src={searchIcon} />
         </div>
         <textarea
           placeholder={`Search for ${placeholderText}`}
