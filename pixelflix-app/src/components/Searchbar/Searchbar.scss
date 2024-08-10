@@ -8,14 +8,13 @@
     display: flex;
     align-items: center;
     background-color: $color-primary-dark;
-    z-index: 5;
+    z-index: 10; 
 
     @include tablet {
         height: 32px;
     }
 
     @include desktop {
-        // viewwidth - search bar margin - size of navbar and its margins
         width: calc(100vw - 3em - calc(4em + 96px));
     }
 
@@ -23,10 +22,12 @@
         width: 24px;
         height: 24px;
         margin-right: 1.5em;
+        z-index: 5;
 
         @include tablet {
             width: 32px;
             height: 32px;
+            z-index: 5;
         }
 
         img {
@@ -47,16 +48,18 @@
         white-space: nowrap;
         caret-color: $color-red;
         font: $font-body-medium;
+        z-index: 1;
 
         @include tablet {
             height: 40px;
             padding-top: 4px;
             font: $font-heading-medium;
+            z-index: 1;
         }
 
         &:focus-within {
             border-bottom: 1px solid $color-secondary-gray;
-          }
+        }
     }
 
     &__container{
@@ -66,12 +69,13 @@
         height: 4rem;
         background-color: $color-primary-dark;
         padding: 1rem;
-        z-index: 1;
+        z-index: 5; 
 
         @include tablet {
             top: 6rem;
             padding: 1.5rem;
             height: 5rem;
+            z-index: 5;
         }
 
         @include desktop {
@@ -81,7 +85,7 @@
             display: flex;
             align-items: end;
             padding: 1rem 2rem;
+            z-index: 5;
         }
     }
-
 }
