@@ -12,6 +12,7 @@
 
     @include tablet {
         height: 32px;
+        z-index: 5; 
     }
 
     @include desktop {
@@ -48,13 +49,13 @@
         white-space: nowrap;
         caret-color: $color-red;
         font: $font-body-medium;
-        z-index: 1;
+        z-index: 10;
 
         @include tablet {
             height: 40px;
             padding-top: 4px;
             font: $font-heading-medium;
-            z-index: 1;
+            z-index: 5;
         }
 
         &:focus-within {
@@ -69,13 +70,13 @@
         height: 4rem;
         background-color: $color-primary-dark;
         padding: 1rem;
-        z-index: 5; 
+        z-index: 10; 
 
         @include tablet {
             top: 6rem;
             padding: 1.5rem;
             height: 5rem;
-            z-index: 4;
+            z-index: 5;
         }
 
         @include desktop {

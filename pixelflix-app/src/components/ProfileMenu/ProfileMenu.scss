@@ -33,17 +33,17 @@
       }
     }
 
-    @media (max-width: 1024px) {
-      top: calc(100% + 10px);
+    @media (max-width: 1279px) {
+      top: 0px;
       left: -100px;
-      border-radius: 15px;
-      z-index: 200;
+      border-radius: 10px;
+      z-index: 201;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 767px) {
       top: auto;
-      bottom: calc(100% + 10px);
-      left: 0;
+      bottom: calc(100% + 15px);
+      left: -110px;
       border-radius: 10px;
       z-index: 200;
     }
