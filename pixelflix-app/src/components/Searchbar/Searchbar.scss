@@ -4,22 +4,18 @@
 .searchbar {
     width: calc(100vw - 3em);
     height: 24px;
-    // margin: 1.5em 1em;
     position: fixed;
     display: flex;
     align-items: center;
     background-color: $color-primary-dark;
-    z-index: 5;
+    z-index: 10; 
 
     @include tablet {
         height: 32px;
-        // margin-top: calc(72px + 3em)
+        z-index: 5; 
     }
 
     @include desktop {
-        // margin-top: 4em;
-        // margin-left: calc(4em + 96px);
-        // viewwidth - search bar margin - size of navbar and its margins
         width: calc(100vw - 3em - calc(4em + 96px));
     }
 
@@ -27,10 +23,12 @@
         width: 24px;
         height: 24px;
         margin-right: 1.5em;
+        z-index: 5;
 
         @include tablet {
             width: 32px;
             height: 32px;
+            z-index: 5;
         }
 
         img {
@@ -51,16 +49,18 @@
         white-space: nowrap;
         caret-color: $color-red;
         font: $font-body-medium;
+        z-index: 10;
 
         @include tablet {
             height: 40px;
             padding-top: 4px;
             font: $font-heading-medium;
+            z-index: 5;
         }
 
         &:focus-within {
             border-bottom: 1px solid $color-secondary-gray;
-          }
+        }
     }
 
     &__container{
@@ -70,11 +70,13 @@
         height: 4rem;
         background-color: $color-primary-dark;
         padding: 1rem;
+        z-index: 10; 
 
         @include tablet {
             top: 6rem;
             padding: 1.5rem;
             height: 5rem;
+            z-index: 5;
         }
 
         @include desktop {
@@ -84,19 +86,7 @@
             display: flex;
             align-items: end;
             padding: 1rem 2rem;
+            z-index: 5;
         }
-    //     width: 100vw;
-    //     height: calc(24px + 2em);
-    //     background-color: $color-primary-dark;
-    //     z-index: 4;
-
-    //     @include tablet {
-    //         height: calc(72px + 4em + 32px);
-    //     }
-
-    //     @include desktop {
-    //         height: calc(32px + 5em);
-    //     }
     }
-
 }
