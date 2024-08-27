@@ -3,9 +3,16 @@ import { useLocation } from "react-router-dom";
 import searchIcon from "../../assets/icons/icon-search.svg";
 import { useVideos } from "../../context/VideosContext";
 
+
 function Searchbar() {
   const location = useLocation();
   const { setSearchQuery } = useVideos();
+
+  const hiddenRoutes = ["/account", "/manage-profile", "/switch-profile"];
+
+  if (hiddenRoutes.includes(location.pathname)) {
+    return null;
+  }
 
   let placeholderText = "movies or TV series";
   if (location.pathname === "/movies") {
