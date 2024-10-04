@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import Icon1 from "../../assets/profile-icons/icon1.svg?react";
 import Icon2 from "../../assets/profile-icons/icon2.svg?react";
 import Icon3 from "../../assets/profile-icons/icon3.svg?react";
@@ -7,19 +6,80 @@ import Icon4 from "../../assets/profile-icons/icon4.svg?react";
 import Icon5 from "../../assets/profile-icons/icon5.svg?react";
 import Icon6 from "../../assets/profile-icons/icon6.svg?react";
 import "./AvatarSelection.scss";
+import { db } from "../../firebase-config";
+import { useAuth } from "../../context/AuthContext"
+import { useProfile } from "../../context/ProfileContext";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 
-const AvatarItem = ({ icon: Icon, id, isSelected, onClick, onColorSelect, color }) => {
-  const navigate = useNavigate();
+const colorNameToHex = {
+  red: "#FC4747",
+  orange: "#FB923C",
+  yellow: "#FACC15",
+  green: "#80BA5E",
+  blue: "#3A86FF",
+  gray: "#5A698F",
+  pink: "#EC6AFF",
+  purple: "#A145FC",
+};
+
+const saveAvatarSelection = async (userId, profileId, iconId, color) => {
+  try {
+    const userDocRef = doc(db, "users", userId);
+
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (!userDocSnapshot.exists()) {
+      console.log("No user document found at this path.");
+      return;
+    }
+
+    const userDocData = userDocSnapshot.data();
+    const updatedProfiles = userDocData.profiles.map(profile => {
+      if (profile.id === profileId) {
+        return {
+          ...profile,
+          avatar: iconId,
+          avatarColor: colorNameToHex[color]
+        };
+      }
+      return profile;
+    });
+
+    await updateDoc(userDocRef, {
+      profiles: updatedProfiles
+    });
+
+    console.log("Avatar and color updated successfully");
+  } catch (error) {
+    console.error("Error updating avatar in Firestore: ", error);
+  }
+};
+
+
+const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onColorSelect, color }) => {
+  const { currentUser } = useAuth();
+  const { currentProfile } = useProfile();
+
+  const fillColor = color || "red";
+
+  const handleCancel = () => {
+    setSelectedIcon(null)
+    setTimeout(() => {
+      onColorSelect(null);
+    }, 300);
+  };
 
   return (
     <div className="avatar__item">
       <Icon
-        className={`avatar__icon ${color}`}
-        onClick={() => onClick(id)}
+        className={`avatar__icon ${fillColor}`}
+        onClick={() => {
+          onClick(id);
+        }}
+
       />
       <div
         className={`avatar__colorlist ${isSelected ? 'active' : ''}`}
-        onClick={(e) => e.stopPropagation()} // Prevent click events from propagating to parent
+        onClick={(e) => e.stopPropagation()}
       >
         <h3>Select your color:</h3>
         <div className="avatar__colorlist-buttons">
@@ -34,15 +94,16 @@ const AvatarItem = ({ icon: Icon, id, isSelected, onClick, onColorSelect, color 
           <button className="color custom"><p className="custom_text">+</p></button>
         </div>
         <div className="avatar__colorlist-choices">
-          <button className="cancel" type="button" 
-          onClick={() => {
-            setTimeout(() => onColorSelect(null), 300);
-          }}
-          // onClick={() => navigate('/profile')}
+          <button className="cancel" type="button"
+          onClick={handleCancel}
           >Cancel</button>
           <button className="save" type="button" onClick={() => {
-            console.log('Color saved');
-            navigate('/profile')
+            setSelectedIcon(null)
+            const selectedColor = color || "red";
+            console.log(`Color ${selectedColor} saved`);
+
+            saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
+
           }}>Save</button>
         </div>
       </div>
@@ -78,18 +139,13 @@ export default function AvatarSelection() {
   };
 
   const handleIconClick = (iconId) => {
-    // Set selected icon and close any previously opened color lists
+    // Set icon and close any previously opened color lists
     setSelectedIcon(prevIcon => prevIcon === iconId ? null : iconId);
   };
 
   return (
     <section data-testid="avatar-selection-section" className="avatar__section">
       <div className="avatar__container">
-        {/* <div className="avatar__header">
-          <div className="avatar__header-content">
-            <h1>Choose your Avatar:</h1>
-          </div>
-        </div> */}
         <div className="avatar__list">
           {icons.map(({ id, component: Icon }) => (
             <AvatarItem
@@ -97,6 +153,7 @@ export default function AvatarSelection() {
               id={id}
               icon={Icon}
               isSelected={selectedIcon === id}
+              setSelectedIcon={setSelectedIcon}
               onClick={handleIconClick}
               onColorSelect={handleColorButtonClick}
               color={colors[id]} 

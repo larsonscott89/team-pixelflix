@@ -18,6 +18,7 @@
         @include tablet {
             margin: 72px 1.5rem 4rem;
             background-color: $color-secondary-dark;
+            height: 100%;
         }
     
         h1 {
@@ -77,13 +78,20 @@
         margin: 1em;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        // justify-items: center;
 
         @include tablet {
+            padding: 4em 2em;
             display: grid;
-            grid-template-columns: repeat(3, 4em);
-            grid-auto-rows: 4em;
+            // grid-template-columns: repeat(3, 4em);
+            grid-template-columns: repeat(3, minmax(4em, 1fr)); 
+            grid-auto-rows: 6em;
             gap: 4em;
+        }
+
+        @include desktop {
+            max-width: calc(768px - 2em);
         }
     }
 
@@ -93,24 +101,25 @@
         margin: .75em;
         border-radius: 100%;
         @include tablet {
+            // height: 7em;
+            // width: 7em;
             margin: 0;
         }
 
         &.pink {
-            fill: #ec6aff;
+            fill: #EC6AFF;
         }
 
-        
         &.red {
             fill: $color-red;
         }
         
         &.orange {
-            fill: #fb923c
+            fill: #FB923C
         }
         
         &.yellow {
-            fill: #facc15;
+            fill: #FACC15;
         }
 
         &.green {
@@ -126,7 +135,7 @@
         }
         
         &.purple {
-            fill: #a145fc;
+            fill: #A145FC;
         }
 
         &.white {
@@ -139,6 +148,7 @@
         margin: 0em 1em;
         background-color: $color-secondary-dark;
         border-radius: 10px;
+        align-self: center;
         text-align: center;
         z-index: 1;
 
@@ -148,6 +158,12 @@
         overflow: hidden;
         opacity: 0;
         transition: max-height 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
+
+        box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.75);
+
+        @include tablet {
+            margin-top: 12px;
+        }
 
         &.active {
             transform: translateY(0);
@@ -181,7 +197,7 @@
             }
             
             &.pink {
-                background-color: #ec6aff;
+                background-color: #EC6AFF;
             }
 
             &.red {
@@ -189,11 +205,11 @@
             }
             
             &.orange {
-                background-color: #fb923c;
+                background-color: #FB923C;
             }
             
             &.yellow {
-                background-color: #facc15;
+                background-color: #FACC15;
             }
             
             &.green {
@@ -209,14 +225,14 @@
             }
             
             &.purple {
-                background-color: #a145fc;
+                background-color: #A145FC;
             }
 
             &.custom {
                 background-color: $color-primary-dark;
 
                 .custom_text {
-                    font: $font-head-large;
+                    font: $font-heading-large;
                 }
             }
         }

@@ -11,13 +11,21 @@ import Account from "../Account/Account";
 import VideoList from "../../components/VideoList/VideoList";
 import TrendingList from "../../components/TrendingList/TrendingList";
 import { useVideos } from "../../context/VideosContext";
+import { useLocation } from 'react-router-dom';
+
+
+function location_is_profile_page(location) {
+  return location.pathname.match(/^\/(account|manage-profile|switch-profile)$/)
+}
 
 export default function Home() {
+  const location = useLocation();
+
   return (
     <div className="base">
       <Navbar />
-      <Searchbar />
-      <div className="base__content">
+      {!location_is_profile_page(location) && <Searchbar />}
+      <div className={`base__content ${location_is_profile_page(location) ? "base__with-searchbar" : "base__without-searchbar"}`}>
         <Routes>
           <Route path="/" element={<DefaultContent />} />
           <Route path="/home" element={<DefaultContent />} />
