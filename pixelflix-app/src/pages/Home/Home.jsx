@@ -25,7 +25,7 @@ export default function Home() {
     <div className="base">
       <Navbar />
       {!location_is_profile_page(location) && <Searchbar />}
-      <div className={`base__content ${location_is_profile_page(location) ? "base__with-searchbar" : "base__without-searchbar"}`}>
+      <div className={"base__content"}>
         <Routes>
           <Route path="/" element={<DefaultContent />} />
           <Route path="/home" element={<DefaultContent />} />
