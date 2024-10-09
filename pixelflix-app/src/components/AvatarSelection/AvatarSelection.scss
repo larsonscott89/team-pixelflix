@@ -1,0 +1,264 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__container {
+        margin-bottom: 4rem;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        @include tablet {
+            margin: 72px 1.5rem 4rem;
+            background-color: $color-secondary-dark;
+            height: 100%;
+        }
+    
+        h1 {
+            font: $font-heading-medium;
+        }
+    }
+
+    &__header {
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-color: $color-primary-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        z-index: 5;
+        box-sizing: border-box;
+
+        @include tablet {
+            top: 116px;
+            width: calc(100% - 1.5rem);
+        }
+
+        @include desktop {
+            margin-left: 0px;
+            margin-right: 2em;
+        }
+
+        &-content {
+            margin: 1em 1em 0;
+            padding: 0.5em 0 1em ;
+            background-color: $color-secondary-dark;
+            height: auto;
+            border-radius: 10px;
+            width: inherit;
+
+            @include tablet {
+                margin: 0 1.5rem;
+                border-radius: 25px 25px 0px 0px;
+            }
+        }
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        svg {
+            cursor: pointer;
+        }
+    }
+
+    &__list {
+        margin: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        // justify-items: center;
+
+        @include tablet {
+            padding: 4em 2em;
+            display: grid;
+            // grid-template-columns: repeat(3, 4em);
+            grid-template-columns: repeat(3, minmax(4em, 1fr)); 
+            grid-auto-rows: 6em;
+            gap: 4em;
+        }
+
+        @include desktop {
+            max-width: calc(768px - 2em);
+        }
+    }
+
+    &__icon {
+        height: 6em;
+        width: 6em;
+        margin: .75em;
+        border-radius: 100%;
+        @include tablet {
+            // height: 7em;
+            // width: 7em;
+            margin: 0;
+        }
+
+        &.pink {
+            fill: #EC6AFF;
+        }
+
+        &.red {
+            fill: $color-red;
+        }
+        
+        &.orange {
+            fill: #FB923C
+        }
+        
+        &.yellow {
+            fill: #FACC15;
+        }
+
+        &.green {
+            fill: #80BA5E;
+        }
+
+        &.gray {
+            fill: $color-secondary-gray;
+        }
+        
+        &.blue {
+            fill: #3A86FF;
+        }
+        
+        &.purple {
+            fill: #A145FC;
+        }
+
+        &.white {
+            filter: invert(1);
+        }
+        
+    }
+
+    &__colorlist {
+        margin: 0em 1em;
+        background-color: $color-secondary-dark;
+        border-radius: 10px;
+        align-self: center;
+        text-align: center;
+        z-index: 1;
+
+        //Slide animation for color list
+        transform: translateY(-10%);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
+
+        box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.75);
+
+        @include tablet {
+            margin-top: 12px;
+        }
+
+        &.active {
+            transform: translateY(0);
+            max-height: 22em;
+            opacity: 1;
+        }
+        
+        &-buttons {
+            padding: 1em;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            grid-template-columns: repeat(3, 4em);
+            grid-auto-rows: 4em;
+            gap: 1em;
+        }
+        h3 {
+            margin-top: 1em;
+            font: $font-body-medium;
+        }
+
+        button {
+            width: 4em;
+            height: 4em;
+            border: none;
+            border-radius: 100%;
+            cursor: pointer;
+
+            &:active{
+                filter: brightness(.8);
+            }
+            
+            &.pink {
+                background-color: #EC6AFF;
+            }
+
+            &.red {
+                background-color: $color-red;
+            }
+            
+            &.orange {
+                background-color: #FB923C;
+            }
+            
+            &.yellow {
+                background-color: #FACC15;
+            }
+            
+            &.green {
+                background-color: #80BA5E;
+            }
+
+            &.gray {
+                background-color: $color-secondary-gray;
+            }
+            
+            &.blue {
+                background-color: #3A86FF;
+            }
+            
+            &.purple {
+                background-color: #A145FC;
+            }
+
+            &.custom {
+                background-color: $color-primary-dark;
+
+                .custom_text {
+                    font: $font-heading-large;
+                }
+            }
+        }
+
+        &-choices {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            padding-bottom: 1em;
+
+            .cancel {
+                background-color: $color-secondary-gray;
+            }
+
+            .save {
+                background-color: $color-red;
+            }
+
+            button {
+                width: 4em;
+                height: 2em;
+                border-radius: 10px;
+                font: $font-heading-xsmall;
+                text-align: center;
+
+            }
+        }
+    } 
+}

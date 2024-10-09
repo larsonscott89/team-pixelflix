@@ -102,7 +102,8 @@ function Signup() {
           {
             id: 1,
             name: "",
-            avatar: "",
+            avatar: "Icon1",
+            avatarColor: "#FC4747",
             bookmarks: [],
           },
         ],

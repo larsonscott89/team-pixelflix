@@ -1,6 +1,27 @@
-.content {
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.profile-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-} 
+
+    @include tablet {
+        margin-top: -3em;
+    }
+    @include desktop {
+        padding-right: 2em;
+    }
+}
+
+.selection_container {
+    top: 0;
+    @include tablet {
+        width: 100%;
+        height: 100%;
+    }
+    @include desktop {
+        max-width: 1280px;
+    }
+}

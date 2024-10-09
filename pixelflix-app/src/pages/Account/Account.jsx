@@ -52,28 +52,34 @@ export default function Account() {
 
   return (
     <div>
-      <h1 className="home__heading"> Account </h1>
-      <div className="account-container">
-        <div className="account-info">
-          <div className="info-row email-box">
+      <h1 className="account__heading"> Account </h1>
+      <div className="account__container">
+        <div className="account__info">
+          <div className="account__info-row email-box">
             <FaEnvelope /> 
             <span>Email</span>
             <p>{userEmail}</p>
           </div>
-          <button className="info-row password-btn">
+          <button className="account__info-row password-btn">
             <FaLock /> 
             <span>Update Password</span>
-            <div className="arrow-icon"><ThinChevronRight size={32} thickness={1} color="white"  /></div>
+            <div className="arrow-icon">
+              <ThinChevronRight size={32} thickness={1} color="white"/>
+            </div>
           </button>
-          <button className="info-row manage-btn">
+          <button className="account__info-row manage-btn">
             <FaCreditCard /> 
             <span>Manage Subscription</span>
-            <div className="arrow-icon"><ThinChevronRight size={32} thickness={1} color="white"  /></div>
+            <div className="arrow-icon">
+              <ThinChevronRight size={32} thickness={1} color="white"/>
+            </div>
           </button>
-          <button className="info-row signout-btn" onClick={handleSignOut}>
+          <button className="account__info-row signout-btn" onClick={handleSignOut}>
             <FaSignOutAlt />
             <span>Sign Out</span>
-            <div className="arrow-icon"><ThinChevronRight size={32} thickness={1} color="white"  /></div>
+            <div className="arrow-icon">
+              <ThinChevronRight size={32} thickness={1} color="white"/>
+            </div>
           </button>
           <button className="delete-btn">
             <FaTrash />

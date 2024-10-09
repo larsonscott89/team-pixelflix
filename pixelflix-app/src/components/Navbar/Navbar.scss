@@ -34,7 +34,7 @@
     &__section {
         position: fixed;
         bottom: 0;
-        z-index: 1;
+        z-index: 6;
 
         @include tablet {
             top: 0;
@@ -125,13 +125,14 @@
     &__profile-picture {
         width: 24px;
         height: 24px; 
-        margin-right: 1em;
+        margin-right: 2em;
         border: solid 1px white;
         border-radius: 50%;
 
         @include tablet {
             width: 32px;
-            height: 32px;            
+            height: 32px;    
+            margin-right: 1em;        
         }
 
         @include desktop {
