@@ -7,9 +7,13 @@ export default function Movies() {
   const { filteredMovies } = useVideos();
 
   return (
-    <div className="home">
-      <h1 data-testid="movies-header" className="home__heading"> Movies </h1>
-      <VideoList videos={filteredMovies} />
+    <div className="home" role="main" aria-labelledby="movies-header">
+      <h1 id="movies-header" data-testid="movies-header" className="home__heading"> Movies </h1>
+      {filteredMovies.length > 0 ? (
+        <VideoList videos={filteredMovies} />
+      ) : (
+        <p>No movies found.</p>
+      )}
     </div>
   );
 }

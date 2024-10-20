@@ -13,44 +13,57 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <section data-testid="navbar-section" className="navbar__section">
+    <section data-testid="navbar-section" className="navbar__section" aria-label="Navigation Bar">
       <div className="navbar">
         <div className="navbar__imgcontainer">
-          <Link to="/">
-            <img data-testid="navbar-logo" className="navbar__logo" src={logo} />
+          <Link to="/" aria-label="Home">
+            <img 
+              data-testid="navbar-logo" 
+              className="navbar__logo" 
+              src={logo} 
+              alt="Logo"
+            />  
           </Link>
         </div>
-        <div className="navbar__page-icons">
+        <div className="navbar__page-icons" role="navigation links">
           <div className="navbar__imgcontainer">
-            <Link to="/home">
-              <HomeIcon className={`navbar__icon-home ${
-                location.pathname === "/home" ? "highlight" : ""
-              }`} data-testid="navbar-home-icon"/>
+            <Link to="/home" aria-label="Home">
+              <HomeIcon 
+                className={`navbar__icon-home ${location.pathname === "/home" ? "highlight" : ""}`} 
+                data-testid="navbar-home-icon"
+                aria-current={location.pathname === "/home" ? "page" : undefined}  
+              />
             </Link>
           </div>
           <div className="navbar__imgcontainer">
-            <Link to="/movies">
-              <MovieIcon className={`navbar__icon-movies ${
-                location.pathname === "/movies" ? "highlight" : ""
-              }`} data-testid="navbar-movies-icon"/>
+            <Link to="/movies" aria-label="Movies">
+              <MovieIcon 
+                className={`navbar__icon-movies ${location.pathname === "/movies" ? "highlight" : ""}`} 
+                data-testid="navbar-movies-icon"
+                aria-current={location.pathname === "/movies" ? "page" : undefined}
+              />
             </Link>
           </div>
           <div className="navbar__imgcontainer">
-            <Link to="/tv">
-              <TvIcon className={`navbar__icon-tv ${
-                location.pathname === "/tv" ? "highlight" : ""
-              }`} data-testid="navbar-tv-icon"/>
+            <Link to="/tv" aria-label="TV Series">
+              <TvIcon 
+                className={`navbar__icon-tv ${location.pathname === "/tv" ? "highlight" : ""}`}
+                data-testid="navbar-tv-icon"
+                aria-current={location.pathname === "/tv" ? "page" : undefined}
+              />
             </Link>
           </div>
           <div className="navbar__imgcontainer">
-            <Link to="/bookmarks">
-              <BookmarkIcon className={`navbar__icon-bookmarks ${
-                location.pathname === "/bookmarks" ? "highlight" : ""
-              }`} data-testid="navbar-bookmarks-icon"/>
+            <Link to="/bookmarks" aria-label="Bookmarks">
+              <BookmarkIcon 
+                className={`navbar__icon-bookmarks ${location.pathname === "/bookmarks" ? "highlight" : ""}`} 
+                data-testid="navbar-bookmarks-icon"
+                aria-current={location.pathname === "/bookmarks" ? "page" : undefined}
+              />
             </Link>
           </div>
         </div>
-        <div className="navbar__profile-div">
+        <div className="navbar__profile-div" aria-label="Profile Menu">
           <ProfileMenu />
         </div>
       </div>

@@ -7,9 +7,13 @@ export default function Bookmarks() {
   const { currentProfile } = useProfile();
 
   return (
-    <div className="content">
-      <h1 data-testid="bookmarks-header" className="home__heading">Bookmarks</h1>
-      <VideoList videos={ currentProfile.bookmarks} />
+    <div className="content" role="main" aria-labelledby="bookmarks-header">
+      <h1 id="bookmarks-header" data-testid="bookmarks-header" className="home__heading">Bookmarks</h1>
+      {currentProfile.bookmarks.length > 0 ? (
+        <VideoList videos={currentProfile.bookmarks} aria-label="Bookmarks List"/>
+      ) : (
+        <p>No bookmarks found.</p>
+      )}
     </div>
   );
 }

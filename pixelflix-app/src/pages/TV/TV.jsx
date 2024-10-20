@@ -7,9 +7,13 @@ export default function TV() {
   const { filteredShows } = useVideos();
 
   return (
-    <div className="home">
-      <h1 data-testid="tv-header" className="home__heading">TV Series</h1>
-      <VideoList videos={filteredShows} />
+    <div className="home" role="main" aria-labelledby="tv-header">
+      <h1 id="tv-header" data-testid="tv-header" className="home__heading">TV Series</h1>
+      {filteredShows.length > 0 ? (
+        <VideoList videos={filteredShows}/>
+      ) : (
+        <p>No TV shows found.</p>
+      )}
     </div>
   );
 }
