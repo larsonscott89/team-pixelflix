@@ -69,42 +69,64 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
   };
 
   return (
-    <div className="avatar__item">
+    <div className="avatar__item" aria-label={`Select avatar ${id}`} aria-expanded={isSelected}>
       <Icon
         className={`avatar__icon ${fillColor}`}
         onClick={() => {
           onClick(id);
         }}
-
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onClick(id);
+          }
+        }}
       />
       <div
         className={`avatar__colorlist ${isSelected ? 'active' : ''}`}
         onClick={(e) => e.stopPropagation()}
+        aria-labelledby={`colorlist-${id}`}
       >
-        <h3>Select your color:</h3>
+        <h3 id={`colorlist-${id}`}>Select your color:</h3>
         <div className="avatar__colorlist-buttons">
-          <button className="color red" onClick={() => onColorSelect("red")}></button>
-          <button className="color orange" onClick={() => onColorSelect("orange")}></button>
-          <button className="color yellow" onClick={() => onColorSelect("yellow")}></button>
-          <button className="color green" onClick={() => onColorSelect("green")}></button>
-          <button className="color blue" onClick={() => onColorSelect("blue")}></button>
-          <button className="color gray" onClick={() => onColorSelect("gray")}></button>
-          <button className="color pink" onClick={() => onColorSelect("pink")}></button>
-          <button className="color purple" onClick={() => onColorSelect("purple")}></button>
-          <button className="color custom"><p className="custom_text">+</p></button>
+          {Object.keys(colorNameToHex).map(colorName => (
+            <button
+              key={colorName}
+              className={`color ${colorName}`}
+              onClick={() => onColorSelect(colorName)}
+              aria-label={`Select ${colorName} color`}
+              tabIndex={isSelected ? 0 : -1}
+            ></button>
+          ))}
+          <button 
+            className="color custom" 
+            aria-label="Custom color" 
+            tabIndex={isSelected ? 0 : -1}
+          >
+            <p className="custom_text">+</p>
+          </button>
         </div>
         <div className="avatar__colorlist-choices">
-          <button className="cancel" type="button"
-          onClick={handleCancel}
+          <button 
+            className="cancel" 
+            type="button"
+            onClick={handleCancel}
+            aria-label="Cancel color selection"
+            tabIndex={isSelected ? 0 : -1}
           >Cancel</button>
-          <button className="save" type="button" onClick={() => {
-            setSelectedIcon(null)
-            const selectedColor = color || "red";
-            console.log(`Color ${selectedColor} saved`);
+          <button 
+            className="save" 
+            type="button" 
+            aria-label="Save color selection"
+            tabIndex={isSelected ? 0 : -1}
+            onClick={() => {
+              setSelectedIcon(null)
+              const selectedColor = color || "red";
+              console.log(`Color ${selectedColor} saved`);
 
-            saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
-
-          }}>Save</button>
+              saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
+            }}
+          >Save</button>
         </div>
       </div>
     </div>
@@ -144,9 +166,9 @@ export default function AvatarSelection() {
   };
 
   return (
-    <section data-testid="avatar-selection-section" className="avatar__section">
+    <section data-testid="avatar-selection-section" className="avatar__section" aria-label="Avatar Selection">
       <div className="avatar__container">
-        <div className="avatar__list">
+        <div className="avatar__list" role="list">
           {icons.map(({ id, component: Icon }) => (
             <AvatarItem
               key={id}

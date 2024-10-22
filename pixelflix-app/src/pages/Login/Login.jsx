@@ -87,7 +87,7 @@ function Login() {
   return (
     <section className="login">
       <div className="login__header">
-        <img className="login__header-logo" src="/logo.svg" />
+        <img className="login__header-logo" src="/logo.svg" alt="App Logo"/>
       </div>
       <div className="login__container">
         <h3 className="login__container-heading">Login</h3>
@@ -101,18 +101,21 @@ function Login() {
               <input
                 type="text"
                 name="email"
+                id="email"
                 className="login__form-input"
                 placeholder="Email address"
                 onChange={handleEmailChange}
+                aria-invalid={emailInvalid || emailEmpty || emailNonexistent ? "true" : "false"}
+                aria-describedby="email-error"
               />
               {emailEmpty && (
-                <p className="login__form-input--error">Can't be empty</p>
+                <p id="email-error" className="login__form-input--error" role="alert">Can't be empty</p>
               )}
               {emailInvalid && (
-                <p className="login__form-input--error">Invalid email</p>
+                <p id="email-error" className="login__form-input--error" role="alert">Invalid email</p>
               )}
               {emailNonexistent && (
-                <p className="login__form-input--error">
+                <p id="email-error" className="login__form-input--error" role="alert">
                   No account with this email
                 </p>
               )}
@@ -125,15 +128,18 @@ function Login() {
               <input
                 type="password"
                 name="password"
+                id="password"
                 className="login__form-input"
                 placeholder="Password"
                 onChange={handlePasswordChange}
+                aria-invalid={passwordEmpty || passwordIncorrect ? "true" : "false"}
+                aria-describedby="password-error"
               />
               {passwordEmpty && (
-                <p className="login__form-input--error">Can't be empty</p>
+                <p id="password-error" className="login__form-input--error" role="alert">Can't be empty</p>
               )}
               {passwordIncorrect && (
-                <p className="login__form-input--error">Password incorrect</p>
+                <p id="password-error" className="login__form-input--error" role="alert">Password incorrect</p>
               )}
             </div>
           </div>
@@ -142,7 +148,7 @@ function Login() {
           </button>
         </form>
         <p className="login__container-paragraph">
-          Don't have an account? <Link to="/signup">Sign Up</Link>
+          Don't have an account? <Link to="/signup" aria-label="Go to signup page">Sign Up</Link>
         </p>
       </div>
     </section>

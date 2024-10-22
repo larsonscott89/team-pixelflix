@@ -36,8 +36,21 @@
             height: inherit;
         }
     }
-    
-    textarea {
+
+    &__clear-button {
+        width: 2em;
+        height: 2em;
+        position: fixed;
+        z-index: 9;
+        @include tablet {
+            right: 1.5em;
+        }
+        @include desktop {
+            right: 2em;
+        }
+    }
+
+    input {
         flex: 1;
         height: 32px;
         padding-top: 6px; 
