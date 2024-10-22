@@ -55,33 +55,54 @@ export default function Account() {
       <h1 className="account__heading"> Account </h1>
       <div className="account__container">
         <div className="account__info">
-          <div className="account__info-row email-box">
+          <button
+            className="account__info-row email-box" 
+            aria-label="email-box"
+            aria-role="button"
+          >
             <FaEnvelope /> 
             <span>Email</span>
             <p>{userEmail}</p>
-          </div>
-          <button className="account__info-row password-btn">
+          </button>
+          <button 
+            className="account__info-row password-btn" 
+            aria-label="Update password"
+            aria-role="button"
+          >
             <FaLock /> 
             <span>Update Password</span>
             <div className="arrow-icon">
               <ThinChevronRight size={32} thickness={1} color="white"/>
             </div>
           </button>
-          <button className="account__info-row manage-btn">
+          <button 
+            className="account__info-row manage-btn"
+            aria-label="Manage subscription"
+            aria-role="button"
+          >
             <FaCreditCard /> 
             <span>Manage Subscription</span>
             <div className="arrow-icon">
               <ThinChevronRight size={32} thickness={1} color="white"/>
             </div>
           </button>
-          <button className="account__info-row signout-btn" onClick={handleSignOut}>
+          <button 
+            className="account__info-row signout-btn" 
+            onClick={handleSignOut}
+            aria-label="Sign out"
+            aria-role="button"
+          >
             <FaSignOutAlt />
             <span>Sign Out</span>
             <div className="arrow-icon">
               <ThinChevronRight size={32} thickness={1} color="white"/>
             </div>
           </button>
-          <button className="delete-btn">
+          <button 
+            className="delete-btn"
+            aria-label="Delete Account" 
+            aria-role="button"
+          >
             <FaTrash />
             <span>Delete Account</span>
           </button>
