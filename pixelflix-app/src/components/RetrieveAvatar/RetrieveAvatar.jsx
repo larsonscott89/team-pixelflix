@@ -12,7 +12,7 @@ import Icon5 from "../../assets/profile-icons/icon5.svg?react";
 import Icon6 from "../../assets/profile-icons/icon6.svg?react";
 import { IoPerson } from "react-icons/io5";
 
-export default function AvatarDisplay({ onMouseEnter, onClick }) {
+export default function AvatarDisplay({ onMouseEnter, onClick, onKeyDown }) {
 
   const { currentUser } = useAuth();
   const { currentProfile } = useProfile();
@@ -61,6 +61,8 @@ export default function AvatarDisplay({ onMouseEnter, onClick }) {
         onMouseEnter={onMouseEnter}
         onClick={onClick}
         style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
       >
         <IoPerson
           className="placeholder-img" 
@@ -81,6 +83,8 @@ export default function AvatarDisplay({ onMouseEnter, onClick }) {
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       style={{ fill: color }}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
     />
   );
 };

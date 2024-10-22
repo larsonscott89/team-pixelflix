@@ -14,6 +14,11 @@ function ProfileMenu() {
       <AvatarDisplay
         onMouseEnter={handleMouseEnter}
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setIsOpen(!isOpen);
+          }
+        }}
       />
       {isOpen && (
         <div 
