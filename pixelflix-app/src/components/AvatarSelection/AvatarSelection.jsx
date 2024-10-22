@@ -103,6 +103,8 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
             console.log(`Color ${selectedColor} saved`);
 
             saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
+            // Force icon in navbar to update
+            window.location.reload();
 
           }}>Save</button>
         </div>

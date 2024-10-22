@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profilePicture from '../../assets/images/image-avatar.png';
+// import profilePicture from '../../assets/images/image-avatar.png';
+import AvatarDisplay from '../RetrieveAvatar/RetrieveAvatar';
 import './ProfileMenu.scss';
 
 function ProfileMenu() {
@@ -11,10 +12,16 @@ function ProfileMenu() {
 
   return (
     <div className="profile-menu">
-      <img 
+      {/* <img 
         data-testid="navbar-profile-picture" 
         className="navbar__profile-picture" 
         src={profilePicture} 
+        onMouseEnter={handleMouseEnter}
+        onClick={() => setIsOpen(!isOpen)} 
+      /> */}
+      <AvatarDisplay
+        testid="navbar-profile-picture" 
+        className="navbar__profile-picture" 
         onMouseEnter={handleMouseEnter}
         onClick={() => setIsOpen(!isOpen)} 
       />
