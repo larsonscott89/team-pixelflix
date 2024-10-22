@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import profilePicture from '../../assets/images/image-avatar.png';
+import AvatarDisplay from '../RetrieveAvatar/RetrieveAvatar';
 import './ProfileMenu.scss';
 
 function ProfileMenu() {
@@ -10,15 +10,10 @@ function ProfileMenu() {
   const handleMouseLeave = () => setIsOpen(false);
 
   return (
-    <div className="profile-menu" aria-expanded={isOpen}>
-      <img 
-        data-testid="navbar-profile-picture" 
-        className="navbar__profile-picture" 
-        src={profilePicture}
-        alt="Profile Picture"
+    <div className="profile-menu">
+      <AvatarDisplay
         onMouseEnter={handleMouseEnter}
         onClick={() => setIsOpen(!isOpen)}
-        tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             setIsOpen(!isOpen);
