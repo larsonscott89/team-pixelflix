@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db } from "../../firebase-config";
 import { useAuth } from "../../context/AuthContext"
 import { useProfile } from "../../context/ProfileContext";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 
 import Icon1 from "../../assets/profile-icons/icon1.svg?react";
 import Icon2 from "../../assets/profile-icons/icon2.svg?react";
@@ -12,8 +12,7 @@ import Icon5 from "../../assets/profile-icons/icon5.svg?react";
 import Icon6 from "../../assets/profile-icons/icon6.svg?react";
 import { IoPerson } from "react-icons/io5";
 
-export default function AvatarDisplay({ testid, className, onMouseEnter, onClick }) {
-  // console.log({ testid, className, onMouseEnter, onClick });
+export default function AvatarDisplay({ onMouseEnter, onClick }) {
 
   const { currentUser } = useAuth();
   const { currentProfile } = useProfile();
@@ -30,50 +29,55 @@ export default function AvatarDisplay({ testid, className, onMouseEnter, onClick
 
   useEffect(() => {
     if (currentUser && currentProfile) {
-      const fetchProfileData = async () => {
-        try {
-          const userDocRef = doc(db, "users", currentUser.uid);
-          const userDocSnapshot = await getDoc(userDocRef);
-
-          if (userDocSnapshot.exists()) {
-            const userDocData = userDocSnapshot.data();
-            const profile = userDocData.profiles.find(profile => profile.id === currentProfile.id);
-            if (profile) {
-              const { avatar, avatarColor } = profile;
-              setAvatarData({
-                iconId: avatar,
-                color: avatarColor,
-              });
-            }
+      const userDocRef = doc(db, "users", currentUser.uid);
+      
+      const fetchProfileData = onSnapshot(userDocRef, (userDocSnapshot) => {
+        if (userDocSnapshot.exists()) {
+          const userDocData = userDocSnapshot.data();
+          const profile = userDocData.profiles.find(profile => profile.id === currentProfile.id);
+          if (profile) {
+            const { avatar, avatarColor } = profile;
+            setAvatarData({
+              iconId: avatar,
+              color: avatarColor,
+            });
           }
-        } catch (error) {
-          console.error("Error fetching profile data: ", error);
+        } else {
+          console.log("No such document!");
         }
-      };
+      }, (error) => {
+        console.error("Error fetching profile data: ", error);
+      });
 
-      fetchProfileData();
+      return () =>  fetchProfileData();
     }
   }, [currentUser, currentProfile]);
 
   if (!avatarData) {
     return (
-      <IoPerson
-        data-testid={testid}
-        className={className} 
+      <div 
+        data-testid="navbar-profile-picture"
+        className="navbar__profile-picture"
         onMouseEnter={onMouseEnter}
         onClick={onClick}
-        alt="Avatar loading image"/>
+        style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <IoPerson
+          className="placeholder-img" 
+          size={"1em"}
+          alt="Avatar loading image"
+        />
+      </div>
     );
   }
 
-  console.log(avatarData);
   const { iconId, color } = avatarData;
   const Icon = icons[iconId];
 
   return (
     <Icon 
-      data-testid={testid}
-      className={className} 
+      data-testid="navbar-profile-picture"
+      className="navbar__profile-picture" 
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       style={{ fill: color }}
