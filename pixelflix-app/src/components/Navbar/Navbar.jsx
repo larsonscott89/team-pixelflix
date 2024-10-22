@@ -15,8 +15,8 @@ function Navbar() {
   return (
     <section data-testid="navbar-section" className="navbar__section" aria-label="Navigation Bar">
       <div className="navbar">
-        <div className="navbar__imgcontainer">
-          <Link to="/" aria-label="Home">
+        <div className="navbar__imgcontainer navbar__logo-spacing">
+          <Link className="navbar__link" to="/" aria-label="Home">
             <img 
               data-testid="navbar-logo" 
               className="navbar__logo" 
@@ -26,8 +26,8 @@ function Navbar() {
           </Link>
         </div>
         <div className="navbar__page-icons" role="navigation links">
-          <div className="navbar__imgcontainer">
-            <Link to="/home" aria-label="Home">
+          <div className="navbar__imgcontainer navbar__icon-spacing">
+            <Link className="navbar__link" to="/home" aria-label="Home">
               <HomeIcon 
                 className={`navbar__icon-home ${location.pathname === "/home" ? "highlight" : ""}`} 
                 data-testid="navbar-home-icon"
@@ -35,8 +35,8 @@ function Navbar() {
               />
             </Link>
           </div>
-          <div className="navbar__imgcontainer">
-            <Link to="/movies" aria-label="Movies">
+          <div className="navbar__imgcontainer navbar__icon-spacing">
+            <Link className="navbar__link" to="/movies" aria-label="Movies">
               <MovieIcon 
                 className={`navbar__icon-movies ${location.pathname === "/movies" ? "highlight" : ""}`} 
                 data-testid="navbar-movies-icon"
@@ -44,8 +44,8 @@ function Navbar() {
               />
             </Link>
           </div>
-          <div className="navbar__imgcontainer">
-            <Link to="/tv" aria-label="TV Series">
+          <div className="navbar__imgcontainer navbar__icon-spacing">
+            <Link className="navbar__link" to="/tv" aria-label="TV Series">
               <TvIcon 
                 className={`navbar__icon-tv ${location.pathname === "/tv" ? "highlight" : ""}`}
                 data-testid="navbar-tv-icon"
@@ -53,8 +53,8 @@ function Navbar() {
               />
             </Link>
           </div>
-          <div className="navbar__imgcontainer">
-            <Link to="/bookmarks" aria-label="Bookmarks">
+          <div className="navbar__imgcontainer navbar__icon-spacing">
+            <Link className="navbar__link" to="/bookmarks" aria-label="Bookmarks">
               <BookmarkIcon 
                 className={`navbar__icon-bookmarks ${location.pathname === "/bookmarks" ? "highlight" : ""}`} 
                 data-testid="navbar-bookmarks-icon"

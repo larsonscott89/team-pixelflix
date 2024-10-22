@@ -17,7 +17,13 @@ function ProfileMenu() {
         src={profilePicture}
         alt="Profile Picture"
         onMouseEnter={handleMouseEnter}
-        onClick={() => setIsOpen(!isOpen)} 
+        onClick={() => setIsOpen(!isOpen)}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setIsOpen(!isOpen);
+          }
+        }}
       />
       {isOpen && (
         <div 

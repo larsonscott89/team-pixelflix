@@ -52,9 +52,12 @@
         }
     }
 
+    &__link {
+        display: flex;  
+    }
+
     &__logo {
         height: 20px;
-        margin-left: 1em;
         
         @include tablet {
             width: 32px;
@@ -64,8 +67,19 @@
         @include desktop {
             width: 32px;
             height: auto;
-            margin: 1em 0em 3em;
         }
+        
+        &-spacing {
+            margin-left: 1em;
+        
+            @include desktop {
+                margin: 1em 0em 3em;
+            }
+        }
+    }
+
+    &__icon-spacing {
+        margin: 1em;
     }
 
     &__page-icons {
@@ -98,8 +112,7 @@
         
         img, svg {
             transition: transform 0.1s ease-in-out;
-            // Used for spacing between the icons
-            margin: 1em;
+   
             &:hover {
                 transform: scale(1.35);
             }
