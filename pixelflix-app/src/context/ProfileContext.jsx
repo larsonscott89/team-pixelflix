@@ -35,6 +35,17 @@ export const ProfileProvider = ({ children }) => {
     setCurrentProfile(profile);
   };
 
+  const addProfile = async (newProfile) => {
+    try {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userDocRef, {
+        profiles: arrayUnion(newProfile),
+      });
+    } catch (err) {
+      console.error("Error adding new profile: ", err);
+    }
+  };
+
   const toggleBookmark = async (video) => {
     if (currentProfile) {
       const isBookmarked = currentProfile.bookmarks.some(
@@ -85,6 +96,7 @@ export const ProfileProvider = ({ children }) => {
     profiles,
     currentProfile,
     selectProfile,
+    addProfile,
     toggleBookmark,
   };
 

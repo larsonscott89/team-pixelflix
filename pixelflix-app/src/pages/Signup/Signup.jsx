@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import { v4 as uuidv4 } from 'uuid';
 
 function Signup() {
   const { currentUser } = useAuth();
@@ -100,7 +101,7 @@ function Signup() {
         email: user.email,
         profiles: [
           {
-            id: 1,
+            id: uuidv4(),
             name: "",
             avatar: "Icon1",
             avatarColor: "#FC4747",

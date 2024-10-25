@@ -1,0 +1,8 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.profile-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+}
