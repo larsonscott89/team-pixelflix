@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import "./AddProfileModal.scss";
 import { useProfile } from "../../context/ProfileContext";
 import AvatarSelection from "../AvatarSelection/AvatarSelection";
+import { v4 as uuidv4 } from "uuid";
 import { IoCloseOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProfileModal({ onClose }) {
   const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("Icon1");
+  const [avatar, setAvatar] = useState("icon1");
   const [avatarColor, setAvatarColor] = useState("#000000");
 
   const { addProfile, selectProfile } = useProfile();
+  const navigate = useNavigate();
 
   const handleCreateProfile = async () => {
     const newProfile = {

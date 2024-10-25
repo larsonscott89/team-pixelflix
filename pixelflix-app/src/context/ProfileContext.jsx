@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { db } from "../firebase-config";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const ProfileContext = createContext();
 
@@ -11,6 +12,8 @@ export const ProfileProvider = ({ children }) => {
   const [currentProfile, setCurrentProfile] = useState({});
   const [currentProfileIndex, setCurrentProfileIndex] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentProfile) {
@@ -33,6 +36,8 @@ export const ProfileProvider = ({ children }) => {
 
   const selectProfile = (profile) => {
     setCurrentProfile(profile);
+    console.log(currentProfile);
+    navigate("/");
   };
 
   const addProfile = async (newProfile) => {
