@@ -38,10 +38,14 @@ const saveAvatarSelection = async (userId, profileId, iconId, color) => {
         return {
           ...profile,
           avatar: iconId,
-          avatarColor: colorNameToHex[color]
+          avatarColor: colorNameToHex[color] || color
         };
       }
       return profile;
+    });
+
+    console.log("Updating with:", {
+      profiles: updatedProfiles
     });
 
     await updateDoc(userDocRef, {
@@ -59,10 +63,13 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
   const { currentUser } = useAuth();
   const { currentProfile } = useProfile();
 
+  const [customColor, setCustomColor] = useState(null);
+
   const fillColor = color || "red";
 
   const handleCancel = () => {
-    setSelectedIcon(null)
+    setSelectedIcon(null);
+    setCustomColor(null);
     setTimeout(() => {
       onColorSelect(null);
     }, 300);
@@ -71,14 +78,17 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
   return (
     <div className="avatar__item" aria-label={`Select avatar ${id}`} aria-expanded={isSelected}>
       <Icon
-        className={`avatar__icon ${fillColor}`}
+        className={"avatar__icon"}
+        style={{ fill: colorNameToHex[fillColor] || fillColor }}
         onClick={() => {
           onClick(id);
+          setCustomColor(null);
         }}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             onClick(id);
+            setCustomColor(null);
           }
         }}
       />
@@ -92,7 +102,8 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
           {Object.keys(colorNameToHex).map(colorName => (
             <button
               key={colorName}
-              className={`color ${colorName}`}
+              className={"color"}
+              style={{ backgroundColor: colorNameToHex[colorName] }}
               onClick={() => onColorSelect(colorName)}
               aria-label={`Select ${colorName} color`}
               tabIndex={isSelected ? 0 : -1}
@@ -102,10 +113,19 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
             className="color custom" 
             aria-label="Custom color" 
             tabIndex={isSelected ? 0 : -1}
-          >
+            onClick={() => setCustomColor(prev => (prev === id ? null : id))} 
+          > 
             <p className="custom_text">+</p>
+            
+            <input
+              type="color"
+              onChange={(e) => onColorSelect(e.target.value)}
+              aria-label="Choose custom color"
+              className="color-picker-input"
+            />
           </button>
         </div>
+
         <div className="avatar__colorlist-choices">
           <button 
             className="cancel" 
@@ -121,7 +141,7 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
             tabIndex={isSelected ? 0 : -1}
             onClick={() => {
               setSelectedIcon(null)
-              const selectedColor = color || "red";
+              const selectedColor = customColor === id ? color : color || fillColor;
               console.log(`Color ${selectedColor} saved`);
 
               saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
