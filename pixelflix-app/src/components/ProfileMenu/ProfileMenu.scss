@@ -1,7 +1,10 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
 .profile-menu {
   position: relative;
   display: inline-block;
-  z-index: 200;
+  z-index: $z-index-medium;
 
   .profile-menu__options {
     display: flex;
@@ -9,23 +12,23 @@
     position: absolute;
     bottom: -33px;
     left: 70px;
-    background-color: rgb(22, 29, 47);
-    border: 1px solid rgb(15, 19, 31);
-    border-radius: 15px;
+    background-color: $color-secondary-dark;
+    border: 1px solid $color-primary-dark;
+    border-radius: $border-radius-medium;
     overflow: hidden;
-    z-index: 200;
+    z-index: $z-index-medium;
     width: 150px;
 
     .profile-menu__option {
-      padding: 8px 12px;
+      padding: .5rem 1rem;
       text-decoration: none;
-      color: white;
-      border-bottom: 1px solid rgb(15, 19, 31);
-      z-index: 200;
+      color: $color-white;
+      border-bottom: 1px solid $color-primary-dark;
+      z-index: $z-index-medium;
 
       &:hover {
-        background-color: rgb(15, 19, 31);
-        z-index: 200;
+        background-color: $color-primary-dark;
+        z-index: $z-index-medium;
       }
 
       &:last-child {
@@ -33,24 +36,25 @@
       }
     }
 
-    @media (max-width: 1279px) {
-      top: 0px;
-      left: -100px;
-      border-radius: 10px;
-      z-index: 201;
+    @media (max-width: $breakpoint-desktop) {
+      top: 15px;
+      left: -150px;
+      bottom: calc(-100% + -55px);
+      border-radius: $border-radius-small;
+      z-index: $z-index-high;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: $breakpoint-tablet) {
       top: auto;
       bottom: calc(100% + 15px);
-      left: -110px;
-      border-radius: 10px;
-      z-index: 200;
+      left: -120px;
+      border-radius: $border-radius-small;
+      z-index: $z-index-medium;
     }
   }
 
   .navbar__profile-picture {
     cursor: pointer;
-    z-index: 201; 
+    z-index: $z-index-high;
   }
 }
