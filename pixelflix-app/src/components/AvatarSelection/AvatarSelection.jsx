@@ -6,10 +6,6 @@ import Icon4 from "../../assets/profile-icons/icon4.svg?react";
 import Icon5 from "../../assets/profile-icons/icon5.svg?react";
 import Icon6 from "../../assets/profile-icons/icon6.svg?react";
 import "./AvatarSelection.scss";
-import { db } from "../../firebase-config";
-import { useAuth } from "../../context/AuthContext"
-import { useProfile } from "../../context/ProfileContext";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
 
 const colorNameToHex = {
   red: "#FC4747",
@@ -22,47 +18,15 @@ const colorNameToHex = {
   purple: "#A145FC",
 };
 
-const saveAvatarSelection = async (userId, profileId, iconId, color) => {
-  try {
-    const userDocRef = doc(db, "users", userId);
+const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onColorSelect, color, saveData }) => {
 
-    const userDocSnapshot = await getDoc(userDocRef);
-    if (!userDocSnapshot.exists()) {
-      console.log("No user document found at this path.");
-      return;
-    }
-
-    const userDocData = userDocSnapshot.data();
-    const updatedProfiles = userDocData.profiles.map(profile => {
-      if (profile.id === profileId) {
-        return {
-          ...profile,
-          avatar: iconId,
-          avatarColor: colorNameToHex[color]
-        };
-      }
-      return profile;
-    });
-
-    await updateDoc(userDocRef, {
-      profiles: updatedProfiles
-    });
-
-    console.log("Avatar and color updated successfully");
-  } catch (error) {
-    console.error("Error updating avatar in Firestore: ", error);
-  }
-};
-
-
-const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onColorSelect, color }) => {
-  const { currentUser } = useAuth();
-  const { currentProfile } = useProfile();
+  const [customColor, setCustomColor] = useState(null);
 
   const fillColor = color || "red";
 
   const handleCancel = () => {
-    setSelectedIcon(null)
+    setSelectedIcon(null);
+    setCustomColor(null);
     setTimeout(() => {
       onColorSelect(null);
     }, 300);
@@ -71,14 +35,17 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
   return (
     <div className="avatar__item" aria-label={`Select avatar ${id}`} aria-expanded={isSelected}>
       <Icon
-        className={`avatar__icon ${fillColor}`}
+        className={"avatar__icon"}
+        style={{ fill: colorNameToHex[fillColor] || fillColor }}
         onClick={() => {
           onClick(id);
+          setCustomColor(null);
         }}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             onClick(id);
+            setCustomColor(null);
           }
         }}
       />
@@ -92,7 +59,8 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
           {Object.keys(colorNameToHex).map(colorName => (
             <button
               key={colorName}
-              className={`color ${colorName}`}
+              className={"color"}
+              style={{ backgroundColor: colorNameToHex[colorName] }}
               onClick={() => onColorSelect(colorName)}
               aria-label={`Select ${colorName} color`}
               tabIndex={isSelected ? 0 : -1}
@@ -102,10 +70,19 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
             className="color custom" 
             aria-label="Custom color" 
             tabIndex={isSelected ? 0 : -1}
-          >
+            onClick={() => setCustomColor(prev => (prev === id ? null : id))} 
+          > 
             <p className="custom_text">+</p>
+            
+            <input
+              type="color"
+              onChange={(e) => onColorSelect(e.target.value)}
+              aria-label="Choose custom color"
+              className="color-picker-input"
+            />
           </button>
         </div>
+
         <div className="avatar__colorlist-choices">
           <button 
             className="cancel" 
@@ -121,10 +98,10 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
             tabIndex={isSelected ? 0 : -1}
             onClick={() => {
               setSelectedIcon(null)
-              const selectedColor = color || "red";
-              console.log(`Color ${selectedColor} saved`);
+              const selectedColor = customColor === id ? color : color || fillColor;
 
-              saveAvatarSelection(currentUser.uid, currentProfile.id, id, selectedColor);
+              saveData(id, selectedColor);
+              console.log(`Color ${selectedColor} saved`);
             }}
           >Save</button>
         </div>
@@ -133,7 +110,7 @@ const AvatarItem = ({ icon: Icon, id, isSelected, setSelectedIcon, onClick, onCo
   );
 };
 
-export default function AvatarSelection() {
+export default function AvatarSelection({ saveData }) {
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [colors, setColors] = useState({
     icon1: null,
@@ -179,6 +156,7 @@ export default function AvatarSelection() {
               onClick={handleIconClick}
               onColorSelect={handleColorButtonClick}
               color={colors[id]} 
+              saveData={saveData}
             />
           ))}
         </div>
