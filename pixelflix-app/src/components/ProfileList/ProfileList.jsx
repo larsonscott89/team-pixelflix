@@ -21,8 +21,6 @@ export default function ProfileList() {
     setModalOpen(false);
   };
 
-  console.log(profiles);
-
   return (
     <div className="profileList">
       {profiles.map((profile) => {

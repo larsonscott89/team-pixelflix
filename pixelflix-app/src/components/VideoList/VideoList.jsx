@@ -17,7 +17,12 @@ export default function VideoList({ videos }) {
         );
 
         return (
-          <div key={video.id} className="card" role="listitem" aria-label={`Video: ${video.title}`}>
+          <div
+            key={video.id}
+            className="card"
+            role="listitem"
+            aria-label={`Video: ${video.title}`}
+          >
             <div
               className="card__image"
               style={{ backgroundImage: `url(${video.thumbnail})` }}
@@ -29,7 +34,9 @@ export default function VideoList({ videos }) {
                 className="card__image-bookmark-bg"
                 onClick={() => toggleBookmark(video)}
                 aria-pressed={isBookmarked}
-                aria-label={isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"}
+                aria-label={
+                  isBookmarked ? "Remove from bookmarks" : "Add to bookmarks"
+                }
                 type="button"
               >
                 <img
@@ -41,8 +48,15 @@ export default function VideoList({ videos }) {
               </button>
             </div>
             <div className="card__info">
-              <p className="card__info-text card__info-year" aria-label="Release year">{video.year}</p>
-              <p className="card__info-bullet" aria-hidden="true">•</p>
+              <p
+                className="card__info-text card__info-year"
+                aria-label="Release year"
+              >
+                {video.year}
+              </p>
+              <p className="card__info-bullet" aria-hidden="true">
+                •
+              </p>
               <div className="card__info-category-container">
                 <img
                   className="card__info-category-icon"
@@ -50,16 +64,26 @@ export default function VideoList({ videos }) {
                   alt="Category Icon"
                   aria-hidden="true"
                 />
-                <p className="card__info-text card__info-category" aria-label="Category">
+                <p
+                  className="card__info-text card__info-category"
+                  aria-label="Category"
+                >
                   {video.category}
                 </p>
               </div>
-              <p className="card__info-bullet" aria-hidden="true">•</p>
-              <p className="card__info-text card__info-rating" aria-label="Rating">
+              <p className="card__info-bullet" aria-hidden="true">
+                •
+              </p>
+              <p
+                className="card__info-text card__info-rating"
+                aria-label="Rating"
+              >
                 {video.rating}
               </p>
             </div>
-            <p className="card__info-text card__info-title" aria-label="Title">{video.title}</p>
+            <p className="card__info-text card__info-title" aria-label="Title">
+              {video.title}
+            </p>
           </div>
         );
       })}

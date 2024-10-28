@@ -36,7 +36,6 @@ export const ProfileProvider = ({ children }) => {
 
   const selectProfile = (profile) => {
     setCurrentProfile(profile);
-    console.log(currentProfile);
     navigate("/");
   };
 
