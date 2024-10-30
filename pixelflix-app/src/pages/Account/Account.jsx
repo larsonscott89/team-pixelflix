@@ -1,54 +1,60 @@
-import "./Account.scss"
-import { FaEnvelope, FaLock, FaCreditCard, FaSignOutAlt, FaTrash } from 'react-icons/fa'
-import ThinChevronRight from '../../components/ThinChevronRight/ThinChevronRight'
-import { signOut } from "firebase/auth"
-import React, { useState, useEffect } from "react"
-import { doc, getDoc } from "firebase/firestore"
-import { useNavigate } from "react-router-dom"
-import { auth, db } from "../../firebase-config"
+import "./Account.scss";
+import {
+  FaEnvelope,
+  FaLock,
+  FaCreditCard,
+  FaSignOutAlt,
+  FaTrash,
+} from "react-icons/fa";
+import ThinChevronRight from "../../components/ThinChevronRight/ThinChevronRight";
+import { signOut } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../../firebase-config";
 
 export default function Account() {
-  const navigate = useNavigate()
-  const [userEmail, setUserEmail] = useState("")
+  const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     const fetchUserEmail = async () => {
-      const user = auth.currentUser
+      const user = auth.currentUser;
       if (user) {
-        const userDocRef = doc(db, "users", user.uid)
-        const userDoc = await getDoc(userDocRef)
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          setUserEmail(user.email)
+          setUserEmail(user.email);
         } else {
-          console.log("No such document!")
+          console.log("No such document!");
         }
       } else {
-        console.log("No user is signed in.")
+        console.log("No user is signed in.");
       }
-    }
+    };
 
-    fetchUserEmail()
+    fetchUserEmail();
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        fetchUserEmail()
+        fetchUserEmail();
       } else {
-        setUserEmail("")
+        setUserEmail("");
       }
-    })
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
   const handleSignOut = () => {
     try {
-      signOut(auth)
-      console.log("User has successfully signed out.")
-      navigate("/login")
+      signOut(auth);
+      console.log("User has successfully signed out.");
+      navigate("/login");
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   return (
     <div>
@@ -56,51 +62,51 @@ export default function Account() {
       <div className="account__container">
         <div className="account__info">
           <button
-            className="account__info-row email-box" 
+            className="account__info-row email-box"
             aria-label="email-box"
             aria-role="button"
           >
-            <FaEnvelope /> 
-            <span>Email</span>
-            <p>{userEmail}</p>
+            <FaEnvelope />
+            <span className="account__info-title">Email</span>
+            <p className="account__info-email">{userEmail}</p>
           </button>
-          <button 
-            className="account__info-row password-btn" 
+          <button
+            className="account__info-row password-btn"
             aria-label="Update password"
             aria-role="button"
           >
-            <FaLock /> 
-            <span>Update Password</span>
+            <FaLock />
+            <span className="account__info-title">Update Password</span>
             <div className="arrow-icon">
-              <ThinChevronRight size={32} thickness={1} color="white"/>
+              <ThinChevronRight size={32} thickness={1} color="white" />
             </div>
           </button>
-          <button 
+          <button
             className="account__info-row manage-btn"
             aria-label="Manage subscription"
             aria-role="button"
           >
-            <FaCreditCard /> 
-            <span>Manage Subscription</span>
+            <FaCreditCard />
+            <span className="account__info-title">Manage Subscription</span>
             <div className="arrow-icon">
-              <ThinChevronRight size={32} thickness={1} color="white"/>
+              <ThinChevronRight size={32} thickness={1} color="white" />
             </div>
           </button>
-          <button 
-            className="account__info-row signout-btn" 
+          <button
+            className="account__info-row signout-btn"
             onClick={handleSignOut}
             aria-label="Sign out"
             aria-role="button"
           >
             <FaSignOutAlt />
-            <span>Sign Out</span>
+            <span className="account__info-title">Sign Out</span>
             <div className="arrow-icon">
-              <ThinChevronRight size={32} thickness={1} color="white"/>
+              <ThinChevronRight size={32} thickness={1} color="white" />
             </div>
           </button>
-          <button 
+          <button
             className="delete-btn"
-            aria-label="Delete Account" 
+            aria-label="Delete Account"
             aria-role="button"
           >
             <FaTrash />
@@ -109,5 +115,5 @@ export default function Account() {
         </div>
       </div>
     </div>
-  )
+  );
 }
