@@ -8,6 +8,7 @@
     text-align: center;
     font-weight: 200;
     font-size: 1.4rem;
+    color: $color-white;
 
     @include tablet {
       font-size: 2rem;
@@ -79,6 +80,7 @@
   background-color: $color-secondary-gray;
   border: none;
   border-radius: 5px;
+  color: $color-white;
   cursor: pointer;
   font: $font-body-medium;
   transition: background-color 0.25s ease-in-out;
@@ -119,7 +121,25 @@ span {
       display: flex;
       white-space: nowrap;
       height: 40px;
-      padding: .5em;
+      padding: .5em 0;
+    }
+
+    &-container {
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+      border-bottom: 1px solid $color-secondary-gray;
+
+      &:focus-within {
+        border-bottom: 1px solid $color-white;
+      }
+
+      &--error {
+        padding-bottom: 0.5em;
+        margin-bottom: 0.5em;
+        display: flex;
+        border-bottom: 1px solid $color-red;
+        padding-right: 1rem;
+      }
     }
 
     &-container--error {
@@ -129,15 +149,19 @@ span {
   
   &-content {
     background: $color-secondary-dark;
-    padding: 20px;
+    padding: 2rem;
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
 
+    @include tablet {
+      border-radius: 20px;
+    }
+
     h2 {
-      font-weight: 200;
+      font: $font-heading-large;
       margin-bottom: 1em;
       color: $color-white;
     }
@@ -145,44 +169,61 @@ span {
     input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 1em;
       border: none;
-      border-radius: 5px;
       font-size: 1rem;
-      background-color: $color-white;
-      color: $color-primary-dark;
+      background-color: $color-secondary-dark;
+      color: $color-white;
       caret-color: $color-red;
 
-      &--error {
-        color: $color-red;
-        display: flex;
-        white-space: nowrap;
-      }
 
       &:focus {
-        border-color: $color-white;
+        outline: none;
+      }
+
+      &::-ms-reveal {
+        filter: invert(70%);
       }
     }
 
     button {
       width: 100%;
-      padding: 10px;
+      padding: 1em;
       margin-top: 10px;
-      background-color: $color-secondary-gray;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      color: $color-white;
       cursor: pointer;
       font: $font-body-medium;
       transition: background-color 0.3s ease-in-out;
 
       &:hover {
-        background-color: $color-red;
+        background-color: $color-white;
+        color: $color-primary-dark;
+      }
+
+      &:active {
+        background-color: $color-secondary-gray;
       }
     }
   }
 }
 
+.update-message {
+  margin-top: 2rem;
+  color: $color-white;
+}
+
+.cancel__button {
+  background-color: $color-secondary-gray;
+
+}
+
+.Update-Password__button, .close__button {
+  background-color: $color-red;
+}
+
 .button-container {
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
   gap: 3em;

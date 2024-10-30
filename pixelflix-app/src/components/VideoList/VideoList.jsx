@@ -18,13 +18,15 @@ export default function VideoList({ videos }) {
 
         return (
           <div key={video.id} className="card" role="listitem" aria-label={`Video: ${video.title}`}>
-            <div
-              className="card__image"
-              style={{ backgroundImage: `url(${video.thumbnail})` }}
-              role="img"
-              aria-label={`Thumbnail for ${video.title}`}
-              aria-hidden="true"
-            >
+            <div className="card__image-wrapper">
+              <div
+                className="card__image"
+                style={{ backgroundImage: `url(${video.thumbnail})` }}
+                role="img"
+                aria-label={`Thumbnail for ${video.title}`}
+                aria-hidden="true"
+              >
+              </div>
               <button
                 className="card__image-bookmark-bg"
                 onClick={() => toggleBookmark(video)}

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { auth } from "../../firebase-config"
 
 import { useAuth } from "../../context/AuthContext"
+import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
 export default function Account() {
   const navigate = useNavigate();
@@ -17,12 +18,14 @@ export default function Account() {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [updateMessage, setUpdateMessage] = useState("");
   const passwordInputRef = useRef(null);
+  const modalRef = useRef(null);
 
   const [currentPasswordEmpty, setCurrentPasswordEmpty] = useState(false);
   const [newPasswordEmpty, setNewPasswordEmpty] = useState(false);
   const [newPasswordWeak, setNewPasswordWeak] = useState(false);
   const [confirmPasswordEmpty, setConfirmPasswordEmpty] = useState(false);
   const [confirmPasswordNotMatch, setConfirmPasswordNotMatch] = useState(false);
+  const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState(false);
 
   const { currentUser } = useAuth();
 
@@ -111,6 +114,7 @@ export default function Account() {
 
         await updatePassword(auth.currentUser, newPassword);
         setUpdateMessage("Password updated successfully.");
+        setPasswordUpdateSuccess(true);
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
@@ -127,12 +131,12 @@ export default function Account() {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!passwordInputRef.current) return;
-      const focusableElements = passwordInputRef.current.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
-      
+      if (!modalRef.current) return;
+      const focusableElements = modalRef.current.querySelectorAll('input, button, [tabindex]:not([tabindex="-1"])');
+
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
-
+  
       if (event.key === "Tab") {
         if (event.shiftKey) {
           if (document.activeElement === firstElement) {
@@ -146,25 +150,32 @@ export default function Account() {
           }
         }
       }
-
+  
       if (event.key === "Escape") {
-        setShowPasswordModal(false);
+        closeModal();
       }
     };
-
+  
     if (showPasswordModal) {
-      passwordInputRef.current.focus();
+      const focusTimeout = setTimeout(() => {
+        if (passwordInputRef.current) {
+          passwordInputRef.current.focus();
+        }
+      }, 0);
+  
       document.addEventListener("keydown", handleKeyDown);
+  
+      return () => {
+        clearTimeout(focusTimeout);
+        document.removeEventListener("keydown", handleKeyDown);
+      };
     }
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
   }, [showPasswordModal]);
 
   const closeModal = () => {
     setShowPasswordModal(false);
     setUpdateMessage("");
+    setPasswordUpdateSuccess(false);
 };
 
   return (
@@ -174,7 +185,7 @@ export default function Account() {
         <div className="account__info">
           <button
             className="account__info-row email-box" 
-            aria-label="email-box"
+            aria-label="Email box"
             role="button"
           >
             <FaEnvelope /> 
@@ -228,82 +239,95 @@ export default function Account() {
       </div>
 
       {showPasswordModal && (
-        <div className="modal" role="dialog" aria-labelledby="modal-title">
+        <div className="modal" role="dialog" aria-labelledby="modal-title" aria-modal="true" ref={modalRef}>
           <div className="modal-content">
-            <h2 id="modal-title">Update Password</h2>
-            <form onSubmit={handleUpdatePassword}>
-              <div className="modal__form-inputdiv">
-              <div className={`modal__form-input-container${currentPasswordEmpty ? "--error" : ""}`}>
-                <input 
-                  type="password"
-                  name="currentPassword"
-                  id="currentPassword"
-                  placeholder="Enter your current password"
-                  onChange={(e) => {
-                    setCurrentPassword(e.target.value);
-                    setCurrentPasswordEmpty(false);
-                  }}
-                  aria-invalid={currentPasswordEmpty ? "true" : "false"}
-                  aria-describedby="currentPassword-error"
-                />
-                {currentPasswordEmpty && (
-                  <p id="currentPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
-                )}
-              </div>
+            {!passwordUpdateSuccess && (
+              <div>
+                <h2 id="modal-title">Update Password</h2>
+                <form id="password__form" onSubmit={handleUpdatePassword}>
+                  <div className="modal__form-inputdiv">
+                  <div className={`modal__form-input-container${currentPasswordEmpty ? "--error" : ""}`}>
+                    <input 
+                      type="password"
+                      name="currentPassword"
+                      id="currentPassword"
+                      ref={passwordInputRef}
+                      placeholder="Enter your current password"
+                      onChange={(e) => {
+                        setCurrentPassword(e.target.value);
+                        setCurrentPasswordEmpty(false);
+                      }}
+                      aria-invalid={currentPasswordEmpty ? "true" : "false"}
+                      aria-describedby="currentPassword-error"
+                    />
+                    {currentPasswordEmpty && (
+                      <p id="currentPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
+                    )}
+                  </div>
 
-                <div className={`modal__form-input-container${newPasswordEmpty || newPasswordWeak ? "--error" : ""}`}>
-                  <input 
-                    type="password"
-                    name="newPassword"
-                    id="newPassword"
-                    ref={passwordInputRef}
-                    onChange={handlePasswordChange}
-                    placeholder="Enter new password"
-                    aria-invalid={newPasswordEmpty || newPasswordWeak ? "true" : "false"}
-                    aria-describedby="newPassword-error"
-                  />
-                  {newPasswordEmpty && (
-                    <p id="newPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
-                  )}
-                  {newPasswordWeak && (
-                    <p id="newPassword-error" className="modal__form-input--error" role="alert">Too weak</p>
-                  )}
-                </div>
-              
-                <div className={`modal__form-input-container${confirmPasswordEmpty || confirmPasswordNotMatch ? "--error" : ""}`}>
-                  <input 
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="Confirm new password"
-                    onChange={handleConfirmPasswordChange}
-                    aria-invalid={confirmPasswordEmpty || confirmPasswordNotMatch ? "true" : "false"}
-                    aria-describedby="confirmPassword-error"
-                  />
-                  {confirmPasswordEmpty && (
-                    <p id="confirmPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
-                  )}
-                  {confirmPasswordNotMatch && (
-                    <p id="confirmPassword-error" className="modal__form-input--error" role="alert">
-                      Passwords don't match
-                    </p>
-                  )}
+                    <div className={`modal__form-input-container${newPasswordEmpty || newPasswordWeak ? "--error" : ""}`}>
+                      <input 
+                        type="password"
+                        name="newPassword"
+                        id="newPassword"
+                        onChange={handlePasswordChange}
+                        placeholder="Enter new password"
+                        aria-invalid={newPasswordEmpty || newPasswordWeak ? "true" : "false"}
+                        aria-describedby="newPassword-error"
+                      />
+                      {newPasswordEmpty && (
+                        <p id="newPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
+                      )}
+                      {newPasswordWeak && (
+                        <p id="newPassword-error" className="modal__form-input--error" role="alert">Too weak</p>
+                      )}
+                    </div>
+                  
+                    <div className={`modal__form-input-container${confirmPasswordEmpty || confirmPasswordNotMatch ? "--error" : ""}`}>
+                      <input 
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="Confirm new password"
+                        onChange={handleConfirmPasswordChange}
+                        aria-invalid={confirmPasswordEmpty || confirmPasswordNotMatch ? "true" : "false"}
+                        aria-describedby="confirmPassword-error"
+                      />
+                      {confirmPasswordEmpty && (
+                        <p id="confirmPassword-error" className="modal__form-input--error" role="alert">Can't be empty</p>
+                      )}
+                      {confirmPasswordNotMatch && (
+                        <p id="confirmPassword-error" className="modal__form-input--error" role="alert">
+                          Passwords don't match
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {updateMessage && <p className="update-message" role="alert">{updateMessage}</p>}
+                  
+                  <div className="button-container">
+                    <button type="submit" className="Update-Password__button">
+                      Update
+                    </button>
+                    <button type="button" className="cancel__button" onClick={closeModal}>Cancel</button>
+                  </div>
+                </form>
+              </div>
+            )}
+            {passwordUpdateSuccess && (
+              <div>
+                <h2 id="modal-title">Password Sucessfully Updated!</h2>
+                <IoCheckmarkCircleOutline size={"8rem"} color="#28A745" />
+                <div className="button-container">
+                  <button className="close__button" onClick={closeModal}>Close</button>
                 </div>
               </div>
-              
-              {updateMessage && <p className="update-message">{updateMessage}</p>}
-              
-              <div className="button-container">
-                <button type="submit" className="Update-Password__button">
-                  Update
-                </button>
-                <button onClick={closeModal}>Cancel</button>
-              </div>
-            </form>
+            )}
           </div>
         </div>
       )}
 
     </div>
   )
-}
+}     
