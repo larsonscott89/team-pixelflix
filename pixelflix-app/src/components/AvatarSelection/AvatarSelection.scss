@@ -102,42 +102,6 @@
         @include tablet {
             margin: 0;
         }
-
-        &.pink {
-            fill: #EC6AFF;
-        }
-
-        &.red {
-            fill: $color-red;
-        }
-        
-        &.orange {
-            fill: #FB923C
-        }
-        
-        &.yellow {
-            fill: #FACC15;
-        }
-
-        &.green {
-            fill: #80BA5E;
-        }
-
-        &.gray {
-            fill: $color-secondary-gray;
-        }
-        
-        &.blue {
-            fill: #3A86FF;
-        }
-        
-        &.purple {
-            fill: #A145FC;
-        }
-
-        &.white {
-            filter: invert(1);
-        }
         
     }
 
@@ -193,45 +157,28 @@
                 filter: brightness(.8);
             }
             
-            &.pink {
-                background-color: #EC6AFF;
-            }
-
-            &.red {
-                background-color: $color-red;
-            }
-            
-            &.orange {
-                background-color: #FB923C;
-            }
-            
-            &.yellow {
-                background-color: #FACC15;
-            }
-            
-            &.green {
-                background-color: #80BA5E;
-            }
-
-            &.gray {
-                background-color: $color-secondary-gray;
-            }
-            
-            &.blue {
-                background-color: #3A86FF;
-            }
-            
-            &.purple {
-                background-color: #A145FC;
-            }
 
             &.custom {
+                position: relative;
                 background-color: $color-primary-dark;
 
                 .custom_text {
                     font: $font-heading-large;
+                    z-index: 2;
                 }
             }
+        
+            .color-picker-input {
+                width: 100%;
+                height: 100%;
+                position: absolute; 
+                top: 0;
+                left: 0;
+                border-radius: 50%;
+                opacity: 0;
+                cursor: pointer;
+            }
+        
         }
 
         &-choices {

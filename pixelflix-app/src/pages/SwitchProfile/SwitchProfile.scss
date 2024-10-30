@@ -1,7 +1,8 @@
-@use '../../styles/partials/variables' as *;
-@use '../../styles/partials/mixins' as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .switchProfiles {
+  color: $color-white;
   &__header {
     text-align: center;
     font-weight: 200;
@@ -12,4 +13,3 @@
     padding: 2rem;
   }
 }
-

@@ -13,7 +13,7 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <section data-testid="navbar-section" className="navbar__section" aria-label="Navigation Bar">
+    <nav data-testid="navbar-section" className="navbar__section" aria-label="Navigation Bar">
       <div className="navbar">
         <div className="navbar__imgcontainer navbar__logo-spacing">
           <Link className="navbar__link" to="/" aria-label="Home">
@@ -25,7 +25,7 @@ function Navbar() {
             />  
           </Link>
         </div>
-        <div className="navbar__page-icons" role="navigation links">
+        <div className="navbar__page-icons" role="navigation">
           <div className="navbar__imgcontainer navbar__icon-spacing">
             <Link className="navbar__link" to="/home" aria-label="Home">
               <HomeIcon 
@@ -63,11 +63,11 @@ function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="navbar__profile-div" aria-label="Profile Menu">
+        <div className="navbar__profile-div">
           <ProfileMenu />
         </div>
       </div>
-    </section>
+    </nav>
   );
 }
 
