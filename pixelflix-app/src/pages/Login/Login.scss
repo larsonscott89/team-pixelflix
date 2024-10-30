@@ -38,11 +38,6 @@
       border-radius: 20px;
       width: 400px;
     }
-
-    @include desktop {
-      border-radius: 20px;
-      width: 400px;
-    }
   }
 
   &__container, &__container * {

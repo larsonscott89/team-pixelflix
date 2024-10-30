@@ -12,7 +12,7 @@ export default function Bookmarks() {
       {currentProfile.bookmarks.length > 0 ? (
         <VideoList videos={currentProfile.bookmarks} aria-label="Bookmarks List"/>
       ) : (
-        <p>No bookmarks found.</p>
+        <p className="No-Bookmarks-Found">No bookmarks found.</p>
       )}
     </div>
   );

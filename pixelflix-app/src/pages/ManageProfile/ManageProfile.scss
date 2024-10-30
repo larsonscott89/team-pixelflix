@@ -1,17 +1,23 @@
 @use '../../styles/partials/variables' as *;
 @use '../../styles/partials/mixins' as *;
 
-.profile-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    @include tablet {
-        margin-top: -3em;
+.profile {
+    &-header {
+        color: $color-white;
     }
-    @include desktop {
-        padding-right: 2em;
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @include tablet {
+            margin-top: -3em;
+        }
+        @include desktop {
+            padding-right: 2em;
+        }
     }
 }
 

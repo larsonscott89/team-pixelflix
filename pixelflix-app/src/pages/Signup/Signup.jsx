@@ -135,7 +135,7 @@ function Signup() {
       </div>
       <div className="signup__container">
         <h3 className="signup__container-heading">Sign Up</h3>
-        <form className="signup__form" onSubmit={register}>
+        <form id="signup__form" className="signup__form" onSubmit={register}>
           <div className="signup__form-inputdiv">
             <div
               className={`signup__form-input-container${
