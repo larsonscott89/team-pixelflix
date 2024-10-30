@@ -1,0 +1,22 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.switch-profile {
+    &-header {
+        color: $color-white;
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @include tablet {
+            margin-top: -3em;
+        }
+        @include desktop {
+            padding-right: 2em;
+        }
+    }
+}
