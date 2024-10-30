@@ -1,5 +1,5 @@
-@use '../../styles/partials/variables' as *;
-@use '../../styles/partials/mixins' as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .login {
   display: flex;
@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 3em;
+  color: $color-white;
 
   @include desktop {
     // Center vertically for desktop screens
@@ -40,7 +41,8 @@
     }
   }
 
-  &__container, &__container * {
+  &__container,
+  &__container * {
     background-color: $color-secondary-dark;
     font: $font-body-small;
   }
@@ -48,9 +50,8 @@
   &__form {
     display: flex;
     flex-direction: column;
-    
 
-    &-inputdiv{
+    &-inputdiv {
       margin: 2em 0;
     }
 
@@ -91,14 +92,14 @@
       }
     }
 
-
     & button {
       border: none;
+      color: $color-white;
       border-radius: 6px;
       background-color: $color-red;
       padding: 1em;
       transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-      
+
       &:hover {
         background-color: $color-white;
         color: $color-primary-dark;
@@ -128,5 +129,4 @@
       color: $color-secondary-gray;
     }
   }
-
 }
