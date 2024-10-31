@@ -7,6 +7,7 @@ import { auth } from "../../firebase-config";
 import "./Login.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import VerificationBanner from "../../components/VerificationBanner/VerificationBanner";
 
 function Login() {
   const { currentUser } = useAuth();
@@ -20,6 +21,8 @@ function Login() {
   const [emailNonexistent, setEmailNonexistent] = useState(false);
   const [passwordEmpty, setPasswordEmpty] = useState(false);
   const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [redirectHome, setRedirectHome] = useState(false);
@@ -63,6 +66,13 @@ function Login() {
       setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
       const user = res.user;
+      setIsVerified(user.emailVerified);
+      if (!user.emailVerified) {
+        setLoading(false);
+        setVerificationMessage("Email not verified. Please check your inbox.")
+        return;
+      }
+
       console.log(user.email + " signed in.");
       setRedirectHome(true);
     } catch (err) {
@@ -91,6 +101,7 @@ function Login() {
       </div>
       <div className="login__container">
         <h3 className="login__container-heading">Login</h3>
+        {verificationMessage && <VerificationBanner message={verificationMessage} isVerified={isVerified} />}
         <form className="login__form" onSubmit={handleLogin}>
           <div className="login__form-inputdiv">
             <div

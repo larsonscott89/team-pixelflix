@@ -45,7 +45,7 @@
     }
   }
 
-  &__container, &__container * {
+  &__container, &__form-input {
     background-color: $color-secondary-dark;
     font: $font-body-small;
   }

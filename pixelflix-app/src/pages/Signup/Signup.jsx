@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import "./Signup.scss";
 import { auth, db } from "../../firebase-config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import VerificationBanner from "../../components/VerificationBanner/VerificationBanner";
 
 function Signup() {
   const { currentUser } = useAuth();
-
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -21,8 +22,9 @@ function Signup() {
   const [repeatPasswordEmpty, setRepeatPasswordEmpty] = useState(false);
   const [repeatPasswordNotMatch, setRepeatPasswordNotMatch] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const [redirectHome, setRedirectHome] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,6 +45,10 @@ function Signup() {
     setRepeatPasswordEmpty(false);
     setRepeatPasswordNotMatch(false);
   };
+
+  function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+  }
 
   const validateEmail = (email) => {
     // This regex tests for characters, an @, domain name, and a domain extension
@@ -94,6 +100,12 @@ function Signup() {
       const user = userCredential.user;
       console.log("Registered new user with email: " + email);
 
+      await sendEmailVerification(user);
+      console.log("Verification email sent to " + email);
+
+      setVerificationMessage("Verification email sent! Please check your inbox.");
+      setIsVerified(false);
+
       // Create user object for newly registered user in Firestore
       const userDoc = doc(db, "users", user.uid);
       await setDoc(userDoc, {
@@ -109,9 +121,29 @@ function Signup() {
         ],
         createdAt: new Date(),
       });
-      setRedirectHome(true);
+      
+      //brevents too many calls to backend if user takes a long time to verify
+      for (let i = 0; !user.emailVerified; i++) {
+        await user.reload();
+        if (i > 12) {
+          await timeout(30000);
+        } else {
+          await timeout(3000);
+        }
+        console.log(user);
+      }
+
+      if (user.emailVerified) {
+        setVerificationMessage("Email Verified");
+        setIsVerified(true);
+        setTimeout(function() {
+          setRedirectHome(true);
+        }, 5000);
+      } else {
+        setIsVerified(false);
+      } 
+
     } catch (err) {
-      setLoading(false);
       console.error(err);
       return;
     }
@@ -120,13 +152,8 @@ function Signup() {
   useEffect(() => {
     if (redirectHome && currentUser) {
       navigate("/home");
-      setLoading(false);
     }
   }, [redirectHome, currentUser, navigate]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <section className="signup">
@@ -135,6 +162,7 @@ function Signup() {
       </div>
       <div className="signup__container">
         <h3 className="signup__container-heading">Sign Up</h3>
+        {verificationMessage && <VerificationBanner message={verificationMessage} isVerified={isVerified} />}
         <form className="signup__form" onSubmit={register}>
           <div className="signup__form-inputdiv">
             <div
