@@ -89,11 +89,15 @@
   }
 }
 
+.delete-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .delete-btn {
   width: 225px;
   padding: 15px;
   margin-top: 20px;
-  margin-left: auto;
   background-color: $color-secondary-gray;
   border: none;
   border-radius: 5px;
@@ -102,13 +106,130 @@
   font: $font-body-medium;
   transition: background-color 0.25s ease-in-out;
 
-  @include desktop {
-    width: 20%;
-    padding: 10px;
-  }
-
   &:hover {
     background-color: $color-red;
+  }
+}
+
+.delete-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: $z-index-high; 
+}
+
+.delete-modal-content {
+  text-align: center;
+  width: 500px; 
+  max-width: 90%;
+  height: 45vh;
+  padding: 1rem 2rem;
+  background-color: $color-secondary-dark;
+  color: $color-white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  h2 {
+    margin-bottom: 20px; 
+  }
+
+  p {
+    margin-bottom: 15px; // Adjusts spacing as needed
+  }
+}
+
+.delete-password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-secondary-dark;
+  margin: 1rem;
+  padding-right: 1rem;
+  border-bottom: 1px solid $color-secondary-gray;
+  width: 75%;
+  max-width: 400px;
+  margin: 1rem auto;
+
+  &:focus-within {
+    border-bottom: 1px solid $color-secondary-gray;
+  }
+
+  .delete-password-input {
+    width: 100%;
+    padding: 1rem;
+    height: 10px;
+    font-size: 16px;
+    background-color: $color-secondary-dark;
+    color: $color-white;
+    border: none;
+    outline: none; 
+    caret-color: $color-red;
+
+    &--error {
+      color: $color-red;
+      border-bottom: 1px solid $color-red;
+    }
+
+    &:focus {
+      outline: none; 
+      border: none; 
+      width: 100%;
+    }
+
+    &::-ms-reveal {
+      filter: invert(70%);
+    }
+  }
+}
+
+  .toggle-password-visibility {
+    position: absolute;
+    color: $color-white;
+    right: -.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
+  }
+
+
+.confirm-delete-btn,
+.cancel-delete-btn {
+  margin-top: 15px;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-delete-btn {
+  background-color: $color-red;
+  color: $color-white;
+  transition: background-color 0.25s ease-in-out;
+
+  &:hover {
+    background-color: darken($color-red, 10%);
+  }
+}
+
+.cancel-delete-btn {
+  background-color: $color-secondary-gray;
+  color: $color-white;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: darken($color-secondary-gray, 10%);
   }
 }
 

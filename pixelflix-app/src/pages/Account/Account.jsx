@@ -5,9 +5,12 @@ import {
   FaCreditCard,
   FaSignOutAlt,
   FaTrash,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 import ThinChevronRight from "../../components/ThinChevronRight/ThinChevronRight";
 import {
+  deleteUser,
   EmailAuthProvider,
   reauthenticateWithCredential,
   signOut,
@@ -15,7 +18,8 @@ import {
 } from "firebase/auth";
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase-config";
+import { doc, deleteDoc } from "firebase/firestore";
+import { auth, db } from "../../firebase-config";
 
 import { useAuth } from "../../context/AuthContext";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
@@ -37,6 +41,10 @@ export default function Account() {
   const [confirmPasswordEmpty, setConfirmPasswordEmpty] = useState(false);
   const [confirmPasswordNotMatch, setConfirmPasswordNotMatch] = useState(false);
   const [passwordUpdateSuccess, setPasswordUpdateSuccess] = useState(false);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const { currentUser } = useAuth();
 
@@ -140,6 +148,34 @@ export default function Account() {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        deletePassword
+      );
+      await reauthenticateWithCredential(auth.currentUser, credential);
+
+      await deleteDoc(doc(db, "users", auth.currentUser.uid));
+      await deleteUser(auth.currentUser);
+
+      alert("Account deleted successfully.");
+      navigate("/signup");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      if (error.code === "auth/wrong-password") {
+        alert("Incorrect password.");
+      } else if (error.code === "auth/requires-recent-login") {
+        alert("Please reauthenticate to delete your account.");
+      } else {
+        alert("Error deleting account. Please try again.");
+      }
+    } finally {
+      setShowDeleteModal(false);
+      setDeletePassword("");
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!modalRef.current) return;
@@ -240,14 +276,68 @@ export default function Account() {
               <ThinChevronRight size={32} thickness={1} color="white" />
             </div>
           </button>
-          <button
-            className="delete-btn"
-            aria-label="Delete Account"
-            role="button"
-          >
-            <FaTrash />
-            <span>Delete Account</span>
+          <div>
+  {/* Delete Account Button */}
+  <div className="delete-btn-container">
+    <button
+      className="delete-btn"
+      aria-label="Delete Account"
+      role="button"
+      onClick={() => setShowDeleteModal(true)}
+    >
+      <FaTrash />
+      <span>Delete Account</span>
+    </button>
+  </div>
+
+        {/* Delete Modal */}
+    {showDeleteModal && (
+      <div className="delete-modal">
+        <div className="delete-modal-content">
+          <h2>Confirm Account Deletion</h2>
+          <p>To confirm, please enter your password:</p>
+
+          {/* Password Input Field */}
+          <div className="delete-password-input-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="delete-password-input"
+              placeholder="Enter your password"
+              value={deletePassword}
+              onChange={(e) => setDeletePassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleDeleteAccount()
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="toggle-password-visibility"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+
+          {/* Confirm & Cancel Buttons */}
+          <button className="confirm-delete-btn" onClick={handleDeleteAccount}>
+            Confirm Deletion
           </button>
+          <button 
+            className="cancel-delete-btn" 
+            onClick={() => {
+              setShowDeleteModal(false)
+              setDeletePassword("")
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    )}
+    </div>
         </div>
       </div>
 
