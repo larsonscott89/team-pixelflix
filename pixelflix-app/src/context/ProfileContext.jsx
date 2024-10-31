@@ -103,6 +103,7 @@ export const ProfileProvider = ({ children }) => {
 
   const value = {
     profiles,
+    setProfiles,
     currentProfile,
     selectProfile,
     addProfile,

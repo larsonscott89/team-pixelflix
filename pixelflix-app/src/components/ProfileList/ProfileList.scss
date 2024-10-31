@@ -2,26 +2,50 @@
 @use "../../styles/partials/mixins" as *;
 
 .profileList {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
+
+  @include desktop {
+    gap: 4rem;
+    max-width: 70rem;
+  }
 
   &__card {
     background-color: $color-secondary-dark;
     padding: 2rem;
     border-radius: 1.5rem;
+    flex: 0 1 calc(50% - 2rem);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
+    @include desktop {
+      flex: 0 1 calc(30% - 2rem);
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
     &-text {
       margin-top: 1rem;
       font-size: 1.2rem;
+
+      @include tablet {
+        font-size: 2rem;
+      }
     }
 
     &-icon {
       margin: 1rem;
+
+      @include tablet {
+        width: 5rem;
+        height: 5rem;
+      }
     }
   }
 }

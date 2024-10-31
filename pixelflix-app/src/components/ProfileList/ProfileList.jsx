@@ -3,10 +3,14 @@ import { useProfile } from "../../context/ProfileContext";
 import Avatar from "../Avatar/Avatar";
 import { IoAddOutline } from "react-icons/io5";
 import AddProfileModal from "../AddProfileModal/AddProfileModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 export default function ProfileList() {
-  const { profiles, selectProfile } = useProfile();
+  const { currentUser } = useAuth();
+  const { profiles, setProfiles, selectProfile } = useProfile();
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleSelectProfile = (profile) => {
@@ -20,6 +24,16 @@ export default function ProfileList() {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const unsubscribe = onSnapshot(userDocRef, (doc) => {
+        setProfiles(doc.data().profiles || []);
+      });
+      return unsubscribe;
+    }
+  }, [currentUser]);
 
   return (
     <div className="profileList">

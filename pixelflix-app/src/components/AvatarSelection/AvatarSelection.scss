@@ -8,15 +8,13 @@
   align-items: center;
 
   &__container {
-    margin-bottom: 4rem;
-    border-radius: 10px;
+    border-radius: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     @include tablet {
-      margin: 72px 1.5rem 4rem;
       background-color: $color-secondary-dark;
       height: 100%;
     }

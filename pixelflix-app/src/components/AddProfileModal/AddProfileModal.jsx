@@ -29,40 +29,43 @@ export default function AddProfileModal({ onClose }) {
   };
 
   return (
-    <div className="addProfileModal">
-      <IoCloseOutline
-        className="addProfileModal__close-x"
-        onClick={onClose}
-        size={"2rem"}
-      />
-      <h2 className="addProfileModal__header">Add New Profile</h2>
-      <input
-        className="addProfileModal__input"
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Profile Name"
-      />
-      <AvatarSelection
-        saveData={(iconId, color) => {
-          setAvatar(iconId);
-          setAvatarColor(color);
-        }}
-      />
-      <div className="addProfileModal__buttons">
-        <button
-          className="addProfileModal__button addProfileModal__button-cancel"
+    <>
+      <div className="addProfileModal__overlay" onClick={onClose}></div>
+      <div className="addProfileModal">
+        <IoCloseOutline
+          className="addProfileModal__close-x"
           onClick={onClose}
-        >
-          Cancel
-        </button>
-        <button
-          className="addProfileModal__button addProfileModal__button-add"
-          onClick={handleCreateProfile}
-        >
-          Add Profile
-        </button>
+          size={"2rem"}
+        />
+        <h2 className="addProfileModal__header">Add New Profile</h2>
+        <input
+          className="addProfileModal__input"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Profile Name"
+        />
+        <AvatarSelection
+          saveData={(iconId, color) => {
+            setAvatar(iconId);
+            setAvatarColor(color);
+          }}
+        />
+        <div className="addProfileModal__buttons">
+          <button
+            className="addProfileModal__button addProfileModal__button-cancel"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+          <button
+            className="addProfileModal__button addProfileModal__button-add"
+            onClick={handleCreateProfile}
+          >
+            Add Profile
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

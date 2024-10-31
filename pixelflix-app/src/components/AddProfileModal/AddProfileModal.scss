@@ -8,22 +8,55 @@
   width: 100%;
   height: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   background-color: $color-secondary-dark;
   color: $color-white;
   padding: 2rem;
   overflow: scroll;
   padding-bottom: 5rem;
+  z-index: 11;
+
+  @include tablet {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 40rem;
+    height: auto;
+    overflow: hidden;
+    border-radius: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  &__overlay {
+    position: fixed; // Position it fixed to cover the viewport
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
+    z-index: 10; // Ensure it's above other content
+  }
 
   &__close-x {
     position: absolute;
     right: 2rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__header {
     margin: 2rem 0;
     text-align: center;
     font-weight: 200;
+
+    @include tablet {
+      font-size: 2rem;
+    }
   }
 
   &__input {
@@ -36,6 +69,11 @@
     border-radius: 5px;
     background-color: $color-primary-dark;
     color: $color-white;
+    outline: none;
+
+    @include tablet {
+      max-width: 15rem;
+    }
   }
 
   &__button {
@@ -45,6 +83,7 @@
       gap: 2rem;
     }
 
+    cursor: pointer;
     padding: 1rem;
     text-align: center;
     border: none;
@@ -52,6 +91,11 @@
     font-size: 1.1rem;
     color: $color-white;
     transition: 0.2s ease-in-out, color 0.2s ease-in-out;
+
+    @include tablet {
+      min-width: 12rem;
+      font-size: 1.2rem;
+    }
 
     &:hover {
       background-color: $color-white;

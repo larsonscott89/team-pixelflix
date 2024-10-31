@@ -5,4 +5,9 @@
   width: 5rem;
   height: 5rem;
   border-radius: 5rem;
+
+  @include tablet {
+    width: 8rem;
+    height: 8rem;
+  }
 }
