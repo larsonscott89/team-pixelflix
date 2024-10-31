@@ -23,7 +23,7 @@ function ProfileMenu() {
       {isOpen && (
         <div 
           className="profile-menu__options"
-          aria-label="Profile Options"
+          aria-label="Profile Menu"
           role="menu"
           onMouseEnter={handleMouseEnter} 
           onMouseLeave={handleMouseLeave}

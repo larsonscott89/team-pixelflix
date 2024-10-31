@@ -102,7 +102,7 @@ function Login() {
       <div className="login__container">
         <h3 className="login__container-heading">Login</h3>
         {verificationMessage && <VerificationBanner message={verificationMessage} isVerified={isVerified} />}
-        <form className="login__form" onSubmit={handleLogin}>
+        <form id="login__form" className="login__form" onSubmit={handleLogin}>
           <div className="login__form-inputdiv">
             <div
               className={`login__form-input-container${
