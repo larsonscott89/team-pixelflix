@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function AddProfileModal({ onClose }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("icon1");
-  const [avatarColor, setAvatarColor] = useState("#000000");
+  const [avatarColor, setAvatarColor] = useState("#FC4747");
 
   const { addProfile, selectProfile } = useProfile();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export default function AddProfileModal({ onClose }) {
     await addProfile(newProfile);
     selectProfile(newProfile);
     onClose();
+    navigate("/");
   };
 
   return (
@@ -42,7 +43,12 @@ export default function AddProfileModal({ onClose }) {
         onChange={(e) => setName(e.target.value)}
         placeholder="Profile Name"
       />
-      <AvatarSelection />
+      <AvatarSelection
+        saveData={(iconId, color) => {
+          setAvatar(iconId);
+          setAvatarColor(color);
+        }}
+      />
       <div className="addProfileModal__buttons">
         <button
           className="addProfileModal__button addProfileModal__button-cancel"

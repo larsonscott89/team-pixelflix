@@ -24,9 +24,11 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser) {
+      const savedProfileId = localStorage.getItem("selectedProfileId");
       const userProfiles = currentUser.profiles || [];
+      const savedProfile = userProfiles.find((p) => p.id === savedProfileId);
       setProfiles(userProfiles);
-      setCurrentProfile(userProfiles[0]);
+      setCurrentProfile(savedProfile || userProfiles[0]);
     } else {
       setProfiles([]);
       setCurrentProfile(null);
@@ -36,6 +38,7 @@ export const ProfileProvider = ({ children }) => {
 
   const selectProfile = (profile) => {
     setCurrentProfile(profile);
+    localStorage.setItem("selectedProfileId", profile.id);
     navigate("/");
   };
 
@@ -52,6 +55,8 @@ export const ProfileProvider = ({ children }) => {
 
   const toggleBookmark = async (video) => {
     if (currentProfile) {
+      console.log(currentProfile);
+
       const isBookmarked = currentProfile.bookmarks.some(
         (bookmark) => bookmark.id === video.id
       );
@@ -79,8 +84,8 @@ export const ProfileProvider = ({ children }) => {
           return;
         }
 
-        const updatedProfiles = userDocData.profiles.map((profile, index) =>
-          index === currentProfileIndex ? updatedProfile : profile
+        const updatedProfiles = userDocData.profiles.map((profile) =>
+          profile.id === currentProfile.id ? updatedProfile : profile
         );
 
         await updateDoc(userDocRef, {

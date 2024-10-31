@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   background-color: $color-secondary-dark;
+  color: $color-white;
   padding: 2rem;
   overflow: scroll;
   padding-bottom: 5rem;
@@ -34,6 +35,7 @@
     border: none;
     border-radius: 5px;
     background-color: $color-primary-dark;
+    color: $color-white;
   }
 
   &__button {
@@ -48,6 +50,13 @@
     border: none;
     border-radius: 10px;
     font-size: 1.1rem;
+    color: $color-white;
+    transition: 0.2s ease-in-out, color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $color-white;
+      color: $color-primary-dark;
+    }
 
     &-add {
       background-color: $color-red;
