@@ -31,3 +31,78 @@
         max-width: 1280px;
     }
 }
+
+.delete-btn-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .delete-btn {
+    width: 225px;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    background-color: $color-secondary-gray;
+    border: none;
+    border-radius: 5px;
+    color: $color-white;
+    cursor: pointer;
+    font: $font-body-medium;
+    transition: background-color 0.25s ease-in-out;
+
+    &:hover {
+        background-color: $color-red;
+    }
+
+    @include desktop {
+      margin-bottom: 50px;
+    }
+
+    @include tablet {
+      margin-bottom: 50px;
+    }
+  }
+  
+  .delete-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .delete-modal-content {
+    background: $color-white;
+    padding: 20px;
+    border-radius: $border-radius-medium;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .delete-modal__buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .confirm-delete-btn,
+  .cancel-delete-btn {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: $border-radius-medium;
+  }
+  
+  .confirm-delete-btn {
+    background-color: $color-red;
+    color: $color-white;
+  }
+  
+  .cancel-delete-btn {
+    background-color: $color-secondary-gray;
+    color: $color-white;
+  }
