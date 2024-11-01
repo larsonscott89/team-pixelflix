@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import "./Signup.scss";
 import { auth, db } from "../../firebase-config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import Banner from "../../components/Banner/Banner";
 
 function Signup() {
   const { currentUser } = useAuth();
@@ -22,8 +26,10 @@ function Signup() {
   const [repeatPasswordEmpty, setRepeatPasswordEmpty] = useState(false);
   const [repeatPasswordNotMatch, setRepeatPasswordNotMatch] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const [redirectHome, setRedirectHome] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,6 +50,8 @@ function Signup() {
     setRepeatPasswordEmpty(false);
     setRepeatPasswordNotMatch(false);
   };
+
+  const timeout = (delay) => new Promise((res) => setTimeout(res, delay));
 
   const validateEmail = (email) => {
     // This regex tests for characters, an @, domain name, and a domain extension
@@ -87,13 +95,17 @@ function Signup() {
 
     // Try and create new user in Firebase with email and password
     try {
+      setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
       const user = userCredential.user;
-      console.log("Registered new user with email: " + email);
+
+      await sendEmailVerification(user);
+      setVerificationMessage("Email sent to " + email);
+      setIsVerified(false);
 
       // Create user object for newly registered user in Firestore
       const userDoc = doc(db, "users", user.uid);
@@ -110,7 +122,24 @@ function Signup() {
         ],
         createdAt: new Date(),
       });
-      setRedirectHome(true);
+
+      //prevents too many calls to backend if user takes a long time to verify
+      for (let i = 0; !user.emailVerified; i++) {
+        await user.reload();
+        if (i > 12) {
+          await timeout(30000);
+        } else {
+          await timeout(3000);
+        }
+      }
+
+      if (user.emailVerified) {
+        setVerificationMessage("Email Verified");
+        setIsVerified(true);
+        setTimeout(function () {
+          setRedirectHome(true);
+        }, 5000);
+      }
     } catch (err) {
       setLoading(false);
       console.error(err);
@@ -125,17 +154,16 @@ function Signup() {
     }
   }, [redirectHome, currentUser, navigate]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className="signup">
       <div className="signup__header">
-        <img className="signup__header-logo" src="/logo.svg" alt="App Logo"/>
+        <img className="signup__header-logo" src="/logo.svg" alt="App Logo" />
       </div>
       <div className="signup__container">
         <h3 className="signup__container-heading">Sign Up</h3>
+        {verificationMessage && (
+          <Banner message={verificationMessage} isSuccess={isVerified} />
+        )}
         <form id="signup__form" className="signup__form" onSubmit={register}>
           <div className="signup__form-inputdiv">
             <div
@@ -154,10 +182,22 @@ function Signup() {
                 aria-describedby="email-error"
               />
               {emailEmpty && (
-                <p id="email-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="email-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {emailInvalid && (
-                <p id="email-error" className="signup__form-input--error" role="alert">Invalid email</p>
+                <p
+                  id="email-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Invalid email
+                </p>
               )}
             </div>
             <div
@@ -178,10 +218,22 @@ function Signup() {
                 aria-describedby="password-error"
               />
               {passwordEmpty && (
-                <p id="password-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="password-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {passwordWeak && (
-                <p id="password-error" className="signup__form-input--error" role="alert">Too weak</p>
+                <p
+                  id="password-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Too weak
+                </p>
               )}
             </div>
             <div
@@ -196,14 +248,28 @@ function Signup() {
                 className="signup__form-input"
                 placeholder="Repeat password"
                 onChange={handleRepeatPasswordChange}
-                aria-invalid={repeatPasswordEmpty || repeatPasswordNotMatch ? "true" : "false"}
+                aria-invalid={
+                  repeatPasswordEmpty || repeatPasswordNotMatch
+                    ? "true"
+                    : "false"
+                }
                 aria-describedby="repeatPassword-error"
               />
               {repeatPasswordEmpty && (
-                <p id="repeatPassword-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="repeatPassword-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {repeatPasswordNotMatch && (
-                <p id="repeatPassword-error" className="signup__form-input--error" role="alert">
+                <p
+                  id="repeatPassword-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
                   Passwords don't match
                 </p>
               )}
@@ -214,7 +280,10 @@ function Signup() {
           </button>
         </form>
         <p className="signup__container-paragraph">
-          Already have an account? <Link to={"/login"} aria-label="Go to login page">Login</Link>
+          Already have an account?{" "}
+          <Link to={"/login"} aria-label="Go to login page">
+            Login
+          </Link>
         </p>
       </div>
     </section>

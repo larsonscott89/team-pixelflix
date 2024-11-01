@@ -34,6 +34,11 @@
     h3 {
       font: $font-heading-large;
     }
+    
+    &-paragraph {
+      text-align: center;
+      margin-top: 1em;
+    }
 
     @include tablet {
       border-radius: 20px;
@@ -41,8 +46,7 @@
     }
   }
 
-  &__container,
-  &__container * {
+  &__container, &__form-input{
     background-color: $color-secondary-dark;
     font: $font-body-small;
   }
@@ -67,6 +71,7 @@
 
         &--error {
           display: flex;
+          align-items: center;
           border-bottom: 1px solid $color-red;
           padding-right: 1rem;
         }
@@ -75,6 +80,7 @@
       border: none;
       width: 100%;
       padding: 1em;
+      color: $color-white;
       caret-color: $color-red;
 
       &--error {
@@ -109,11 +115,6 @@
         background-color: $color-secondary-gray;
       }
     }
-  }
-
-  p {
-    text-align: center;
-    margin-top: 1em;
   }
 
   a {
