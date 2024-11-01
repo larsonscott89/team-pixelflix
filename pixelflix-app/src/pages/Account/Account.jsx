@@ -162,9 +162,15 @@ export default function Account() {
       alert("Account deleted successfully.");
       navigate("/signup");
     } catch (error) {
-      console.error("Error deleting account:", error);
-      if (error.code === "auth/wrong-password") {
-        alert("Incorrect password.");
+      console.error("Error deleting account:", error.code);
+      if (error.code === "auth/invalid-credential") {
+        alert(
+          "Incorrect password. Please enter the correct password to delete your account."
+        );
+      } else if (error.code === "auth/missing-password") {
+        alert(
+          "You cannot leave the password input field blank. You must enter your password to delete your account."
+        );
       } else if (error.code === "auth/requires-recent-login") {
         alert("Please reauthenticate to delete your account.");
       } else {
@@ -277,67 +283,75 @@ export default function Account() {
             </div>
           </button>
           <div>
-  {/* Delete Account Button */}
-  <div className="delete-btn-container">
-    <button
-      className="delete-btn"
-      aria-label="Delete Account"
-      role="button"
-      onClick={() => setShowDeleteModal(true)}
-    >
-      <FaTrash />
-      <span>Delete Account</span>
-    </button>
-  </div>
+            {/* Delete Account Button */}
+            <div className="delete-btn-container">
+              <button
+                className="delete-btn"
+                aria-label="Delete Account"
+                role="button"
+                onClick={() => setShowDeleteModal(true)}
+              >
+                <FaTrash />
+                <span>Delete Account</span>
+              </button>
+            </div>
 
-        {/* Delete Modal */}
-    {showDeleteModal && (
-      <div className="delete-modal">
-        <div className="delete-modal-content">
-          <h2>Confirm Account Deletion</h2>
-          <p>To confirm, please enter your password:</p>
+            {/* Delete Modal */}
+            {showDeleteModal && (
+              <div className="delete-modal">
+                <div className="delete-modal-content">
+                  <h2>Delete Your Account?</h2>
+                  <p>
+                    This action is irreversible, and all data tied to your
+                    account will be permanently deleted.
+                  </p>
 
-          {/* Password Input Field */}
-          <div className="delete-password-input-container">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="delete-password-input"
-              placeholder="Enter your password"
-              value={deletePassword}
-              onChange={(e) => setDeletePassword(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleDeleteAccount()
-                }
-              }}
-            />
-            <button
-              type="button"
-              className="toggle-password-visibility"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label="Toggle password visibility"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+                  {/* Password Input Field */}
+                  <div className="delete-password-input-container">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      className="delete-password-input"
+                      placeholder="Enter password to confirm"
+                      value={deletePassword}
+                      onChange={(e) => setDeletePassword(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleDeleteAccount();
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="toggle-password-visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label="Toggle password visibility"
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </button>
+                  </div>
+
+                  {/* Confirm & Cancel Buttons */}
+                  <div className="delete-modal__buttons">
+                    <button
+                      className="delete-modal__button confirm-delete-btn"
+                      onClick={handleDeleteAccount}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="delete-modal__button cancel-delete-btn"
+                      onClick={() => {
+                        setShowDeleteModal(false);
+                        setDeletePassword("");
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* Confirm & Cancel Buttons */}
-          <button className="confirm-delete-btn" onClick={handleDeleteAccount}>
-            Confirm Deletion
-          </button>
-          <button 
-            className="cancel-delete-btn" 
-            onClick={() => {
-              setShowDeleteModal(false)
-              setDeletePassword("")
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    )}
-    </div>
         </div>
       </div>
 
