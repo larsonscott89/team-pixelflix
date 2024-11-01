@@ -7,7 +7,7 @@ import { auth } from "../../firebase-config";
 import "./Login.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import VerificationBanner from "../../components/VerificationBanner/VerificationBanner";
+import Banner from "../../components/Banner/Banner";
 
 function Login() {
   const { currentUser } = useAuth();
@@ -101,7 +101,12 @@ function Login() {
       </div>
       <div className="login__container">
         <h3 className="login__container-heading">Login</h3>
-        {verificationMessage && <VerificationBanner message={verificationMessage} isVerified={isVerified} />}
+        {verificationMessage && (
+          <Banner 
+            message={verificationMessage} 
+            isSuccess={isVerified}
+          />
+        )}
         <form id="login__form" className="login__form" onSubmit={handleLogin}>
           <div className="login__form-inputdiv">
             <div

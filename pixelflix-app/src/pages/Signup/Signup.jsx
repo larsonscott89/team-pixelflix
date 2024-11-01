@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import VerificationBanner from "../../components/VerificationBanner/VerificationBanner";
+import Banner from "../../components/Banner/Banner";
 
 function Signup() {
   const { currentUser } = useAuth();
@@ -25,6 +25,7 @@ function Signup() {
   const [redirectHome, setRedirectHome] = useState(false);
   const [verificationMessage, setVerificationMessage] = useState("");
   const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -46,9 +47,7 @@ function Signup() {
     setRepeatPasswordNotMatch(false);
   };
 
-  function timeout(delay) {
-    return new Promise( res => setTimeout(res, delay) );
-  }
+  const timeout = (delay) => new Promise(res => setTimeout(res, delay));
 
   const validateEmail = (email) => {
     // This regex tests for characters, an @, domain name, and a domain extension
@@ -92,18 +91,16 @@ function Signup() {
 
     // Try and create new user in Firebase with email and password
     try {
+      setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
       const user = userCredential.user;
-      console.log("Registered new user with email: " + email);
 
       await sendEmailVerification(user);
-      console.log("Verification email sent to " + email);
-
-      setVerificationMessage("Verification email sent! Please check your inbox.");
+      setVerificationMessage("Email sent to " + email);
       setIsVerified(false);
 
       // Create user object for newly registered user in Firestore
@@ -122,7 +119,7 @@ function Signup() {
         createdAt: new Date(),
       });
       
-      //brevents too many calls to backend if user takes a long time to verify
+      //prevents too many calls to backend if user takes a long time to verify
       for (let i = 0; !user.emailVerified; i++) {
         await user.reload();
         if (i > 12) {
@@ -130,7 +127,6 @@ function Signup() {
         } else {
           await timeout(3000);
         }
-        console.log(user);
       }
 
       if (user.emailVerified) {
@@ -139,11 +135,10 @@ function Signup() {
         setTimeout(function() {
           setRedirectHome(true);
         }, 5000);
-      } else {
-        setIsVerified(false);
-      } 
+      }
 
     } catch (err) {
+      setLoading(false);
       console.error(err);
       return;
     }
@@ -152,6 +147,7 @@ function Signup() {
   useEffect(() => {
     if (redirectHome && currentUser) {
       navigate("/home");
+      setLoading(false);
     }
   }, [redirectHome, currentUser, navigate]);
 
@@ -162,7 +158,12 @@ function Signup() {
       </div>
       <div className="signup__container">
         <h3 className="signup__container-heading">Sign Up</h3>
-        {verificationMessage && <VerificationBanner message={verificationMessage} isVerified={isVerified} />}
+        {verificationMessage && (
+          <Banner 
+            message={verificationMessage} 
+            isSuccess={isVerified} 
+          />
+        )}
         <form id="signup__form" className="signup__form" onSubmit={register}>
           <div className="signup__form-inputdiv">
             <div
