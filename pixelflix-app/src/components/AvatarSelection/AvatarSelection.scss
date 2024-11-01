@@ -63,9 +63,12 @@
   }
 
   &__item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 45%;
 
     svg {
       cursor: pointer;
@@ -75,12 +78,15 @@
   &__list {
     margin: 1em;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
 
     @include tablet {
       padding: 4em 2em;
+      justify-items: center;
       display: grid;
       grid-template-columns: repeat(3, minmax(4em, 1fr));
       grid-auto-rows: 6em;
@@ -103,9 +109,11 @@
   }
 
   &__colorlist {
+    position: absolute;
+    top: 100%;
     margin: 0em 1em;
     background-color: $color-secondary-dark;
-    border-radius: 10px;
+    border-radius: 1.5rem;
     align-self: center;
     text-align: center;
     z-index: 1;
@@ -117,10 +125,15 @@
     opacity: 0;
     transition: max-height 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
 
-    box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.75);
+    box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.2);
 
     @include tablet {
       margin-top: 12px;
+    }
+
+    @include desktop {
+      top: -100%;
+      left: 150%;
     }
 
     &.active {
@@ -192,10 +205,11 @@
       }
 
       button {
-        width: 4em;
-        height: 2em;
+        width: 5.5em;
+        height: 2.5em;
         border-radius: 10px;
-        font: $font-heading-xsmall;
+        font-size: 1rem;
+        font-weight: 300;
         text-align: center;
       }
     }

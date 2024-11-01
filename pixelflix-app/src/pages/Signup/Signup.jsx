@@ -114,7 +114,7 @@ function Signup() {
         profiles: [
           {
             id: uuidv4(),
-            name: "",
+            name: "Name",
             avatar: "icon1",
             avatarColor: "#FC4747",
             bookmarks: [],
