@@ -1,0 +1,29 @@
+@use '../../styles/partials/variables' as *;
+@use '../../styles/partials/mixins' as *;
+
+.banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font: $font-body-medium;
+  color: $color-white;
+  padding: 10px;
+  text-align: center;
+  z-index: 10;
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+  }
+}
+  
+.error {
+  background-color: $color-red;
+}
+
+.success {
+  background-color: #28A745;
+}
