@@ -8,6 +8,11 @@
   width: 100%;
   gap: 2rem;
 
+  @include tablet {
+    // gap: 3rem;
+    max-width: 50rem;
+  }
+
   @include desktop {
     gap: 4rem;
     max-width: 70rem;
@@ -34,10 +39,11 @@
 
     &-text {
       margin-top: 1rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
+      font-weight: 200;
 
       @include tablet {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
     }
 

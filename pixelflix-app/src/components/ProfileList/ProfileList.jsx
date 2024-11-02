@@ -57,7 +57,7 @@ export default function ProfileList() {
           className="profileList__card add-profile"
           onClick={handleOpenModal}
         >
-          <IoAddOutline className="profileList__card-icon" size={"3rem"} />
+          <IoAddOutline className="profileList__card-icon" size={"2.7rem"} />
           <p className="profileList__card-text">Add Profile</p>
         </div>
       )}

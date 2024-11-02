@@ -2,12 +2,12 @@
 @use "../../styles/partials/mixins" as *;
 
 .profile-avatar {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 5rem;
 
   @include tablet {
-    width: 8rem;
-    height: 8rem;
+    width: 6rem;
+    height: 6rem;
   }
 }
