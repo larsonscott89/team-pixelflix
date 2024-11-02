@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import "./Signup.scss";
 import { auth, db } from "../../firebase-config";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
+import { v4 as uuidv4 } from "uuid";
 import Banner from "../../components/Banner/Banner";
 
 function Signup() {
   const { currentUser } = useAuth();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -47,7 +51,7 @@ function Signup() {
     setRepeatPasswordNotMatch(false);
   };
 
-  const timeout = (delay) => new Promise(res => setTimeout(res, delay));
+  const timeout = (delay) => new Promise((res) => setTimeout(res, delay));
 
   const validateEmail = (email) => {
     // This regex tests for characters, an @, domain name, and a domain extension
@@ -109,8 +113,8 @@ function Signup() {
         email: user.email,
         profiles: [
           {
-            id: 1,
-            name: "",
+            id: uuidv4(),
+            name: "Name",
             avatar: "icon1",
             avatarColor: "#FC4747",
             bookmarks: [],
@@ -118,7 +122,7 @@ function Signup() {
         ],
         createdAt: new Date(),
       });
-      
+
       //prevents too many calls to backend if user takes a long time to verify
       for (let i = 0; !user.emailVerified; i++) {
         await user.reload();
@@ -132,11 +136,10 @@ function Signup() {
       if (user.emailVerified) {
         setVerificationMessage("Email Verified");
         setIsVerified(true);
-        setTimeout(function() {
+        setTimeout(function () {
           setRedirectHome(true);
         }, 5000);
       }
-
     } catch (err) {
       setLoading(false);
       console.error(err);
@@ -154,15 +157,12 @@ function Signup() {
   return (
     <section className="signup">
       <div className="signup__header">
-        <img className="signup__header-logo" src="/logo.svg" alt="App Logo"/>
+        <img className="signup__header-logo" src="/logo.svg" alt="App Logo" />
       </div>
       <div className="signup__container">
         <h3 className="signup__container-heading">Sign Up</h3>
         {verificationMessage && (
-          <Banner 
-            message={verificationMessage} 
-            isSuccess={isVerified} 
-          />
+          <Banner message={verificationMessage} isSuccess={isVerified} />
         )}
         <form id="signup__form" className="signup__form" onSubmit={register}>
           <div className="signup__form-inputdiv">
@@ -182,10 +182,22 @@ function Signup() {
                 aria-describedby="email-error"
               />
               {emailEmpty && (
-                <p id="email-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="email-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {emailInvalid && (
-                <p id="email-error" className="signup__form-input--error" role="alert">Invalid email</p>
+                <p
+                  id="email-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Invalid email
+                </p>
               )}
             </div>
             <div
@@ -206,10 +218,22 @@ function Signup() {
                 aria-describedby="password-error"
               />
               {passwordEmpty && (
-                <p id="password-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="password-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {passwordWeak && (
-                <p id="password-error" className="signup__form-input--error" role="alert">Too weak</p>
+                <p
+                  id="password-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Too weak
+                </p>
               )}
             </div>
             <div
@@ -224,14 +248,28 @@ function Signup() {
                 className="signup__form-input"
                 placeholder="Repeat password"
                 onChange={handleRepeatPasswordChange}
-                aria-invalid={repeatPasswordEmpty || repeatPasswordNotMatch ? "true" : "false"}
+                aria-invalid={
+                  repeatPasswordEmpty || repeatPasswordNotMatch
+                    ? "true"
+                    : "false"
+                }
                 aria-describedby="repeatPassword-error"
               />
               {repeatPasswordEmpty && (
-                <p id="repeatPassword-error" className="signup__form-input--error" role="alert">Can't be empty</p>
+                <p
+                  id="repeatPassword-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
+                  Can't be empty
+                </p>
               )}
               {repeatPasswordNotMatch && (
-                <p id="repeatPassword-error" className="signup__form-input--error" role="alert">
+                <p
+                  id="repeatPassword-error"
+                  className="signup__form-input--error"
+                  role="alert"
+                >
                   Passwords don't match
                 </p>
               )}
@@ -242,7 +280,10 @@ function Signup() {
           </button>
         </form>
         <p className="signup__container-paragraph">
-          Already have an account? <Link to={"/login"} aria-label="Go to login page">Login</Link>
+          Already have an account?{" "}
+          <Link to={"/login"} aria-label="Go to login page">
+            Login
+          </Link>
         </p>
       </div>
     </section>

@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { db } from "../firebase-config";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const ProfileContext = createContext();
 
@@ -12,6 +13,8 @@ export const ProfileProvider = ({ children }) => {
   const [currentProfileIndex, setCurrentProfileIndex] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (currentProfile) {
       const profileIndex = currentProfile.id - 1;
@@ -21,9 +24,11 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     if (currentUser) {
+      const savedProfileId = localStorage.getItem("selectedProfileId");
       const userProfiles = currentUser.profiles || [];
+      const savedProfile = userProfiles.find((p) => p.id === savedProfileId);
       setProfiles(userProfiles);
-      setCurrentProfile(userProfiles[0]);
+      setCurrentProfile(savedProfile || userProfiles[0]);
     } else {
       setProfiles([]);
       setCurrentProfile(null);
@@ -33,10 +38,25 @@ export const ProfileProvider = ({ children }) => {
 
   const selectProfile = (profile) => {
     setCurrentProfile(profile);
+    localStorage.setItem("selectedProfileId", profile.id);
+    navigate("/");
+  };
+
+  const addProfile = async (newProfile) => {
+    try {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userDocRef, {
+        profiles: arrayUnion(newProfile),
+      });
+    } catch (err) {
+      console.error("Error adding new profile: ", err);
+    }
   };
 
   const toggleBookmark = async (video) => {
     if (currentProfile) {
+      console.log(currentProfile);
+
       const isBookmarked = currentProfile.bookmarks.some(
         (bookmark) => bookmark.id === video.id
       );
@@ -64,8 +84,8 @@ export const ProfileProvider = ({ children }) => {
           return;
         }
 
-        const updatedProfiles = userDocData.profiles.map((profile, index) =>
-          index === currentProfileIndex ? updatedProfile : profile
+        const updatedProfiles = userDocData.profiles.map((profile) =>
+          profile.id === currentProfile.id ? updatedProfile : profile
         );
 
         await updateDoc(userDocRef, {
@@ -83,8 +103,10 @@ export const ProfileProvider = ({ children }) => {
 
   const value = {
     profiles,
+    setProfiles,
     currentProfile,
     selectProfile,
+    addProfile,
     toggleBookmark,
   };
 

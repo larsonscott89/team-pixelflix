@@ -1,0 +1,67 @@
+import "./ProfileList.scss";
+import { useProfile } from "../../context/ProfileContext";
+import Avatar from "../Avatar/Avatar";
+import { IoAddOutline } from "react-icons/io5";
+import AddProfileModal from "../AddProfileModal/AddProfileModal";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase-config";
+
+export default function ProfileList() {
+  const { currentUser } = useAuth();
+  const { profiles, setProfiles, selectProfile } = useProfile();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleSelectProfile = (profile) => {
+    selectProfile(profile);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const unsubscribe = onSnapshot(userDocRef, (doc) => {
+        setProfiles(doc.data().profiles || []);
+      });
+      return unsubscribe;
+    }
+  }, [currentUser]);
+
+  return (
+    <div className="profileList">
+      {profiles.map((profile) => {
+        return (
+          <div
+            key={profile.id}
+            className="profileList__card"
+            onClick={() => handleSelectProfile(profile)}
+          >
+            <Avatar
+              avatarId={profile.avatar}
+              avatarColor={profile.avatarColor}
+            />
+            <p className="profileList__card-text">{profile.name}</p>
+          </div>
+        );
+      })}
+      {profiles.length < 6 && (
+        <div
+          className="profileList__card add-profile"
+          onClick={handleOpenModal}
+        >
+          <IoAddOutline className="profileList__card-icon" size={"2.7rem"} />
+          <p className="profileList__card-text">Add Profile</p>
+        </div>
+      )}
+      {modalOpen && <AddProfileModal onClose={handleCloseModal} />}
+    </div>
+  );
+}
