@@ -10,6 +10,7 @@ export default function AddProfileModal({ onClose }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("icon1");
   const [avatarColor, setAvatarColor] = useState("#FC4747");
+  const [noNameErrorMessage, setNoNameErrorMessage] = useState(false);
 
   const { addProfile, selectProfile } = useProfile();
   const navigate = useNavigate();
@@ -22,10 +23,18 @@ export default function AddProfileModal({ onClose }) {
       avatarColor,
       bookmarks: [],
     };
-    await addProfile(newProfile);
-    selectProfile(newProfile);
-    onClose();
-    navigate("/");
+    try {
+      if (name !== "") {
+        await addProfile(newProfile);
+        selectProfile(newProfile);
+        onClose();
+        navigate("/");
+      } else {
+        setNoNameErrorMessage(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -39,12 +48,23 @@ export default function AddProfileModal({ onClose }) {
         />
         <h2 className="addProfileModal__header">Add New Profile</h2>
         <input
-          className="addProfileModal__input"
+          className={`addProfileModal__input ${
+            noNameErrorMessage ? "addProfileModal__error-outline" : ""
+          }`}
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (noNameErrorMessage) setNoNameErrorMessage(false);
+          }}
           placeholder="Profile Name"
         />
+        {noNameErrorMessage && (
+          <p className="addProfileModal__error-message">
+            Please add a profile name.
+          </p>
+        )}
+
         <AvatarSelection
           saveData={(iconId, color) => {
             setAvatar(iconId);

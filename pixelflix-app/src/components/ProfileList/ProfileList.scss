@@ -48,11 +48,11 @@
     }
 
     &-icon {
-      margin: 1rem;
+      margin: auto;
 
       @include tablet {
-        width: 5rem;
-        height: 5rem;
+        width: 4rem;
+        height: 4rem;
       }
     }
   }
