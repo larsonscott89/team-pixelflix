@@ -13,8 +13,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 2rem;
 
     @include tablet {
+      padding: 0;
       background-color: $color-secondary-dark;
       height: 100%;
     }
@@ -67,8 +69,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     width: 45%;
+    padding-bottom: 2rem;
+
+    @include tablet {
+      padding-bottom: 0;
+    }
 
     svg {
       cursor: pointer;
@@ -81,11 +88,11 @@
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    align-items: center;
     padding: 2rem 0;
 
     @include tablet {
       padding: 4em 2em;
+      width: 100%;
       justify-items: center;
       display: grid;
       grid-template-columns: repeat(3, minmax(4em, 1fr));
@@ -109,10 +116,10 @@
   }
 
   &__colorlist {
-    position: absolute;
     top: 100%;
     margin: 0em 1em;
     background-color: $color-secondary-dark;
+    color: $color-white;
     border-radius: 1.5rem;
     align-self: center;
     text-align: center;
@@ -128,6 +135,7 @@
     box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.2);
 
     @include tablet {
+      position: absolute;
       margin-top: 12px;
     }
 
