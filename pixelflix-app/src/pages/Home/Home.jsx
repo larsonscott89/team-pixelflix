@@ -11,11 +11,11 @@ import Account from "../Account/Account";
 import VideoList from "../../components/VideoList/VideoList";
 import TrendingList from "../../components/TrendingList/TrendingList";
 import { useVideos } from "../../context/VideosContext";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
+import { useProfile } from "../../context/ProfileContext";
 
 function location_is_profile_page(location) {
-  return location.pathname.match(/^\/(account|manage-profile|switch-profile)$/)
+  return location.pathname.match(/^\/(account|manage-profile|switch-profile)$/);
 }
 
 export default function Home() {
@@ -42,14 +42,25 @@ export default function Home() {
 }
 
 function DefaultContent() {
+  const { currentProfile } = useProfile();
   const { filteredVideos, filteredTrendingVideos } = useVideos();
+  const recommendedVideos = currentProfile?.bookmarks?.length
+    ? filteredVideos.filter((video) =>
+        currentProfile.bookmarks.some(
+          (bookmark) =>
+            bookmark.genre === video.genre &&
+            bookmark.rating === video.rating &&
+            (bookmark.category === "Movie" || bookmark.category === "TV Series")
+        )
+      )
+    : filteredVideos;
 
   return (
     <div className="home">
       <h2 className="home__heading">Trending</h2>
       <TrendingList trendingVideos={filteredTrendingVideos} />
       <h2 className="home__heading">Recommended for you</h2>
-      <VideoList videos={filteredVideos} />
+      <VideoList videos={recommendedVideos} />
     </div>
   );
 }
