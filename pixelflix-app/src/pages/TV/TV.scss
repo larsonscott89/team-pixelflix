@@ -1,2 +1,9 @@
 @use '../../styles/partials/variables' as *;
 @use '../../styles/partials/mixins' as *;
+
+.No-Series-Found {
+    padding-top: 30vh;
+    text-align: center;
+    font: $font-heading-medium;
+    color: $color-white;
+}
