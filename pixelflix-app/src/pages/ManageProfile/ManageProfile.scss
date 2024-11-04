@@ -1,34 +1,22 @@
-@use '../../styles/partials/variables' as *;
-@use '../../styles/partials/mixins' as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
 
 .profile {
-    &-header {
-        color: $color-white;
-    }
+  &-header {
+    color: $color-white;
+  }
 
-    &-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-        @include tablet {
-            margin-top: -3em;
-        }
-        @include desktop {
-            padding-right: 2em;
-        }
-    }
-}
-
-.selection_container {
-    top: 0;
     @include tablet {
-        width: 100%;
-        height: 100%;
+      margin-top: -3em;
     }
     @include desktop {
-        max-width: 1280px;
+      padding-right: 2em;
     }
 }
 
@@ -106,3 +94,18 @@
     background-color: $color-secondary-gray;
     color: $color-white;
   }
+}
+
+
+.selection_container {
+  margin: 3rem 0;
+
+  @include tablet {
+    width: 80%;
+    max-width: 50rem;
+  }
+  @include desktop {
+    max-width: 1280px;
+  }
+}
+
