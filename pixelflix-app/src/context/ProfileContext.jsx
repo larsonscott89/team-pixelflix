@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { db } from "../firebase-config";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -9,7 +9,7 @@ const ProfileContext = createContext();
 export const ProfileProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [profiles, setProfiles] = useState([]);
-  const [currentProfile, setCurrentProfile] = useState({});
+  const [currentProfile, setCurrentProfile] = useState(null);
   const [currentProfileIndex, setCurrentProfileIndex] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -105,6 +105,7 @@ export const ProfileProvider = ({ children }) => {
     profiles,
     setProfiles,
     currentProfile,
+    setCurrentProfile,
     selectProfile,
     addProfile,
     toggleBookmark,
