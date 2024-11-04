@@ -12,7 +12,7 @@ export default function TV() {
       {filteredShows.length > 0 ? (
         <VideoList videos={filteredShows}/>
       ) : (
-        <p>No TV shows found.</p>
+        <p className="No-Series-Found">No TV shows found.</p>
       )}
     </div>
   );

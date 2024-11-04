@@ -41,6 +41,7 @@
         width: 2em;
         height: 2em;
         position: fixed;
+        color:$color-white;
         z-index: 9;
         @include tablet {
             right: 1.5em;
@@ -60,6 +61,7 @@
         resize: none;
         overflow: hidden;
         white-space: nowrap;
+        color:$color-white;
         caret-color: $color-red;
         font: $font-body-medium;
         z-index: 10;
