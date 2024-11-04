@@ -12,7 +12,7 @@ export default function Movies() {
       {filteredMovies.length > 0 ? (
         <VideoList videos={filteredMovies} />
       ) : (
-        <p>No movies found.</p>
+        <p className="No-Movies-Found">No movies found.</p>
       )}
     </div>
   );

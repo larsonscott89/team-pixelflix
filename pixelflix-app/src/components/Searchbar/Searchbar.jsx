@@ -48,7 +48,7 @@ function Searchbar() {
             className="searchbar__clear-button"
             onClick={handleClearSearch}
             aria-label="Clear search query"
-            tabindex="0"
+            tabIndex="0"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleClearSearch();

@@ -2,6 +2,8 @@
 @use '../../styles/partials/mixins' as *;
 
 .No-Bookmarks-Found {
-    margin: 1em 1.5em;
+    padding-top: 30vh;
+    text-align: center;
+    font: $font-heading-medium;
     color: $color-white;
 }
