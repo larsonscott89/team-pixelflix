@@ -117,6 +117,23 @@
     }
   }
 
+  &__password-reset {
+    &-cancel {
+      cursor: pointer;
+    }
+
+    &-link {
+      cursor: pointer;
+      color: $color-red;
+      text-decoration: underline;
+      transition: color 0.3s ease-in-out;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+
   a {
     color: $color-red;
     text-decoration: none;
