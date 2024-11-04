@@ -1,35 +1,206 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
-.profile {
-  &-header {
-    color: $color-white;
-  }
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
 
-  &-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .profile-header {
+    color: $color-white;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 200;
+    margin-bottom: 1rem;
+    margin-top: -3rem;
 
     @include tablet {
-      margin-top: -3em;
+      position: absolute;
+      top: -1rem; // Adjust as necessary
+      left: 1rem;
+      text-align: left;
+      font-size: 2rem;
+      margin-top: -3rem; // Adjusted margin
+    }
+
+    @include desktop {
+      top: -1rem; // Adjust as necessary
+      left: 2rem;
+      margin-top: -4rem; // Adjusted margin
+    }
+  }
+
+  .profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: -6rem;
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+    }
+
+    @include tablet {
+      position: absolute;
+      top: -1rem; 
+      left: 1rem;
+    }
+
+    @include desktop {
+      top: -2rem; 
+      left: 2rem;
+    }
+  }
+
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .profile-name-label {
+    color: $color-secondary-gray;
+    font-weight: 300;
+    margin-top: 7rem; 
+    font-size: 24px;
+
+    @include tablet {
+      margin-top: -2rem;
     }
     @include desktop {
-      padding-right: 2em;
+      margin-top: -3rem;
     }
-}
-
-.delete-btn-container {
-    display: flex;
-    justify-content: flex-end;
   }
+
+  .profile-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .display-name-container {
+      display: flex;
+      align-items: center;
+
+      @include tablet {
+        align-items: flex-start;
+        font-size: 30px;
+      }
   
+      @include desktop {
+        align-items: flex-start;
+        font-size: 30px;
+      }
+    }
+
+    .profile-name {
+      color: $color-white;
+      font-weight: 400;
+      font-size: 30px;
+
+      @include tablet {
+        margin-top: 0rem;
+        font-size: 36px;
+      }
+  
+      @include desktop {
+        margin-top: 0rem;
+        font-size: 36px;
+      }
+    }
+  
+    .edit-icon {
+      color: $color-white;
+      cursor: pointer;
+      margin-left: 2rem;
+      font-size: 20px;
+      transition: color 0.3s ease-in-out;
+      position: relative;
+
+      &:hover {
+        color: $color-secondary-gray;
+      }
+
+      @include tablet {
+        margin-top: .5rem;
+        margin-left: 3rem;
+        font-size: 26px;
+      }
+  
+      @include desktop {
+        margin-top: .5rem; 
+        margin-left: 3rem;
+        font-size: 26px;
+      }
+    }
+  
+    .edit-name-container {
+      display: flex;
+      align-items: center;
+
+      .profile-name-input {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid $color-secondary-gray;
+        font-size: large;
+        position: relative;
+        padding: .5em;
+        color: $color-white;
+        background-color: $color-primary-dark;
+        caret-color: $color-red;
+
+        &:focus {
+          outline: none;
+          border-bottom: 1px solid $color-secondary-gray;
+        }
+      }
+  
+      .save-btn,
+      .cancel-btn {
+        margin-left: 0.5rem;
+        background-color: $color-red;
+        color: $color-white;
+        border: none;
+        padding: 0.5em;
+        position: relative;
+        cursor: pointer;
+        border-radius: $border-radius-small;
+
+        &:hover {
+          background-color: $color-white;
+          color: $color-primary-dark;
+        }
+      }
+  
+      .cancel-btn {
+        background-color: $color-secondary-gray;
+      }
+    }
+  }
+
+  .delete-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    @include tablet {
+      justify-content: center;
+      position: absolute;
+      margin-bottom: -45rem;
+
+    }
+  }
+
   .delete-btn {
     width: 225px;
     padding: 15px;
-    margin-top: 20px;
-    margin-bottom: 100px;
     background-color: $color-secondary-gray;
     border: none;
     border-radius: 5px;
@@ -39,18 +210,18 @@
     transition: background-color 0.25s ease-in-out;
 
     &:hover {
-        background-color: $color-red;
-    }
-
-    @include desktop {
-      margin-bottom: 50px;
+      background-color: $color-red;
     }
 
     @include tablet {
-      margin-bottom: 50px;
+      margin-bottom: 30px;
+    }
+  
+    @include desktop {
+      margin-bottom: 30px;
     }
   }
-  
+
   .delete-modal {
     display: flex;
     align-items: center;
@@ -62,21 +233,21 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
   }
-  
+
   .delete-modal-content {
-    background: $color-white;
+    background: $color-secondary-dark;
     padding: 20px;
     border-radius: $border-radius-medium;
     width: 300px;
     text-align: center;
   }
-  
+
   .delete-modal__buttons {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
   }
-  
+
   .confirm-delete-btn,
   .cancel-delete-btn {
     padding: 10px;
@@ -84,28 +255,29 @@
     cursor: pointer;
     border-radius: $border-radius-medium;
   }
-  
+
   .confirm-delete-btn {
     background-color: $color-red;
     color: $color-white;
   }
-  
+
   .cancel-delete-btn {
     background-color: $color-secondary-gray;
     color: $color-white;
   }
 }
 
-
 .selection_container {
-  margin: 3rem 0;
+  margin: -3rem 0;
 
   @include tablet {
     width: 80%;
     max-width: 50rem;
+    margin-top: -1rem;
   }
+
   @include desktop {
     max-width: 1280px;
+    margin-top: -2rem;
   }
 }
-
