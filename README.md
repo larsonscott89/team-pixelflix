@@ -1,5 +1,14 @@
 # PixelFlix
 
+![Project Status](https://img.shields.io/badge/status-in%20development-brightgreen)
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Firebase](https://img.shields.io/badge/Backend-Firebase-orange)
+![Node Version](https://img.shields.io/badge/node-%3E%3D%2014-brightgreen)
+![npm](https://img.shields.io/badge/npm-%3E%3D%206-red)
+[![Figma Design](https://img.shields.io/badge/design-Figma-blueviolet?logo=figma&logoColor=white)](https://www.figma.com/design/W1OX48y2znw7rEcCNrSRFP/Pixelflix-Figma?node-id=0-1&t=fuN452mP19GmKuvd-1)
+[![ClickUp Board](https://img.shields.io/badge/project%20management-ClickUp-purple)](https://app.clickup.com/45044823/v/li/901403477785)
+[![Firebase Documentation](https://img.shields.io/badge/docs-Firebase-blue)](https://firebase.google.com/docs)
+
 PixelFlix is a video streaming web application inspired by Netflix, built with React, Firebase, and Firestore. The app provides users with a personalized streaming experience, allowing them to create multiple profiles, bookmark movies and shows, and view trending media. Key features include user authentication, profile management, trending recommendations, and media filtering by categories and genres.
 
 ## Requirements
